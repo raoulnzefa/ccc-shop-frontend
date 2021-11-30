@@ -45,7 +45,7 @@
     <v-dialog v-model="openSignUpDialog" width="500">
       <v-card>
         <v-card-title>
-          <span class="text-h5">Sign Up</span>
+          <span class="text-h5">註冊</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -53,7 +53,9 @@
               <v-col cols="12">
                 <v-text-field 
                   id="signup-username"
-                  label="使用者名稱" 
+                  label="使用者名稱"
+                  type="text"
+                  :rules="usernameRules"
                   required
                 ></v-text-field>
               </v-col>
@@ -62,6 +64,7 @@
                   id="signup-password"
                   label="密碼"
                   type="password"
+                  :rules="passwordRules"
                   required
                 ></v-text-field>
               </v-col>
@@ -69,6 +72,8 @@
                 <v-text-field 
                   id="signup-phone"
                   label="手機號碼" 
+                  type="tel"
+                  :rules="phoneRules"
                   required
                 ></v-text-field>
               </v-col>
@@ -76,6 +81,8 @@
                 <v-text-field 
                   id="signup-email"
                   label="電子郵件" 
+                  type="email"
+                  :rules="emailRules"
                   required
                 ></v-text-field>
               </v-col>
@@ -83,6 +90,8 @@
                 <v-text-field 
                   id="signup-credit-card"
                   label="信用卡" 
+                  type="text"
+                  :rules="creditCardRules"
                   required
                 ></v-text-field>
               </v-col>
@@ -90,6 +99,8 @@
                 <v-text-field 
                   id="signup-address"
                   label="住址" 
+                  type="text"
+                  :rules="addressRules"
                   required
                 ></v-text-field>
               </v-col>
@@ -125,6 +136,8 @@
                 <v-text-field 
                   id="signin-username" 
                   label="使用者名稱" 
+                  type="text"
+                  :rules="usernameRules"
                   required
                 ></v-text-field>
               </v-col>
@@ -132,6 +145,7 @@
                 <v-text-field
                   id="signin-password"
                   label="密碼"
+                  :rules="passwordRules"
                   type="password"
                   required
                 ></v-text-field>
@@ -173,6 +187,29 @@ export default {
         "deep-purple accent-4",
       ],
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+      usernameRules: [
+        v => !!v || '欄位不可留空',
+        v => /^[a-z0-9]+$/.test(v) || '使用者名稱只能有英文字母或數字'
+      ],
+      passwordRules: [
+        v => !!v || '欄位不可留空',
+        v => (v && v.length >= 6) || '密碼至少需有 6 個字元'
+      ],
+      phoneRules: [
+        v => !!v || '欄位不可留空',
+        v => /^\d+$/.test(v) || '電話只能包含數字'
+      ],
+      emailRules: [
+        v => !!v || '欄位不可留空',
+        v => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || '電子郵件格式不符'
+      ],
+      creditCardRules: [
+        v => !!v || '欄位不可留空',
+        v => /^\d+$/.test(v) || '信用卡只能包含數字'
+      ],
+      addressRules: [
+        v => !!v || '欄位不可留空',
+      ]
     };
   },
   methods: {
