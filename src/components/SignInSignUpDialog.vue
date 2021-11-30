@@ -45,7 +45,7 @@
     <v-dialog v-model="openSignUpDialog" width="500">
       <v-card>
         <v-card-title>
-          <span class="text-h5">註冊</span>
+          <span class="text-h5 font-weight-bold">註冊</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -56,7 +56,7 @@
                   label="使用者名稱"
                   type="text"
                   :rules="usernameRules"
-                  required
+                  required dense
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -65,7 +65,7 @@
                   label="密碼"
                   type="password"
                   :rules="passwordRules"
-                  required
+                  required dense
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -74,7 +74,7 @@
                   label="手機號碼" 
                   type="tel"
                   :rules="phoneRules"
-                  required
+                  required dense
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -83,7 +83,7 @@
                   label="電子郵件" 
                   type="email"
                   :rules="emailRules"
-                  required
+                  required dense
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -92,7 +92,7 @@
                   label="信用卡" 
                   type="text"
                   :rules="creditCardRules"
-                  required
+                  required dense
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -101,7 +101,7 @@
                   label="住址" 
                   type="text"
                   :rules="addressRules"
-                  required
+                  required dense
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -109,7 +109,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="openSignUpDialog = false">
+          <v-btn color="blue-grey darken-1" text @click="openSignUpDialog = false">
             關閉
           </v-btn>
           <v-btn
@@ -127,7 +127,7 @@
     <v-dialog v-model="openSignInDialog" width="500">
       <v-card>
         <v-card-title>
-          <span class="text-h5">登入</span>
+          <span class="text-h5 font-weight-bold">登入</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -155,7 +155,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="openSignInDialog = false">
+          <v-btn color="blue-grey darken-1" text @click="openSignInDialog = false">
             關閉
           </v-btn>
           <v-btn
