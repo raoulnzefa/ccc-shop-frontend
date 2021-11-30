@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- signInSignUpDialog -->
-    <v-dialog v-model="signInSignUpDialog" width="500">
+    <!-- SignInSignUpDialog -->
+    <v-dialog v-model="openSignInSignUpDialog" width="500">
       <v-card>
         <v-card-title class="text-h5"> 登入 / 註冊 </v-card-title>
 
@@ -30,19 +30,19 @@
 
         <v-card-actions>
           <v-row justify="center" style="margin:0px">
-            <v-btn color="primary" text @click="signUpDialog = !signUpDialog">
-              註冊
+            <v-btn color="primary" text @click="openSignUpDialog = !openSignUpDialog">
+              註冊帳號
             </v-btn>
-            <v-btn color="primary" text @click="signInDialog = !signInDialog">
-              登入
+            <v-btn color="primary" text @click="openSignInDialog = !openSignInDialog">
+              登入帳號
             </v-btn>
           </v-row>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <!-- signUpDialog -->
-    <v-dialog v-model="signUpDialog" width="500">
+    <!-- SignUpDialog -->
+    <v-dialog v-model="openSignUpDialog" width="500">
       <v-card>
         <v-card-title>
           <span class="text-h5">Sign Up</span>
@@ -50,134 +50,106 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal first name*"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal middle name"
-                  hint="example of helper text only on focus"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
+              <v-col cols="12">
+                <v-text-field 
+                  id="signup-username"
+                  label="使用者名稱" 
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Email*" required></v-text-field>
-              </v-col>
-              <v-col cols="12">
                 <v-text-field
-                  label="Password*"
+                  id="signup-password"
+                  label="密碼"
                   type="password"
                   required
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6">
-                <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
+              <v-col cols="12">
+                <v-text-field 
+                  id="signup-phone"
+                  label="手機號碼" 
                   required
-                ></v-select>
+                ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6">
-                <v-autocomplete
-                  :items="[
-                    'Skiing',
-                    'Ice hockey',
-                    'Soccer',
-                    'Basketball',
-                    'Hockey',
-                    'Reading',
-                    'Writing',
-                    'Coding',
-                    'Basejump',
-                  ]"
-                  label="Interests"
-                  multiple
-                ></v-autocomplete>
+              <v-col cols="12">
+                <v-text-field 
+                  id="signup-email"
+                  label="電子郵件" 
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field 
+                  id="signup-credit-card"
+                  label="信用卡" 
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field 
+                  id="signup-address"
+                  label="住址" 
+                  required
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="signUpDialog = false">
-            Close
+          <v-btn color="blue darken-1" text @click="openSignUpDialog = false">
+            關閉
           </v-btn>
           <v-btn
             color="blue darken-1"
             text
-            @click="(signUpDialog = false), (signInSignUpDialog = false)"
+            @click="signUpUser(), (openSignUpDialog = false), (openSignInSignUpDialog = false)"
           >
-            Save
+            註冊
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <!-- signInDialog -->
-    <v-dialog v-model="signInDialog" width="500">
+    <!-- SignInDialog -->
+    <v-dialog v-model="openSignInDialog" width="500">
       <v-card>
         <v-card-title>
-          <span class="text-h5">Sign in</span>
+          <span class="text-h5">登入</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal first name*"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal middle name"
-                  hint="example of helper text only on focus"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
+              <v-col cols="12">
+                <v-text-field 
+                  id="signin-username" 
+                  label="使用者名稱" 
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Email*" required></v-text-field>
-              </v-col>
-              <v-col cols="12">
                 <v-text-field
-                  label="Password*"
+                  id="signin-password"
+                  label="密碼"
                   type="password"
                   required
                 ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="signInDialog = false">
-            Close
+          <v-btn color="blue darken-1" text @click="openSignInDialog = false">
+            關閉
           </v-btn>
           <v-btn
             color="blue darken-1"
             text
-            @click="(signInDialog = false), (signInSignUpDialog = false)"
+            @click="signInUser(), (openSignInDialog = false), (openSignInSignUpDialog = false)"
           >
-            Save
+            登入
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -190,9 +162,9 @@ export default {
   name: "SignInSignUpDialog",
   data: () => {
     return {
-      signInSignUpDialog: false,
-      signInDialog: false,
-      signUpDialog: false,
+      openSignInSignUpDialog: false,
+      openSignInDialog: false,
+      openSignUpDialog: false,
       colors: [
         "indigo",
         "warning",
@@ -205,7 +177,29 @@ export default {
   },
   methods: {
     openDialog() {
-      this.signInSignUpDialog = true
+      this.openSignInSignUpDialog = true
+    },
+    signUpUser() {
+      const usernameText = document.getElementById("signup-username").value
+      const passwordText = document.getElementById("signup-password").value
+      const phoneText = document.getElementById("signup-phone").value
+      const emailText = document.getElementById("signup-email").value
+      const creditCardText = document.getElementById("signup-credit-card").value
+      const addressText = document.getElementById("signup-address").value
+
+      console.log('username = ' + usernameText)
+      console.log('password = ' + passwordText)
+      console.log('phone = ' + phoneText)
+      console.log('email = ' + emailText)
+      console.log('credit card = ' + creditCardText)
+      console.log('address = ' + addressText)
+    },
+    signInUser() {
+      const usernameText = document.getElementById("signin-username").value
+      const passwordText = document.getElementById("signin-password").value
+
+      console.log('username = ' + usernameText)
+      console.log('password = ' + passwordText)
     }
   }
 }
