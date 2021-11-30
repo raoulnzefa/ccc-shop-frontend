@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const Login = async function (username, password) {
+export const login = async function (username, password) {
   const formData = new FormData();
   formData.append("username", username);
   formData.append("password", password);
@@ -13,7 +13,7 @@ export const Login = async function (username, password) {
   }
 };
 
-export const CreateUser = async function (username, password, phone, email, creditCard, address) {
+export const createUser = async function (username, password, phone, email, creditCard, address) {
   const formData = new FormData();
 
   formData.append("username", username);
@@ -24,7 +24,8 @@ export const CreateUser = async function (username, password, phone, email, cred
   formData.append("address", address);
   try {
     const response = await axios.post("/api/user/add", formData);
-    return response;
+    console.log(response.data);
+    return response.data;
   } catch (err) {
     console.log(err);
   }

@@ -1,4 +1,4 @@
-import { Login, CreateUser } from "@/api/loginApi.js";
+import { login, createUser } from "@/api/userApi.js";
 
 export default new Vuex.Store({
   state: {
