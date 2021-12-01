@@ -93,6 +93,7 @@
             @click="
               signUpUser();
               closeSignUpDialog();
+              reset();
             "
             :disabled="!valid"
           >
@@ -172,6 +173,7 @@ export default {
         this.creditCard,
         this.address
       );
+      this.$emit("close");
     },
     closeSignUpDialog() {
       this.isOpenDialog = false;

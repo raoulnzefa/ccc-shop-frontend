@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="isOpenDialog" width="500" persistent>
-    <v-form v-model="valid">
+    <v-form  ref="form" v-model="valid">
       <v-card>
         <v-card-title>
           <span class="text-h5 font-weight-bold">登入</span>
@@ -82,12 +82,16 @@ export default {
   methods: {
     openDialog() {
       this.isOpenDialog = true;
+    }, 
+    reset() {
+      this.$refs.form.reset();
     },
     signInUser() {
       this.$store.dispatch("userStore/loginUser", {
         username: this.username,
         password: this.password,
       });
+      this.$emit("close");
     },
     closeSignInDialog() {
       this.username = "";
