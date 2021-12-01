@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- SignInSignUpDialog -->
     <v-dialog v-model="isOpenDialog" width="500">
       <v-card>
         <v-card-title class="text-h5"> 登入 / 註冊 </v-card-title>

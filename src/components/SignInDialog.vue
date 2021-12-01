@@ -1,45 +1,47 @@
 <template>
   <v-dialog v-model="isOpenDialog" width="500" persistent>
-    <v-card>
-      <v-card-title>
-        <span class="text-h5 font-weight-bold">登入</span>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field 
-                v-model="username"
-                label="使用者名稱" 
-                type="text"
-                :rules="usernameRules"
-                required
-                prepend-icon="mdi-account-circle"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="password"
-                label="密碼"
-                :rules="passwordRules"
-                type="password"
-                required
-                prepend-icon="mdi-lock"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue-grey" text @click="resetSignInDialog">
-          關閉
-        </v-btn>
-        <v-btn color="blue" text @click="signInUser">
-          登入
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+    <v-form v-model="valid">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5 font-weight-bold">登入</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field 
+                  v-model="username"
+                  label="使用者名稱" 
+                  type="text"
+                  :rules="usernameRules"
+                  required
+                  prepend-icon="mdi-account-circle"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="password"
+                  label="密碼"
+                  :rules="passwordRules"
+                  type="password"
+                  required
+                  prepend-icon="mdi-lock"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue-grey" text @click="resetSignInDialog">
+            關閉
+          </v-btn>
+          <v-btn color="blue" text @click="signInUser" :disabled="!valid">
+            登入
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-form>
   </v-dialog>
 </template>
 
@@ -49,6 +51,7 @@ export default {
   data: () => {
     return {
       isOpenDialog: false,
+      valid: false,
       username: '',
       password: '',
       usernameRules: [

@@ -1,85 +1,87 @@
 <template>
   <v-dialog v-model="isOpenDialog" width="500" persistent>
-    <v-card>
-      <v-card-title>
-        <span class="text-h5 font-weight-bold">註冊</span>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field
-                v-model="username"
-                label="使用者名稱"
-                type="text"
-                :rules="usernameRules"
-                required dense
-                prepend-icon="mdi-account-circle"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-model="password"
-                label="密碼"
-                type="password"
-                :rules="passwordRules"
-                required dense
-                prepend-icon="mdi-lock"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field 
-                v-model="phone"
-                label="手機號碼" 
-                type="tel"
-                :rules="phoneRules"
-                required dense
-                prepend-icon="mdi-cellphone"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field 
-                v-model="email"
-                label="電子郵件" 
-                type="email"
-                :rules="emailRules"
-                required dense
-                prepend-icon="mdi-email"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field 
-                v-model="creditCard"
-                label="信用卡" 
-                type="text"
-                :rules="creditCardRules"
-                dense
-                prepend-icon="mdi-credit-card"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field 
-                v-model="address"
-                label="住址" 
-                type="text"
-                :rules="addressRules"
-                dense
-                prepend-icon="mdi-map-marker"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue-grey" text @click="resetSignUpDialog">
-          關閉
-        </v-btn>
-        <v-btn color="blue" text @click="signUpUser">
-          註冊
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+    <v-form v-model="valid">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5 font-weight-bold">註冊</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="username"
+                  label="使用者名稱"
+                  type="text"
+                  :rules="usernameRules"
+                  required dense
+                  prepend-icon="mdi-account-circle"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="password"
+                  label="密碼"
+                  type="password"
+                  :rules="passwordRules"
+                  required dense
+                  prepend-icon="mdi-lock"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field 
+                  v-model="phone"
+                  label="手機號碼" 
+                  type="tel"
+                  :rules="phoneRules"
+                  required dense
+                  prepend-icon="mdi-cellphone"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field 
+                  v-model="email"
+                  label="電子郵件" 
+                  type="email"
+                  :rules="emailRules"
+                  required dense
+                  prepend-icon="mdi-email"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field 
+                  v-model="creditCard"
+                  label="信用卡" 
+                  type="text"
+                  :rules="creditCardRules"
+                  dense
+                  prepend-icon="mdi-credit-card"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field 
+                  v-model="address"
+                  label="住址" 
+                  type="text"
+                  :rules="addressRules"
+                  dense
+                  prepend-icon="mdi-map-marker"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue-grey" text @click="resetSignUpDialog">
+            關閉
+          </v-btn>
+          <v-btn color="blue" text @click="signUpUser" :disabled="!valid">
+            註冊
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-form>
   </v-dialog>
 </template>
 
@@ -91,6 +93,7 @@ export default {
   data: () => {
     return {
       isOpenDialog: false,
+      valid: false,
       username: '',
       password: '',
       phone: '',
