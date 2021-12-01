@@ -14,6 +14,7 @@
                 type="text"
                 :rules="usernameRules"
                 required
+                prepend-icon="mdi-account-circle"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -23,6 +24,7 @@
                 :rules="passwordRules"
                 type="password"
                 required
+                prepend-icon="mdi-lock"
               ></v-text-field>
             </v-col>
           </v-row>

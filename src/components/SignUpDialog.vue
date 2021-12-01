@@ -14,6 +14,7 @@
                 type="text"
                 :rules="usernameRules"
                 required dense
+                prepend-icon="mdi-account-circle"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -23,6 +24,7 @@
                 type="password"
                 :rules="passwordRules"
                 required dense
+                prepend-icon="mdi-lock"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -32,6 +34,7 @@
                 type="tel"
                 :rules="phoneRules"
                 required dense
+                prepend-icon="mdi-cellphone"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -41,6 +44,7 @@
                 type="email"
                 :rules="emailRules"
                 required dense
+                prepend-icon="mdi-email"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -49,7 +53,8 @@
                 label="信用卡" 
                 type="text"
                 :rules="creditCardRules"
-                required dense
+                dense
+                prepend-icon="mdi-credit-card"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -58,7 +63,8 @@
                 label="住址" 
                 type="text"
                 :rules="addressRules"
-                required dense
+                dense
+                prepend-icon="mdi-map-marker"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -78,6 +84,8 @@
 </template>
 
 <script>
+import { createUser } from "@/api/userApi";
+
 export default {
   name: 'SignUpDialog',
   data: () => {
@@ -106,16 +114,17 @@ export default {
         v => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || '電子郵件格式不符'
       ],
       creditCardRules: [
-        v => !!v || '欄位不可留空',
+        // v => !!v || '欄位不可留空',
         v => /^\d+$/.test(v) || '信用卡只能包含數字'
       ],
       addressRules: [
-        v => !!v || '欄位不可留空',
+        // v => !!v || '欄位不可留空',
       ],
     }
   },
   methods: {
     openDialog() {
+      this.resetSignUpDialog()
       this.isOpenDialog = true
     },
     signUpUser() {
@@ -125,6 +134,8 @@ export default {
       console.log('email = ' + this.email)
       console.log('credit card = ' + this.creditCard)
       console.log('address = ' + this.address)
+
+      createUser(this.username, this.password, this.phone, this.email, this.creditCard, this.address)
 
       this.resetSignUpDialog()
     },

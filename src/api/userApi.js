@@ -22,8 +22,17 @@ export const createUser = async function (username, password, phone, email, cred
   formData.append("email", email);
   formData.append("creditCard", creditCard);
   formData.append("address", address);
+  let json = {
+    "username": username,
+    "password": password,
+    "phone": phone,
+    "email": email,
+    "creditCard": creditCard,
+    "address": address
+  }
+
   try {
-    const response = await axios.post("/api/user/add", formData);
+    const response = await axios.post("/api/user/add", json);
     console.log(response.data);
     return response.data;
   } catch (err) {

@@ -35,13 +35,13 @@
 </template>
 
 <script>
-import SignInSignUpDialog from './components/SignInSignUpDialog';
+import SignInSignUpDialog from "./components/SignInSignUpDialog";
 
 export default {
   name: "App",
   components: {
-    SignInSignUpDialog
-  }
+    SignInSignUpDialog,
+  },
 };
 </script>
 

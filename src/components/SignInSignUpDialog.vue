@@ -7,16 +7,16 @@
 
         <v-divider></v-divider>
 
-        <v-card-text style="padding:0px">
+        <v-card-text style="padding: 0px">
           <v-carousel
             :show-arrows="false"
             cycle
             height="250"
-            interval=4500
+            interval="4500"
             hide-delimiter-background
             show-arrows-on-hover
             delimiter-icon="mdi-minus"
-            style="padding:0px"
+            style="padding: 0px"
           >
             <v-carousel-item v-for="(slide, i) in slides" :key="i">
               <v-sheet :color="colors[i]" height="100%">
@@ -29,11 +29,19 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-row justify="center" style="margin:0px">
-            <v-btn color="primary" text @click="$refs.signUpDialog.openDialog()">
+          <v-row justify="center" style="margin: 0px">
+            <v-btn
+              color="primary"
+              text
+              @click="$refs.signUpDialog.openDialog()"
+            >
               註冊帳號
             </v-btn>
-            <v-btn color="primary" text @click="$refs.signInDialog.openDialog()">
+            <v-btn
+              color="primary"
+              text
+              @click="$refs.signInDialog.openDialog()"
+            >
               登入帳號
             </v-btn>
           </v-row>
@@ -47,14 +55,14 @@
 </template>
 
 <script>
-import SignUpDialog from './SignUpDialog'
-import SignInDialog from './SignInDialog'
+import SignUpDialog from "./SignUpDialog";
+import SignInDialog from "./SignInDialog";
 
 export default {
-  name: 'SignInSignUpDialog',
+  name: "SignInSignUpDialog",
   components: {
     SignUpDialog,
-    SignInDialog
+    SignInDialog,
   },
   data: () => {
     return {
@@ -67,12 +75,12 @@ export default {
         "deep-purple accent-4",
       ],
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
-    }
+    };
   },
   methods: {
     openDialog() {
-      this.isOpenDialog = true
-    }
-  }
-}
+      this.isOpenDialog = true;
+    },
+  },
+};
 </script>
