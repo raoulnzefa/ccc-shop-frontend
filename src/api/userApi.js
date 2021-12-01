@@ -1,29 +1,23 @@
 import axios from "axios";
 
 export const login = async function (username, password) {
-  const formData = new FormData();
-  formData.append("username", username);
-  formData.append("password", password);
-  formData.append("request", "login");
+  let json = {
+    "username": username,
+    "password": password
+  }
+
   try {
-    const response = await axios.post("/api/user/get", formData);
-    return response;
+    const response = await axios.post("/api/user/login", json);
+    return response.data;
   } catch (err) {
     console.log(err);
   }
 };
 
 export const createUser = async function (username, password, phone, email, creditCard, address) {
-  const formData = new FormData();
-
-  formData.append("username", username);
-  formData.append("password", password);
-  formData.append("phone", phone);
-  formData.append("email", email);
-  formData.append("creditCard", creditCard);
-  formData.append("address", address);
   let json = {
     "username": username,
+    "identity": 2,
     "password": password,
     "phone": phone,
     "email": email,
