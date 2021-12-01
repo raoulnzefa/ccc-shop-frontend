@@ -109,6 +109,7 @@ import { createUser } from "@/api/userApi";
 
 export default {
   name: "SignUpDialog",
+  props: ["identity"],
   data: () => {
     return {
       isOpenDialog: false,
@@ -140,7 +141,7 @@ export default {
       ],
       creditCardRules: [
         // v => !!v || '欄位不可留空',
-        (v) => /^\d+$/.test(v) || "信用卡只能包含數字",
+        // (v) => /^\d+$/.test(v) || "信用卡只能包含數字",
       ],
       addressRules: [
         // v => !!v || '欄位不可留空',
@@ -162,15 +163,9 @@ export default {
       this.isOpenDialog = true;
     },
     signUpUser() {
-      console.log("username = " + this.username);
-      console.log("password = " + this.password);
-      console.log("phone = " + this.phone);
-      console.log("email = " + this.email);
-      console.log("credit card = " + this.creditCard);
-      console.log("address = " + this.address);
-
       createUser(
         this.username,
+        this.identity,
         this.password,
         this.phone,
         this.email,

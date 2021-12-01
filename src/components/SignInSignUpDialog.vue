@@ -48,7 +48,7 @@
       </v-card>
     </v-dialog>
 
-    <SignUpDialog ref="signUpDialog" />
+    <SignUpDialog ref="signUpDialog" identity="2" />
     <SignInDialog ref="signInDialog" />
   </div>
 </template>

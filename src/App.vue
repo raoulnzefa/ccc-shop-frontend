@@ -16,12 +16,15 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn plain> 我想賣東西 </v-btn>
+      <v-btn @click="$refs.signUpDialog.openDialog()" plain> 我想賣東西 </v-btn>
 
       <!-- <v-btn @click="signInSignUpDialog = true" plain> 登入/註冊 </v-btn> -->
-      <v-btn @click="$refs.dialog.openDialog()" plain> 登入/註冊 </v-btn>
+      <v-btn @click="$refs.signInSignUpDialog.openDialog()" plain v-if="!$store.state.userStore.isLogin"> 登入/註冊 </v-btn>
 
-      <SignInSignUpDialog ref="dialog" />
+      <v-btn plain v-if="$store.state.userStore.isLogin">{{ $store.state.userStore.username }}</v-btn>
+
+      <SignInSignUpDialog ref="signInSignUpDialog" />
+      <SignUpDialog ref="signUpDialog" identity="1" />
 
       <v-btn icon>
         <v-icon>mdi-cart-outline</v-icon>
@@ -36,12 +39,14 @@
 
 <script>
 import SignInSignUpDialog from "./components/SignInSignUpDialog";
+import SignUpDialog from "./components/SignUpDialog";
 
 export default {
   name: "App",
   components: {
     SignInSignUpDialog,
-  },
+    SignUpDialog
+  }
 };
 </script>
 

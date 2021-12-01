@@ -15,8 +15,8 @@ const getters = {
 }
 
 const actions = {
-  loginUser({ commit }, loginData) {
-    const userData = login(loginData.username, loginData.password)
+  async loginUser({ commit }, loginData) {
+    const userData = await login(loginData.username, loginData.password)
     commit('updateUserData', userData)
   }
 }

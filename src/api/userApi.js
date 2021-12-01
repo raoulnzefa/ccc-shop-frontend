@@ -14,10 +14,10 @@ export const login = async function (username, password) {
   }
 };
 
-export const createUser = async function (username, password, phone, email, creditCard, address) {
+export const createUser = async function (username, identity, password, phone, email, creditCard, address) {
   let json = {
     "username": username,
-    "identity": 2,
+    "identity": identity,
     "password": password,
     "phone": phone,
     "email": email,
@@ -26,7 +26,7 @@ export const createUser = async function (username, password, phone, email, cred
   }
 
   try {
-    const response = await axios.post("/api/user/add", json);
+    const response = await axios.post("/api/user/create", json);
     console.log(response.data);
     return response.data;
   } catch (err) {
