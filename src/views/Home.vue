@@ -10,5 +10,7 @@ export default {
   components: {
     HelloWorld,
   },
+  methods: {
+  }
 };
 </script>

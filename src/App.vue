@@ -55,6 +55,8 @@ export default {
     SignInSignUpDialog,
     SignUpDialog,
   },
+  methods: {
+  },
 };
 </script>
 

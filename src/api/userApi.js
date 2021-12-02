@@ -27,7 +27,6 @@ export const createUser = async function (username, identity, password, phone, e
 
   try {
     const response = await axios.post("/api/user/create", json);
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err);
