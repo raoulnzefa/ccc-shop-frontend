@@ -19,9 +19,17 @@
       <v-btn @click="$refs.signUpDialog.openDialog()" plain> 我想賣東西 </v-btn>
 
       <!-- <v-btn @click="signInSignUpDialog = true" plain> 登入/註冊 </v-btn> -->
-      <v-btn @click="$refs.signInSignUpDialog.openDialog()" plain v-if="!$store.state.userStore.isLogin"> 登入/註冊 </v-btn>
+      <v-btn
+        @click="$refs.signInSignUpDialog.openDialog()"
+        plain
+        v-if="!$store.state.userStore.isLogin"
+      >
+        登入/註冊
+      </v-btn>
 
-      <v-btn plain v-if="$store.state.userStore.isLogin">{{ $store.state.userStore.username }}</v-btn>
+      <v-btn plain v-if="$store.state.userStore.isLogin">{{
+        $store.state.userStore.username
+      }}</v-btn>
 
       <SignInSignUpDialog ref="signInSignUpDialog" />
       <SignUpDialog ref="signUpDialog" identity="1" />
@@ -45,8 +53,8 @@ export default {
   name: "App",
   components: {
     SignInSignUpDialog,
-    SignUpDialog
-  }
+    SignUpDialog,
+  },
 };
 </script>
 

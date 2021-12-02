@@ -141,12 +141,9 @@ export default {
           ) || "電子郵件格式不符",
       ],
       creditCardRules: [
-        // v => !!v || '欄位不可留空',
         // (v) => /^\d+$/.test(v) || "信用卡只能包含數字",
       ],
-      addressRules: [
-        // v => !!v || '欄位不可留空',
-      ],
+      addressRules: [],
     };
   },
   methods: {

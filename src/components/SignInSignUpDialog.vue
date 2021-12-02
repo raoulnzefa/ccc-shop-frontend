@@ -48,8 +48,12 @@
       </v-card>
     </v-dialog>
 
-    <SignUpDialog ref="signUpDialog" identity="2" @close="isOpenDialog=false" />
-    <SignInDialog ref="signInDialog" @close="isOpenDialog=false" />
+    <SignUpDialog
+      ref="signUpDialog"
+      identity="2"
+      @close="isOpenDialog = false"
+    />
+    <SignInDialog ref="signInDialog" @close="isOpenDialog = false" />
   </div>
 </template>
 
