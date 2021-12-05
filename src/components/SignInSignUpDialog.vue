@@ -11,7 +11,7 @@
             :show-arrows="false"
             cycle
             height="250"
-            interval="4500"
+            interval="4000"
             hide-delimiter-background
             show-arrows-on-hover
             delimiter-icon="mdi-minus"
@@ -76,7 +76,7 @@ export default {
           src: "https://img.global.news.samsung.com/tw/wp-content/uploads/2021/08/Z-Flip3_Z-Fold3-Design-Story_main1.jpg",
         },
         {
-          src: "https://cdn2.ettoday.net/images/5953/5953731.jpg",
+          src: "https://s1.eestatic.com/2021/08/11/elandroidelibre/otros-dispositivos/otros/603451433_200321239_1706x960.jpg",
         },
         {
           src: "https://www.apple.com/newsroom/images/product/mac/standard/Apple_MacBook-Pro_14-16-inch_10182021_big.jpg.slideshow-xlarge_2x.jpg",

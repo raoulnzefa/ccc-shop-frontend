@@ -1,30 +1,17 @@
 <template>
-<Welcome></Welcome>
+  <div>
+    <Welcome></Welcome>
+    <!-- <Product></Product> -->
+  </div>
 </template>
 
 <script>
 import Welcome from "./Welcome.vue";
+// import Product from "./Product.vue";
 
 export default {
   name: "HelloWorld",
-  data: () => {
-    return {
-      items: [
-        {
-          src: "https://techsaydigi.com/wp-content/uploads/2021/10/c5482f525b8615658cc1a33d35ce0fed.jpg",
-        },
-        {
-          src: "https://cdn2.ettoday.net/images/5953/5953731.jpg",
-        },
-        {
-          src: "https://www.apple.com/newsroom/images/product/mac/standard/Apple_MacBook-Pro_14-16-inch_10182021_big.jpg.slideshow-xlarge_2x.jpg",
-        },
-        {
-          src: "https://s.yimg.com/os/creatr-uploaded-images/2020-09/412dfe00-f77c-11ea-afdf-134045af78fd",
-        },
-      ],
-    };
-  },
+  data: () => {},
   components: { Welcome },
 };
 </script>
