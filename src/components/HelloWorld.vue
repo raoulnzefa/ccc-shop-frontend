@@ -1,133 +1,60 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
-
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">Welcome to Vuetify</h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br />please join our online
-          <a href="https://community.vuetifyjs.com" target="_blank"
-            >Discord Community</a
-          >
-        </p>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">What's next?</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">Important Links</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-row class="text-center welcome-page">
+    <v-col cols="4">
+      <h1 class="font-weight-medium mt-5 ml-10 text-left">
+        <i>Welcome to CCC Shop</i>
+      </h1>
+      <h3 class="headline font-weight-regular ml-10 text-left">
+        <i>— Laugh out Loud =)</i>
+      </h3>
+    </v-col>
+    <v-col cols="8">
+      <v-carousel
+        cycle
+        height="250"
+        interval="6000"
+        hide-delimiter-background
+        delimiter-icon="mdi-minus"
+        style="margin-right: 0px"
+      >
+        <v-carousel-item
+          v-for="(item, i) in items"
+          :key="i"
+          :src="item.src"
+        ></v-carousel-item>
+      </v-carousel>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
   name: "HelloWorld",
 
-  data: () => ({
-    ecosystem: [
-      {
-        text: "vuetify-loader",
-        href: "https://github.com/vuetifyjs/vuetify-loader",
-      },
-      {
-        text: "github",
-        href: "https://github.com/vuetifyjs/vuetify",
-      },
-      {
-        text: "awesome-vuetify",
-        href: "https://github.com/vuetifyjs/awesome-vuetify",
-      },
-    ],
-    importantLinks: [
-      {
-        text: "Documentation",
-        href: "https://vuetifyjs.com",
-      },
-      {
-        text: "Chat",
-        href: "https://community.vuetifyjs.com",
-      },
-      {
-        text: "Made with Vuetify",
-        href: "https://madewithvuejs.com/vuetify",
-      },
-      {
-        text: "Twitter",
-        href: "https://twitter.com/vuetifyjs",
-      },
-      {
-        text: "Articles",
-        href: "https://medium.com/vuetify",
-      },
-    ],
-    whatsNext: [
-      {
-        text: "Explore components",
-        href: "https://vuetifyjs.com/components/api-explorer",
-      },
-      {
-        text: "Select a layout",
-        href: "https://vuetifyjs.com/getting-started/pre-made-layouts",
-      },
-      {
-        text: "Frequently Asked Questions",
-        href: "https://vuetifyjs.com/getting-started/frequently-asked-questions",
-      },
-    ],
-  }),
+  data: () => {
+    return {
+      items: [
+        {
+          src: "https://techsaydigi.com/wp-content/uploads/2021/10/c5482f525b8615658cc1a33d35ce0fed.jpg",
+        },
+
+        {
+          src: "https://cdn2.ettoday.net/images/5953/5953731.jpg",
+        },
+        {
+          src: "https://www.apple.com/newsroom/images/product/mac/standard/Apple_MacBook-Pro_14-16-inch_10182021_big.jpg.slideshow-xlarge_2x.jpg",
+        },
+        {
+          src: "https://s.yimg.com/os/creatr-uploaded-images/2020-09/412dfe00-f77c-11ea-afdf-134045af78fd",
+        },
+      ],
+    };
+  },
 };
 </script>
+
+<style>
+.welcome-page {
+  background-color: aliceblue;
+}
+</style>

@@ -11,7 +11,7 @@
               <v-col cols="12">
                 <v-text-field
                   v-model="username"
-                  label="使用者名稱"
+                  label="使用者名稱*"
                   type="text"
                   :rules="usernameRules"
                   required
@@ -22,7 +22,7 @@
               <v-col cols="12">
                 <v-text-field
                   v-model="password"
-                  label="密碼"
+                  label="密碼*"
                   type="password"
                   :rules="passwordRules"
                   required
@@ -33,7 +33,7 @@
               <v-col cols="12">
                 <v-text-field
                   v-model="phone"
-                  label="手機號碼"
+                  label="手機號碼*"
                   type="tel"
                   :rules="phoneRules"
                   required
@@ -44,7 +44,7 @@
               <v-col cols="12">
                 <v-text-field
                   v-model="email"
-                  label="電子郵件"
+                  label="電子郵件*"
                   type="email"
                   :rules="emailRules"
                   required
