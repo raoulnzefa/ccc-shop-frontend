@@ -12,7 +12,7 @@ import { getAllProduct } from "@/api/productApi";
 // }
 
 const state = {
-  products =[],
+  products: [],
 }
 
 const getters = {

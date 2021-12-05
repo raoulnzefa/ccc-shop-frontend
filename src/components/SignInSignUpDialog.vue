@@ -17,13 +17,11 @@
             delimiter-icon="mdi-minus"
             style="padding: 0px"
           >
-            <v-carousel-item v-for="(slide, i) in slides" :key="i">
-              <v-sheet :color="colors[i]" height="100%">
-                <v-row class="fill-height" align="center" justify="center">
-                  <div class="text-h2">{{ slide }} Slide</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
+            <v-carousel-item
+              v-for="(item, i) in items"
+              :key="i"
+              :src="item.src"
+            ></v-carousel-item>
           </v-carousel>
         </v-card-text>
 
@@ -70,14 +68,23 @@ export default {
   data: () => {
     return {
       isOpenDialog: false,
-      colors: [
-        "indigo",
-        "warning",
-        "pink darken-2",
-        "red lighten-1",
-        "deep-purple accent-4",
+      items: [
+        {
+          src: "https://techsaydigi.com/wp-content/uploads/2021/10/c5482f525b8615658cc1a33d35ce0fed.jpg",
+        },
+        {
+          src: "https://img.global.news.samsung.com/tw/wp-content/uploads/2021/08/Z-Flip3_Z-Fold3-Design-Story_main1.jpg",
+        },
+        {
+          src: "https://cdn2.ettoday.net/images/5953/5953731.jpg",
+        },
+        {
+          src: "https://www.apple.com/newsroom/images/product/mac/standard/Apple_MacBook-Pro_14-16-inch_10182021_big.jpg.slideshow-xlarge_2x.jpg",
+        },
+        {
+          src: "https://s.yimg.com/os/creatr-uploaded-images/2020-09/412dfe00-f77c-11ea-afdf-134045af78fd",
+        },
       ],
-      slides: ["First", "Second", "Third", "Fourth", "Fifth"],
     };
   },
   methods: {
