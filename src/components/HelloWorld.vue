@@ -1,18 +1,18 @@
 <template>
   <div>
     <Welcome></Welcome>
-    <!-- <Product></Product> -->
+    <Product></Product>
   </div>
 </template>
 
 <script>
 import Welcome from "./Welcome.vue";
-// import Product from "./Product.vue";
+import Product from "./Product.vue";
 
 export default {
   name: "HelloWorld",
   data: () => {},
-  components: { Welcome },
+  components: { Welcome, Product },
 };
 </script>
 
