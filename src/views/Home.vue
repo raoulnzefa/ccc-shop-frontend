@@ -1,11 +1,14 @@
 <template>
-  <div>
+  <div id="home">
+    <!-- header -->
     <Welcome />
-    <v-container class="mt-12 mb-6">
+
+    <!-- dropdown menu -->
+    <v-container id="category-menu" class="mt-12 mb-12">
       <v-menu>
         <template v-slot:activator="{ attrs, on }">
           <v-btn color="cyan" class="white--text ma-5" v-bind="attrs" v-on="on">
-            Category: {{ selectedCategory }}
+            Category: {{ categories[selectedIndex] }}
           </v-btn>
         </template>
 
@@ -13,21 +16,20 @@
           <v-list-item
             v-for="(cagetory, index) in categories"
             :key="index"
+            @click="chooseCategory(index)"
             link
           >
-            <v-list-item-title
-              v-text="cagetory"
-              @click="chooseCategory(index)"
-            ></v-list-item-title>
+            <v-list-item-title v-text="cagetory"></v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
     </v-container>
 
+    <!-- products -->
     <v-container>
-      <v-row align="start">
+      <v-row justify="start">
         <Product
-          v-for="product in $store.state.productStore.products"
+          v-for="product in getShowingProducts()"
           :key="product.name"
           :product="product"
         />
@@ -48,8 +50,8 @@ export default {
   },
   data: () => {
     return {
-      selectedCategory: "Computer",
-      categories: ["Computer", "Phone", "Tablet"],
+      selectedIndex: 0,
+      categories: ["All", "Computer", "Notebook", "Tablet", "Phone"],
     };
   },
   mounted() {
@@ -57,10 +59,20 @@ export default {
     this.$store.dispatch("productStore/loadAllProductsFake");
   },
   methods: {
+    getShowingProducts() {
+      if (this.selectedIndex === 0) {
+        return this.$store.state.productStore.products;
+      }
+
+      return this.$store.state.productStore.products.filter(
+        (product) => product.category === this.categories[this.selectedIndex]
+      );
+    },
     chooseCategory(index) {
-      this.selectedCategory = this.categories[index];
-      console.log("choose category " + index); // debug
+      this.selectedIndex = index;
     },
   },
 };
 </script>
+
+<style></style>
