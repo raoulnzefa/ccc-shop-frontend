@@ -1,58 +1,51 @@
 <template>
-  <v-dialog v-model="isOpenDialog" width="500" persistent>
+  <v-dialog v-model="isOpenDialog" width="500">
     <v-form ref="form" v-model="valid">
       <v-card>
+        <v-img height="400" :src="product.pictureURL"></v-img>
         <v-card-title>
-          <span class="text-h5 font-weight-bold">登入</span>
+          <span class="text-h5 font-weight-bold">{{ product.name }}</span>
         </v-card-title>
+
         <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="username"
-                  label="使用者名稱"
-                  type="text"
-                  :rules="usernameRules"
-                  required
-                  prepend-icon="mdi-account-circle"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="password"
-                  label="密碼"
-                  :rules="passwordRules"
-                  type="password"
-                  required
-                  prepend-icon="mdi-lock"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
+          <p class="subtitle-2">{{ product.category }}</p>
+          <v-row align="center" class="mx-0">
+            <v-rating
+              :value="4.5"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="14"
+            ></v-rating>
+
+            <div class="grey--text ms-4">4.5 (413)</div>
+          </v-row>
+
+          <div class="my-4 text-subtitle-1">$ {{ product.price }}</div>
+          <div class="my-4 text-subtitle-1">剩餘數量: {{ product.stock }}</div>
+          <div>
+            {{ product.description }}
+          </div>
         </v-card-text>
+
+        <v-divider class="ma-4"></v-divider>
+        <v-container>
+          <v-row justify="center" align="center">
+            <v-btn fab small @click="decreaseQuantity()">
+              <v-icon>mdi-minus</v-icon>
+            </v-btn>
+            <div class="mx-4">{{ quantity }}</div>
+            <v-btn fab small @click="increaseQuantity()">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </v-row>
+        </v-container>
+
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue-grey"
-            text
-            @click="
-              closeProductInfoDialog();
-              reset();
-            "
-          >
-            關閉
-          </v-btn>
-          <v-btn
-            color="blue"
-            text
-            @click="
-              signInUser();
-              closeProductInfoDialog();
-            "
-            :disabled="!valid"
-          >
-            登入
+          <v-btn color="blue darken-2" text @click="addProductToCart">
+            加入購物車
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -63,44 +56,33 @@
 <script>
 export default {
   name: "ProductInfoDialog",
+  props: ["product"],
   data: () => {
     return {
       isOpenDialog: false,
-      valid: false,
-      username: "",
-      password: "",
-      usernameRules: [
-        (v) => !!v || "欄位不可留空",
-        (v) => /^[a-z0-9]+$/.test(v) || "使用者名稱只能有英文字母或數字",
-      ],
-      passwordRules: [
-        (v) => !!v || "欄位不可留空",
-        (v) => (v && v.length >= 6) || "密碼至少需有 6 個字元",
-      ],
+      quantity: 1,
     };
   },
   methods: {
     openDialog() {
       this.isOpenDialog = true;
     },
-    reset() {
-      this.$refs.form.reset();
+    decreaseQuantity() {
+      if (this.quantity <= 1) return;
+      this.quantity--;
     },
-    signInUser() {
-      this.$store.dispatch("userStore/loginUser", {
-        username: this.username,
-        password: this.password,
-      });
-      this.$emit("close");
+    increaseQuantity() {
+      if (this.quantity >= this.product.stock) return;
+      this.quantity++;
     },
-    closeProductInfoDialog() {
-      this.username = "";
-      this.password = "";
+    addProductToCart() {
+      console.log("add product " + this.product.name + " to cart");
+      console.log("quantity: " + this.quantity);
+
       this.isOpenDialog = false;
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

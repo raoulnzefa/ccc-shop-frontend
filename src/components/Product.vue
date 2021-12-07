@@ -10,7 +10,7 @@
         class="ma-2"
         outlined
         color="white"
-        @click="$refs.ProductInfoDialog.openDialog()"
+        @click="$refs.productInfoDialog.openDialog()"
       >
         Info
       </v-btn>
@@ -39,7 +39,8 @@
       <div class="mx-1 my-4 text-subtitle-1">$ {{ product.price }}</div>
     </v-card-text>
     <ProductInfoDialog
-      ref="ProductInfoDialog"
+      ref="productInfoDialog"
+      :product="product"
       identity="2"
       @close="isOpenDialog = false"
     />

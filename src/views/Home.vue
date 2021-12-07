@@ -4,7 +4,7 @@
     <Welcome />
 
     <!-- dropdown menu -->
-    <v-container id="category-menu" class="mt-12 mb-12">
+    <v-container class="mt-12 mb-4">
       <v-menu>
         <template v-slot:activator="{ attrs, on }">
           <v-btn color="cyan" class="white--text ma-5" v-bind="attrs" v-on="on">
@@ -24,9 +24,10 @@
         </v-list>
       </v-menu>
     </v-container>
+    <v-divider></v-divider>
 
     <!-- products -->
-    <v-container>
+    <v-container class="mt-12 mb-4">
       <v-row justify="start">
         <Product
           v-for="product in getShowingProducts()"

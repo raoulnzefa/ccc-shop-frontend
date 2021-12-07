@@ -30,7 +30,6 @@ const actions = {
 const mutations = {
   updateProductsData(state, productsData) {
     state.products = productsData
-    console.log(state.products)
   }
 }
 
@@ -45,7 +44,7 @@ const fakeProducts = [
     price: 54700,
     stock: 152,
     warehouseAddress: "",
-    description: "",
+    description: "這是很厲害的電腦",
     pictureURL: "https://attach.setn.com/newsimages/2021/10/19/3367537-PH.jpg"
   },
   {
@@ -55,7 +54,7 @@ const fakeProducts = [
     price: 72900,
     stock: 48,
     warehouseAddress: "",
-    description: "",
+    description: "這也是很厲害的電腦",
     pictureURL: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-og-202008?wid=600&hei=315&fmt=jpeg&qlt=95&.v=1594849639000"
   },
   {
@@ -65,7 +64,7 @@ const fakeProducts = [
     price: 32900,
     stock: 200,
     warehouseAddress: "",
-    description: "",
+    description: "這是很貴的手機",
     pictureURL: "https://web-eshop.cdn.hinet.net/eShop%20Images/Product/phones/000100004254/154632-C50321583002.jpg"
   },
   {
@@ -75,7 +74,7 @@ const fakeProducts = [
     price: 14900,
     stock: 124,
     warehouseAddress: "",
-    description: "",
+    description: "這是很好用的平板",
     pictureURL: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/ipad-mini-select-202109_FMT_WHH?wid=2000&hei=2000&fmt=jpeg&qlt=80&.v=1631751019000"
   },
   {
@@ -85,7 +84,7 @@ const fakeProducts = [
     price: 14500,
     stock: 37,
     warehouseAddress: "",
-    description: "",
+    description: "這是比較便宜的手機",
     pictureURL: "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_new-iphone-se-white_04152020_big.jpg.large.jpg"
   }
 ]
