@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Welcome from "./Welcome.vue";
-import Product from "./Product.vue";
+import Welcome from "./Welcome";
+import Product from "./Product";
 
 export default {
   name: "HelloWorld",
@@ -16,8 +16,4 @@ export default {
 };
 </script>
 
-<style>
-.welcome-page {
-  background-color: aliceblue;
-}
-</style>
+<style></style>

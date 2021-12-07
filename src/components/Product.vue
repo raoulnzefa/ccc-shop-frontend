@@ -1,12 +1,11 @@
 <template>
   <v-card
-    class="mx-auto my-12 card"
+    class="mx-auto my-6 card"
     height="300"
     width="250"
     @click="openDialog"
   >
     <div class="overlay">
-      <!-- <router-link to="/Info"> -->
       <v-btn
         class="ma-2"
         outlined
@@ -15,16 +14,15 @@
       >
         Info
       </v-btn>
-      <!-- </router-link> -->
     </div>
     <v-img
       class="img"
       height="180"
       width="300"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      :src="product.pictureURL"
     ></v-img>
 
-    <v-card-title>Cafe Badilico</v-card-title>
+    <v-card-title>{{ product.name }}</v-card-title>
 
     <v-card-text>
       <v-row align="center" class="mx-0">
@@ -38,7 +36,7 @@
         ></v-rating>
       </v-row>
 
-      <div class="mx-1 my-4 text-subtitle-1">$ 1000</div>
+      <div class="mx-1 my-4 text-subtitle-1">$ {{ product.price }}</div>
     </v-card-text>
     <ProductInfoDialog
       ref="ProductInfoDialog"
@@ -56,9 +54,12 @@ export default {
   components: {
     ProductInfoDialog,
   },
-  data: () => ({
-    isOpenDialog: false,
-  }),
+  props: ["product"],
+  data: () => {
+    return {
+      isOpenDialog: false,
+    };
+  },
 };
 </script>
 

@@ -36,7 +36,6 @@ export default {
         {
           src: "https://techsaydigi.com/wp-content/uploads/2021/10/c5482f525b8615658cc1a33d35ce0fed.jpg",
         },
-
         {
           src: "https://cdn2.ettoday.net/images/5953/5953731.jpg",
         },
