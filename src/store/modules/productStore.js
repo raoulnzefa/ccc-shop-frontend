@@ -41,7 +41,7 @@ const fakeProducts = [
   {
     name: "Macbook Pro",
     userId: "test",
-    category: "Notebook",
+    category: "NOTEBOOK",
     price: 54700,
     stock: 152,
     warehouseAddress: "",
@@ -51,7 +51,7 @@ const fakeProducts = [
   {
     name: "iMac",
     userId: "test",
-    category: "Computer",
+    category: "COMPUTER",
     price: 72900,
     stock: 48,
     warehouseAddress: "",
@@ -61,7 +61,7 @@ const fakeProducts = [
   {
     name: "iPhone 13 Pro",
     userId: "test",
-    category: "Phone",
+    category: "PHONE",
     price: 32900,
     stock: 200,
     warehouseAddress: "",
@@ -71,7 +71,7 @@ const fakeProducts = [
   {
     name: "iPad mini",
     userId: "test",
-    category: "Tablet",
+    category: "TABLET",
     price: 14900,
     stock: 124,
     warehouseAddress: "",
@@ -81,7 +81,7 @@ const fakeProducts = [
   {
     name: "iPhone SE",
     userId: "test",
-    category: "Phone",
+    category: "PHONE",
     price: 14500,
     stock: 37,
     warehouseAddress: "",

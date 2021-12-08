@@ -53,7 +53,7 @@ export default {
   data: () => {
     return {
       selectedIndex: 0,
-      categories: ["All", "Computer", "Notebook", "Tablet", "Phone"],
+      categories: ["All", "COMPUTER", "NOTEBOOK", "TABLET", "PHONE"],
     };
   },
   mounted() {
