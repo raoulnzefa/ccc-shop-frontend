@@ -1,15 +1,24 @@
 <template>
   <v-app>
-    <v-app-bar color="cyan darken-2 accent-4">
-      <!-- <v-toolbar-title> CCC Shop </v-toolbar-title> -->
+    <v-app-bar
+      class="app-bar"
+      style="height: 64px; position: fixed; z-index: 1000"
+      color="cyan darken-2 accent-4"
+    >
+      <v-toolbar-title style="height: 64px"></v-toolbar-title>
       <v-icon x-large>mdi-store-outline</v-icon>
       <v-form class="search-bar">
         <v-container>
           <v-row>
-            <v-text-field label="搜尋商品" outlined dense></v-text-field>
-            <v-btn icon>
+            <v-text-field
+              label="搜尋商品"
+              outlined
+              dense
+              append-icon="mdi-magnify"
+            ></v-text-field>
+            <!-- <v-btn icon>
               <v-icon>mdi-magnify</v-icon>
-            </v-btn>
+            </v-btn> -->
           </v-row>
         </v-container>
       </v-form>
@@ -61,7 +70,7 @@ export default {
 
 <style>
 .search-bar {
-  margin-top: 24px;
+  margin-top: 30px;
   margin-left: 20px;
 }
 </style>
