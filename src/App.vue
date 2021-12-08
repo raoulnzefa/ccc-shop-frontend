@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-app-bar color="cyan darken-2 accent-4">
-      <v-toolbar-title> CCC Shop </v-toolbar-title>
-
+      <!-- <v-toolbar-title> CCC Shop </v-toolbar-title> -->
+      <v-icon x-large>mdi-store-outline</v-icon>
       <v-form class="search-bar">
         <v-container>
           <v-row>
@@ -55,8 +55,7 @@ export default {
     SignInSignUpDialog,
     SignUpDialog,
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 

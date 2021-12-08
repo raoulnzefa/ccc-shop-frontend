@@ -20,7 +20,8 @@ const getters = {}
 const actions = {
   async loadAllProducts({ commit }) {
     const productsData = await getAllProduct()
-    commit('updateProductsData', productsData)
+    console.log("123", productsData.productList)
+    commit('updateProductsData', productsData.productList)
   },
   loadAllProductsFake({ commit }) {
     commit('updateProductsData', fakeProducts)
