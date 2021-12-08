@@ -1,5 +1,5 @@
 <template>
-  <v-row class="text-center welcome-page">
+  <v-row class="text-center welcome-page" align="center">
     <v-col cols="4">
       <h1 class="font-weight-medium mt-5 ml-10 text-left">
         <i>Welcome to CCC Shop</i>
