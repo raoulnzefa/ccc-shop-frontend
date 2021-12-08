@@ -53,7 +53,6 @@ export default {
 
 <style>
 .welcome-page {
-  margin-top: 65px;
   background-color: aliceblue;
 }
 </style>

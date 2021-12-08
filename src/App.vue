@@ -6,7 +6,11 @@
       color="cyan lighten-4"
     >
       <v-toolbar-title style="height: 64px"></v-toolbar-title>
-      <v-icon x-large>mdi-store-outline</v-icon>
+
+      <router-link to="/">
+        <v-icon x-large>mdi-store-outline</v-icon>
+      </router-link>
+
       <v-form class="search-bar">
         <v-container>
           <v-row>
@@ -16,22 +20,28 @@
               dense
               append-icon="mdi-magnify"
             ></v-text-field>
-            <!-- <v-btn icon>
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn> -->
           </v-row>
         </v-container>
       </v-form>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        @click="$refs.signUpDialog.openDialog()"
-        plain
-        color="deep-purple accent-1"
+      <router-link
+        to="/admin"
+        v-if="$store.state.userStore.identity === 'admin'"
       >
-        I am admin
-      </v-btn>
+        <v-btn plain color="deep-purple accent-1"> admin </v-btn>
+      </router-link>
+
+      <router-link
+        to="/staff"
+        v-if="
+          $store.state.userStore.identity === 'staff' ||
+          $store.state.userStore.identity === 'admin'
+        "
+      >
+        <v-btn plain color="teal darken-2"> staff </v-btn>
+      </router-link>
 
       <v-btn @click="$refs.signUpDialog.openDialog()" plain> 我想賣東西 </v-btn>
 
@@ -50,12 +60,15 @@
       <SignInSignUpDialog ref="signInSignUpDialog" />
       <SignUpDialog ref="signUpDialog" identity="1" />
 
-      <v-btn icon>
-        <v-icon>mdi-cart-outline</v-icon>
-      </v-btn>
+      <router-link to="/cart">
+        <v-btn icon>
+          <v-icon>mdi-cart-outline</v-icon>
+        </v-btn>
+      </router-link>
     </v-app-bar>
 
     <v-main>
+      <div style="margin-top: 80px"></div>
       <router-view />
     </v-main>
   </v-app>
