@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-app-bar
-      class="app-bar"
+      class="app-bar rounded-lg rounded-t-0"
       style="height: 64px; position: fixed; z-index: 1000"
-      color="cyan darken-2 accent-4"
+      color="cyan lighten-4"
     >
       <v-toolbar-title style="height: 64px"></v-toolbar-title>
       <v-icon x-large>mdi-store-outline</v-icon>
@@ -25,9 +25,16 @@
 
       <v-spacer></v-spacer>
 
+      <v-btn
+        @click="$refs.signUpDialog.openDialog()"
+        plain
+        color="deep-purple accent-1"
+      >
+        I am admin
+      </v-btn>
+
       <v-btn @click="$refs.signUpDialog.openDialog()" plain> 我想賣東西 </v-btn>
 
-      <!-- <v-btn @click="signInSignUpDialog = true" plain> 登入/註冊 </v-btn> -->
       <v-btn
         @click="$refs.signInSignUpDialog.openDialog()"
         plain

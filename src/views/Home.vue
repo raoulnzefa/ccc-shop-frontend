@@ -26,7 +26,7 @@
     </v-container>
 
     <!-- products -->
-    <v-container class="mt-12 mb-4">
+    <v-container class="mb-4">
       <v-row justify="start">
         <div
           v-for="product in getShowingProducts()"
@@ -37,18 +37,23 @@
         </div>
       </v-row>
     </v-container>
+
+    <!-- footer -->
+    <Footer />
   </div>
 </template>
 
 <script>
 import Welcome from "../components/Welcome";
 import Product from "../components/Product";
+import Footer from "../components/Footer";
 
 export default {
   name: "Home",
   components: {
     Welcome,
     Product,
+    Footer,
   },
   data: () => {
     return {
