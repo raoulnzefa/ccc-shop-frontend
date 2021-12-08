@@ -24,16 +24,17 @@
         </v-list>
       </v-menu>
     </v-container>
-    <v-divider></v-divider>
 
     <!-- products -->
     <v-container class="mt-12 mb-4">
       <v-row justify="start">
-        <Product
+        <div
           v-for="product in getShowingProducts()"
           :key="product.name"
-          :product="product"
-        />
+          class="pa-4"
+        >
+          <Product :product="product" />
+        </div>
       </v-row>
     </v-container>
   </div>

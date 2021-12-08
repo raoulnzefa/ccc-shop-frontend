@@ -1,10 +1,5 @@
 <template>
-  <v-card
-    class="mx-auto my-6 card"
-    height="300"
-    width="250"
-    @click="openDialog"
-  >
+  <v-card class="mx-auto my-6 card" height="300" width="250">
     <div class="overlay">
       <v-btn
         class="ma-2"
