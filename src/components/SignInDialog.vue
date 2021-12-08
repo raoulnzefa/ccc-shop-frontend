@@ -43,19 +43,25 @@
           >
             關閉
           </v-btn>
-          <v-btn
-            color="blue"
-            text
-            @click="
-              signInUser();
-              closeSignInDialog();
-            "
-            :disabled="!valid"
-          >
+          <v-btn color="blue" text @click="signInUser()" :disabled="!valid">
             登入
           </v-btn>
         </v-card-actions>
       </v-card>
+
+      <v-snackbar v-model="isOpenSnackbar" :timeout="2000">
+        Login Fail
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="blue"
+            text
+            v-bind="attrs"
+            @click="isOpenSnackbar = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-form>
   </v-dialog>
 </template>
@@ -66,6 +72,7 @@ export default {
   data: () => {
     return {
       isOpenDialog: false,
+      isOpenSnackbar: false,
       valid: false,
       username: "",
       password: "",
@@ -91,11 +98,19 @@ export default {
         username: this.username,
         password: this.password,
       });
-      this.$emit("close");
+
+      setTimeout(() => {
+        if (this.$store.state.userStore.isLogin) {
+          this.closeSignInDialog();
+          this.$emit("close");
+        } else {
+          this.reset();
+          this.isOpenSnackbar = true;
+        }
+      }, 2000);
     },
     closeSignInDialog() {
-      this.username = "";
-      this.password = "";
+      this.reset();
       this.isOpenDialog = false;
     },
   },

@@ -30,13 +30,16 @@ const getters = {
 const actions = {
   async loginUser({ commit }, loginData) {
     const userData = await login(loginData.username, loginData.password)
-    sessionStorage.setItem("username", userData.username);
-    sessionStorage.setItem("identity", userData.identity);
-    sessionStorage.setItem("phone", userData.phone);
-    sessionStorage.setItem("email", userData.email);
-    sessionStorage.setItem("creditCard", userData.creditCard);
-    sessionStorage.setItem("address", userData.address);
-    commit('updateUserData', userData)
+
+    if (userData !== null) {
+      sessionStorage.setItem("username", userData.username);
+      sessionStorage.setItem("identity", userData.identity);
+      sessionStorage.setItem("phone", userData.phone);
+      sessionStorage.setItem("email", userData.email);
+      sessionStorage.setItem("creditCard", userData.creditCard);
+      sessionStorage.setItem("address", userData.address);
+      commit('updateUserData', userData)
+    }
   }
 }
 
