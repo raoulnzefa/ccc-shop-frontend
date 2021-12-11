@@ -53,9 +53,19 @@
         登入/註冊
       </v-btn>
 
-      <v-btn plain v-if="$store.state.userStore.isLogin">{{
-        $store.state.userStore.username
-      }}</v-btn>
+      <v-menu offset-y>
+        <template v-slot:activator="{ attrs, on }">
+          <v-btn plain v-bind="attrs" v-on="on" v-if="$store.state.userStore.isLogin">{{
+            $store.state.userStore.username
+          }}</v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item link @click="logoutUser()">
+            <v-list-item-title v-text="'登出'"></v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
       <SignInSignUpDialog ref="signInSignUpDialog" />
       <SignUpDialog ref="signUpDialog" identity="1" />
@@ -84,7 +94,12 @@ export default {
     SignInSignUpDialog,
     SignUpDialog,
   },
-  methods: {},
+  methods: {
+    logoutUser() {
+      this.$store.dispatch("userStore/logoutUser");
+      location.reload();
+    }
+  },
 };
 </script>
 

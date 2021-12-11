@@ -1,5 +1,15 @@
 import { login } from "@/api/userApi";
 
+const blankUserData = {
+  username: "",
+  identity: "",
+  phone: "",
+  email: "",
+  creditCard: "",
+  address: "",
+  isLogin: false
+};
+
 const getDefaultState = () => {
   return sessionStorage.getItem("username")
     ? {
@@ -11,15 +21,7 @@ const getDefaultState = () => {
       address: sessionStorage.getItem("address"),
       isLogin: true
     }
-    : {
-      username: "",
-      identity: "",
-      phone: "",
-      email: "",
-      creditCard: "",
-      address: "",
-      isLogin: false
-    };
+    : blankUserData;
 };
 const state = getDefaultState();
 
@@ -40,6 +42,15 @@ const actions = {
       sessionStorage.setItem("address", userData.address);
       commit('updateUserData', userData)
     }
+  },
+  logoutUser({ commit }) {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("identity");
+    sessionStorage.removeItem("phone");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("creditCard");
+    sessionStorage.removeItem("address");
+    commit('updateUserData', blankUserData)
   }
 }
 

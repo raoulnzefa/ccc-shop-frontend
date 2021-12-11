@@ -103,11 +103,12 @@ export default {
         if (this.$store.state.userStore.isLogin) {
           this.closeSignInDialog();
           this.$emit("close");
+          location.reload();
         } else {
           this.reset();
           this.isOpenSnackbar = true;
         }
-      }, 2000);
+      }, 500);
     },
     closeSignInDialog() {
       this.reset();

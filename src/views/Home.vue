@@ -14,12 +14,12 @@
 
         <v-list>
           <v-list-item
-            v-for="(cagetory, index) in categories"
+            v-for="(category, index) in categories"
             :key="index"
             @click="chooseCategory(index)"
             link
           >
-            <v-list-item-title v-text="cagetory"></v-list-item-title>
+            <v-list-item-title v-text="category"></v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -58,7 +58,7 @@ export default {
   data: () => {
     return {
       selectedIndex: 0,
-      categories: ["All", "COMPUTER", "NOTEBOOK", "TABLET", "PHONE"],
+      categories: ["ALL", "COMPUTER", "NOTEBOOK", "TABLET", "PHONE"],
     };
   },
   mounted() {
