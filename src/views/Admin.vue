@@ -1,10 +1,17 @@
 <template>
-  <div>Admin page</div>
+  <v-container>
+    <UserTable />
+  </v-container>
 </template>
 
 <script>
+import UserTable from "../components/UserTable";
+
 export default {
   name: "Admin",
+  components: {
+    UserTable,
+  },
 };
 </script>
 
