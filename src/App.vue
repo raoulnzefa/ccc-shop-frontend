@@ -97,8 +97,8 @@ export default {
   methods: {
     logoutUser() {
       this.$store.dispatch("userStore/logoutUser");
+      this.$router.push("/");
       location.reload();
-      // should go back to home page route '/'
     }
   },
 };
