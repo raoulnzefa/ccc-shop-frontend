@@ -4,10 +4,11 @@
       <v-img height="400" :src="product.pictureURL"></v-img>
       <v-card-title>
         <span class="text-h5 font-weight-bold">{{ product.name }}</span>
+        <v-spacer></v-spacer>
+        <span class="subtitle-2">{{ product.venderName }}</span>
       </v-card-title>
 
       <v-card-text>
-        <p class="subtitle-2">{{ product.venderName }}</p>
         <v-row align="center" class="mx-0">
           <v-rating
             :value="product.rate"
@@ -20,7 +21,7 @@
           <!-- <div class="grey--text ms-4">{{ product.rate }}</div> -->
         </v-row>
 
-        <div class="my-4 text-subtitle-1">$ {{ product.price }}</div>
+        <div class="mt-4 text-subtitle-1">$ {{ product.price }}</div>
         <div>
           {{ product.description }}
         </div>
@@ -36,13 +37,27 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           <div class="mx-6 my-4 text-subtitle-2">
-            剩餘數量: {{ product.stock }}
+            只剩 {{ product.stock }} 個 !
           </div>
+          <!-- <v-btn
+            outlined
+            class="mx-3"
+            color="indigo"
+          >
+            看看大家怎麼說
+          </v-btn> -->
+          <ReviewDialog />
         </v-row>
       </v-container>
 
       <v-card-actions>
-        <v-btn color="blue darken-2" text @click="addProductToCart">
+        <v-btn
+          block
+          class="mb-3"
+          color="secondary"
+          elevation="5"
+          @click="addProductToCart"
+        >
           加入購物車
         </v-btn>
       </v-card-actions>
@@ -51,8 +66,13 @@
 </template>
 
 <script>
+import ReviewDialog from "./ReviewDialog";
+
 export default {
   name: "ProductInfoDialog",
+    components: {
+    ReviewDialog,
+  },
   props: ["product"],
   data: () => {
     return {
