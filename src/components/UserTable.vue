@@ -1,9 +1,9 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="users"
     sort-by="username"
-    class="elevation-1 mb-10"
+    class="elevation-5 my-10"
   >
     <template v-slot:top>
       <v-toolbar flat>
@@ -13,7 +13,7 @@
         <!-- new/edit item dialog -->
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+            <v-btn color="info" dark class="mb-2" v-bind="attrs" v-on="on">
               New User
             </v-btn>
           </template>
@@ -36,6 +36,16 @@
                       dense
                       prepend-icon="mdi-account-circle"
                     ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-select
+                      v-model="editedItem.identity"
+                      label="Identity*"
+                      :items="['admin', 'staff', 'customer']"
+                      required
+                      dense
+                      prepend-icon="mdi-account-group"
+                    ></v-select>
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-text-field
@@ -79,7 +89,7 @@
                       prepend-icon="mdi-credit-card"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" md="6">
+                  <v-col cols="12">
                     <v-text-field
                       v-model="editedItem.address"
                       label="Address"
@@ -138,6 +148,9 @@
 
 <script>
 import { createUser } from "@/api/userApi";
+// import { updateUser } from "@/api/userApi";
+import { deleteUser } from "@/api/userApi";
+import { getAllUser } from "@/api/userApi";
 
 export default {
   data: () => ({
@@ -145,6 +158,7 @@ export default {
     dialogDelete: false,
     headers: [
       { text: "Username", align: "start", value: "username" },
+      { text: "Identity", value: "identity" },
       { text: "Password", value: "password" },
       { text: "Email", value: "email" },
       { text: "Phone", value: "phone" },
@@ -154,29 +168,30 @@ export default {
     ],
     usernameRules: [
       (v) => !!v || "欄位不可留空",
-      (v) => /^[a-z0-9]+$/.test(v) || "使用者名稱只能有英文字母或數字",
+      // (v) => /^[a-z0-9]+$/.test(v) || "使用者名稱只能有英文字母或數字",
     ],
     passwordRules: [
       (v) => !!v || "欄位不可留空",
-      (v) => (v && v.length >= 6) || "密碼至少需有 6 個字元",
+      // (v) => (v && v.length >= 6) || "密碼至少需有 6 個字元",
     ],
     phoneRules: [
       (v) => !!v || "欄位不可留空",
-      (v) => /^\d+$/.test(v) || "電話只能包含數字",
+      // (v) => /^\d+$/.test(v) || "電話只能包含數字",
     ],
     emailRules: [
       (v) => !!v || "欄位不可留空",
-      (v) =>
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-          v
-        ) || "電子郵件格式不符",
+      // (v) =>
+      //   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      //     v
+      //   ) || "電子郵件格式不符",
     ],
     creditCardRules: [],
     addressRules: [],
-    desserts: [],
+    users: [],
     editedIndex: -1,
     editedItem: {
       username: "",
+      identity: "",
       password: "",
       email: "",
       phone: "",
@@ -185,6 +200,7 @@ export default {
     },
     defaultItem: {
       username: "",
+      identity: "",
       password: "",
       email: "",
       phone: "",
@@ -214,48 +230,29 @@ export default {
 
   methods: {
     initialize() {
-      this.desserts = [
-        {
-          username: "Frozen",
-          password: "12321312",
-          email: "fds@ggg",
-          phone: "0912312312",
-          creditCard: "123123123",
-          address: "home",
-        },
-        {
-          username: "Ice",
-          password: "1232131",
-          email: "hello@g",
-          phone: "0912312312",
-          creditCard: "12312312312",
-          address: "my address",
-        },
-        {
-          username: "hi",
-          password: "1232131",
-          email: "hello@g",
-          phone: "0912312312",
-          creditCard: "12312312312",
-          address: "my address",
-        },
-      ];
+      console.log("data", getAllUser());
+      this.users = getAllUser();
+      console.log("this.users", this.users);
     },
-
+    mounted() {
+      // this.users = await getAllUser();
+      this.users = getAllUser();
+    },
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+      deleteUser(this.users[this.editedIndex].id);
+      this.users.splice(this.editedIndex, 1);
       this.closeDelete();
     },
 
@@ -276,14 +273,38 @@ export default {
     },
 
     save() {
+      var identity = "2";
+      switch (this.editedItem.identity) {
+        case "admin":
+          identity = "0";
+          break;
+        case "staff":
+          identity = "1";
+          break;
+        case "customer":
+          identity = "2";
+          break;
+        default:
+          break;
+      }
+
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        Object.assign(this.users[this.editedIndex], this.editedItem);
+        // updateUser(
+        //   this.editedItem.id,
+        //   this.editedItem.username,
+        //   "2",
+        //   this.editedItem.password,
+        //   this.editedItem.phone,
+        //   this.editedItem.email,
+        //   this.editedItem.creditCard,
+        //   this.editedItem.address
+        // );
       } else {
-        this.desserts.push(this.editedItem);
-        console.log("this", this.editedItem);
+        this.users.push(this.editedItem);
         createUser(
           this.editedItem.username,
-          "2",
+          identity,
           this.editedItem.password,
           this.editedItem.phone,
           this.editedItem.email,
