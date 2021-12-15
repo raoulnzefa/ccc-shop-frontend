@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar
       class="app-bar rounded-lg rounded-t-0"
-      style="height: 64px; position: fixed; z-index: 1000"
+      style="height: 64px; position: fixed; z-index: 1"
       color="cyan lighten-4"
     >
       <v-toolbar-title style="height: 64px"></v-toolbar-title>
@@ -97,6 +97,7 @@ export default {
   methods: {
     logoutUser() {
       this.$store.dispatch("userStore/logoutUser");
+      this.$router.push("/");
       location.reload();
     }
   },
