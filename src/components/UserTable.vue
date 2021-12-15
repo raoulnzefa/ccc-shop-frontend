@@ -206,13 +206,11 @@ export default {
       address: "",
     },
   }),
-
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New User" : "Edit User";
     },
   },
-
   watch: {
     dialog(val) {
       val || this.close();
@@ -221,18 +219,15 @@ export default {
       val || this.closeDelete();
     },
   },
-
   async mounted() {
     this.users = await getAllUser();
   },
   methods: {
-
     editItem(item) {
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-
     deleteItem(item) {
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -252,7 +247,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
@@ -260,22 +254,9 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     save() {
-      var identity = "2";
-      switch (this.editedItem.identity) {
-        case "admin":
-          identity = "0";
-          break;
-        case "staff":
-          identity = "1";
-          break;
-        case "customer":
-          identity = "2";
-          break;
-        default:
-          break;
-      }
+      const identities = ["admin", "staff", "customer"]
+      let identity = identities.indexOf(this.editedItem.identity).toString()
 
       if (this.editedIndex > -1) {
         Object.assign(this.users[this.editedIndex], this.editedItem);

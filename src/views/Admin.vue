@@ -1,7 +1,15 @@
 <template>
-  <v-container>
-    <UserTable />
-  </v-container>
+  <div>
+    <!-- Admin -->
+    <v-container v-if="$store.state.userStore.identity === 'admin'">
+      <UserTable />
+    </v-container>
+
+    <!-- Not admin -->
+    <v-container class="d-flex flex-column justify-center align-center" v-else>
+      <h2>Not Accessible</h2>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -11,7 +19,7 @@ export default {
   name: "Admin",
   components: {
     UserTable,
-  },
+  }
 };
 </script>
 

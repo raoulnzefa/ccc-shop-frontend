@@ -102,7 +102,7 @@ export default {
     logoutUser() {
       this.$store.dispatch("userStore/logoutUser");
       this.$router.push("/");
-      location.reload();
+      setTimeout(() => location.reload(), 500);
     },
   },
 };
