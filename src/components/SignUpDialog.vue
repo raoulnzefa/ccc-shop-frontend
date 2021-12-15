@@ -123,7 +123,7 @@ export default {
       address: "",
       usernameRules: [
         (v) => !!v || "欄位不可留空",
-        (v) => /^[a-z0-9]+$/.test(v) || "使用者名稱只能有英文字母或數字",
+        (v) => /^[A-Za-z0-9]+$/.test(v) || "使用者名稱只能有英文字母或數字",
       ],
       passwordRules: [
         (v) => !!v || "欄位不可留空",
