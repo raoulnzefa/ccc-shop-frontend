@@ -29,11 +29,11 @@
 
       <v-container>
         <v-row justify="center" align="center">
-          <v-btn fab small @click="decreaseQuantity()">
+          <v-btn fab x-small @click="decreaseQuantity()">
             <v-icon>mdi-minus</v-icon>
           </v-btn>
           <div class="mx-4">{{ quantity }}</div>
-          <v-btn fab small @click="increaseQuantity()">
+          <v-btn fab x-small @click="increaseQuantity()">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
           <div class="mx-6 my-4 text-subtitle-2">
