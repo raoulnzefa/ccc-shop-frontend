@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar
       class="app-bar rounded-lg rounded-t-0"
-      style="height: 64px; position: fixed; z-index: 1"
+      style="height: 64px; position: fixed; z-index: 100"
       color="cyan lighten-4"
     >
       <v-toolbar-title style="height: 64px"></v-toolbar-title>
@@ -55,9 +55,13 @@
 
       <v-menu offset-y>
         <template v-slot:activator="{ attrs, on }">
-          <v-btn plain v-bind="attrs" v-on="on" v-if="$store.state.userStore.isLogin">{{
-            $store.state.userStore.username
-          }}</v-btn>
+          <v-btn
+            plain
+            v-bind="attrs"
+            v-on="on"
+            v-if="$store.state.userStore.isLogin"
+            >{{ $store.state.userStore.username }}</v-btn
+          >
         </template>
 
         <v-list>
@@ -99,7 +103,7 @@ export default {
       this.$store.dispatch("userStore/logoutUser");
       this.$router.push("/");
       location.reload();
-    }
+    },
   },
 };
 </script>
