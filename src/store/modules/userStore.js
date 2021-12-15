@@ -1,4 +1,4 @@
-import { login } from "@/api/userApi";
+import { loginUser } from "@/api/userApi";
 
 const blankUserData = {
   id: null,
@@ -33,7 +33,7 @@ const getters = {
 
 const actions = {
   async loginUser({ commit }, loginData) {
-    const userData = await login(loginData.username, loginData.password)
+    const userData = await loginUser(loginData.username, loginData.password)
 
     if (userData !== null) {
       sessionStorage.setItem("id", userData.id);

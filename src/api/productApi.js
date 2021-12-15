@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const getAllProduct = async function () {
-
+export const getAllProducts = async function () {
   try {
     const response = await axios.get("/api/product/get-all");
     return response.data;
