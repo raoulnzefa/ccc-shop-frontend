@@ -45,7 +45,7 @@
                       prepend-icon="mdi-account-group"
                     ></v-select>
                   </v-col>
-                  <v-col cols="12" md="6">
+                  <v-col cols="12" md="6" v-if="editedIndex === -1">
                     <v-text-field
                       v-model="editedItem.password"
                       label="Password*"
@@ -138,9 +138,9 @@
       <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
 
-    <template v-slot:no-data>
+    <!-- <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
-    </template>
+    </template> -->
   </v-data-table>
 </template>
 
@@ -222,20 +222,11 @@ export default {
     },
   },
 
-  created() {
-    this.initialize();
+  async mounted() {
+    this.users = await getAllUser();
   },
-
   methods: {
-    initialize() {
-      console.log("data", getAllUser());
-      this.users = getAllUser();
-      console.log("this.users", this.users);
-    },
-    mounted() {
-      // this.users = await getAllUser();
-      this.users = getAllUser();
-    },
+
     editItem(item) {
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);

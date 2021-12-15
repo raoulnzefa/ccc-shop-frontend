@@ -4,8 +4,6 @@ export const getAllProduct = async function () {
 
   try {
     const response = await axios.get("/api/product/get-all");
-    console.log("data", response.data);
-
     return response.data;
   } catch (err) {
     console.log(err);
@@ -26,7 +24,6 @@ export const createProduct = async function (name, userId, category, price, stoc
 
   try {
     const response = await axios.post("/api/product/create", json);
-    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err);

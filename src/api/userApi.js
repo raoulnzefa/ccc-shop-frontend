@@ -54,46 +54,46 @@ export const updateUser = async function (id, username, identity, password, phon
   }
 };
 
-// export const getAllUser = async function () {
-export const getAllUser = function () {
-  var users = [
-    {
-      id: "0",
-      username: "Frozen",
-      identity: "admin",
-      password: "12321312",
-      email: "fds@ggg",
-      phone: "0912312312",
-      creditCard: "123123123",
-      address: "home",
-    },
-    {
-      id: "1",
-      username: "Ice",
-      identity: "staff",
-      password: "1232131",
-      email: "hello@g",
-      phone: "0912312312",
-      creditCard: "12312312312",
-      address: "my address",
-    },
-    {
-      id: "2",
-      username: "hi",
-      identity: "customer",
-      password: "1232131",
-      email: "hello@g",
-      phone: "0912312312",
-      creditCard: "12312312312",
-      address: "my address",
-    },
-  ];
+export const getAllUser = async function () {
+// export const getAllUser = function () {
+  // var users = [
+  //   {
+  //     id: "0",
+  //     username: "Frozen",
+  //     identity: "admin",
+  //     password: "12321312",
+  //     email: "fds@ggg",
+  //     phone: "0912312312",
+  //     creditCard: "123123123",
+  //     address: "home",
+  //   },
+  //   {
+  //     id: "1",
+  //     username: "Ice",
+  //     identity: "staff",
+  //     password: "1232131",
+  //     email: "hello@g",
+  //     phone: "0912312312",
+  //     creditCard: "12312312312",
+  //     address: "my address",
+  //   },
+  //   {
+  //     id: "2",
+  //     username: "hi",
+  //     identity: "customer",
+  //     password: "1232131",
+  //     email: "hello@g",
+  //     phone: "0912312312",
+  //     creditCard: "12312312312",
+  //     address: "my address",
+  //   },
+  // ];
 
   try {
-    // const response = await axios.get("/api/user/get-all");
-    // console.log("response.data", response.data);
-    // return response.data;
-    return users;
+    const response = await axios.get("/api/user/get-all");
+    console.log("api: response.data.userList", response.data.userList);
+    return response.data.userList;
+    // return users;
   } catch (err) {
     console.log(err);
   }
