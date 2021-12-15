@@ -1,16 +1,6 @@
 import { getAllProduct } from "@/api/productApi";
 
-// product = {
-//   name: "",
-//   userId: "",
-//   category: "",
-//   price: "",
-//   stock: "",
-//   warehouseAddress: "",
-//   description: "",
-//   pictureURL: "",
-// }
-
+//   id: "",
 // "venderId": 2,
 // "name": "iPhone SE",
 // "category": "PHONE",

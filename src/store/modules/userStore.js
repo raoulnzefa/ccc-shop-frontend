@@ -1,6 +1,7 @@
 import { login } from "@/api/userApi";
 
 const blankUserData = {
+  id: null,
   username: "",
   identity: "",
   phone: "",
@@ -13,6 +14,7 @@ const blankUserData = {
 const getDefaultState = () => {
   return sessionStorage.getItem("username")
     ? {
+      id: sessionStorage.getItem("id"),
       username: sessionStorage.getItem("username"),
       identity: sessionStorage.getItem("identity"),
       phone: sessionStorage.getItem("phone"),
@@ -34,6 +36,7 @@ const actions = {
     const userData = await login(loginData.username, loginData.password)
 
     if (userData !== null) {
+      sessionStorage.setItem("id", userData.id);
       sessionStorage.setItem("username", userData.username);
       sessionStorage.setItem("identity", userData.identity);
       sessionStorage.setItem("phone", userData.phone);
@@ -44,6 +47,7 @@ const actions = {
     }
   },
   logoutUser({ commit }) {
+    sessionStorage.removeItem("id");
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("identity");
     sessionStorage.removeItem("phone");

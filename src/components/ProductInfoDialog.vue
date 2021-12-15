@@ -39,19 +39,13 @@
           <div class="mx-6 my-4 text-subtitle-2">
             只剩 {{ product.stock }} 個 !
           </div>
-          <!-- <v-btn
-            outlined
-            class="mx-3"
-            color="indigo"
-          >
-            看看大家怎麼說
-          </v-btn> -->
           <ReviewDialog />
         </v-row>
       </v-container>
 
       <v-card-actions>
         <v-btn
+          v-if="$store.state.userStore.isLogin"
           block
           class="mb-3"
           color="secondary"
@@ -60,6 +54,17 @@
         >
           加入購物車
         </v-btn>
+        <v-btn
+            v-else
+            block
+            disabled
+            class="mb-3"
+            color="secondary"
+            elevation="5"
+            @click="addProductToCart"
+        >
+          請先登入帳號以購買商品
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -67,6 +72,7 @@
 
 <script>
 import ReviewDialog from "./ReviewDialog";
+import {addProductToShoppingCart} from "../api/shoppingCartApi";
 
 export default {
   name: "ProductInfoDialog",
@@ -93,9 +99,7 @@ export default {
       this.quantity++;
     },
     addProductToCart() {
-      console.log("add product " + this.product.name + " to cart");
-      console.log("quantity: " + this.quantity);
-
+      addProductToShoppingCart(this.product.id, this.$store.state.userStore.id, this.quantity);
       this.isOpenDialog = false;
     },
   },
