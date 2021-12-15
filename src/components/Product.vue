@@ -22,7 +22,7 @@
     <v-card-text>
       <v-row align="center" class="mx-0">
         <v-rating
-          :value="4.5"
+          :value="product.rate"
           color="amber"
           dense
           half-increments

@@ -7,18 +7,17 @@
       </v-card-title>
 
       <v-card-text>
-        <p class="subtitle-2">{{ product.category }}</p>
+        <p class="subtitle-2">{{ product.venderName }}</p>
         <v-row align="center" class="mx-0">
           <v-rating
-            :value="4.5"
+            :value="product.rate"
             color="amber"
             dense
             half-increments
             readonly
             size="14"
           ></v-rating>
-
-          <div class="grey--text ms-4">4.5 (413)</div>
+          <!-- <div class="grey--text ms-4">{{ product.rate }}</div> -->
         </v-row>
 
         <div class="my-4 text-subtitle-1">$ {{ product.price }}</div>

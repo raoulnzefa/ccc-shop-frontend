@@ -140,9 +140,7 @@ export default {
             v
           ) || "電子郵件格式不符",
       ],
-      creditCardRules: [
-        // (v) => /^\d+$/.test(v) || "信用卡只能包含數字",
-      ],
+      creditCardRules: [],
       addressRules: [],
     };
   },

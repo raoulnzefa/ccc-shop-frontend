@@ -2,7 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="users"
-    sort-by="username"
+    sort-by="identity"
     class="elevation-5 my-10"
   >
     <template v-slot:top>
@@ -13,9 +13,7 @@
         <!-- new/edit item dialog -->
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="info" dark class="mb-2" v-bind="attrs" v-on="on">
-              New User
-            </v-btn>
+            <v-btn color="info" dark v-bind="attrs" v-on="on"> New User </v-btn>
           </template>
           <!-- new/edit item card -->
           <v-card>
