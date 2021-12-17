@@ -1,14 +1,19 @@
 <template>
   <div>
     <v-container class="d-flex flex-column justify-center align-center">
-      <h2>還沒寫啦，等一下嘛</h2>
+      <StaffPage></StaffPage>
     </v-container>
   </div>
 </template>
 
 <script>
+import StaffPage from "../components/StaffPage";
+
 export default {
   name: "Staff",
+    components: {
+    StaffPage,
+  }
 };
 </script>
 

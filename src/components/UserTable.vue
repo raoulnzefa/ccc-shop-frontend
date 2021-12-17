@@ -3,7 +3,7 @@
     :headers="headers"
     :items="users"
     sort-by="identity"
-    class="elevation-5 my-10"
+    class="elevation-5 my-5"
   >
     <template v-slot:top>
       <v-toolbar flat>
@@ -39,7 +39,7 @@
                     <v-select
                       v-model="editedItem.identity"
                       label="Identity*"
-                      :items="['admin', 'staff', 'customer']"
+                      :items="['ADMIN', 'STAFF', 'CUSTOMER']"
                       required
                       dense
                       prepend-icon="mdi-account-group"
@@ -146,7 +146,7 @@
 
 <script>
 import { createUser } from "@/api/userApi";
-// import { updateUser } from "@/api/userApi";
+import { updateUser } from "@/api/userApi";
 import { deleteUser } from "@/api/userApi";
 import { getAllUser } from "@/api/userApi";
 
@@ -188,6 +188,7 @@ export default {
     users: [],
     editedIndex: -1,
     editedItem: {
+      id: -1,
       username: "",
       identity: "",
       password: "",
@@ -197,6 +198,7 @@ export default {
       address: "",
     },
     defaultItem: {
+      id: -1,
       username: "",
       identity: "",
       password: "",
@@ -255,21 +257,21 @@ export default {
       });
     },
     save() {
-      const identities = ["admin", "staff", "customer"]
-      let identity = identities.indexOf(this.editedItem.identity).toString()
+      const identities = ["ADMIN", "STAFF", "CUSTOMER"];
+      let identity = identities.indexOf(this.editedItem.identity).toString();
 
       if (this.editedIndex > -1) {
         Object.assign(this.users[this.editedIndex], this.editedItem);
-        // updateUser(
-        //   this.editedItem.id,
-        //   this.editedItem.username,
-        //   "2",
-        //   this.editedItem.password,
-        //   this.editedItem.phone,
-        //   this.editedItem.email,
-        //   this.editedItem.creditCard,
-        //   this.editedItem.address
-        // );
+        updateUser(
+          this.editedItem.id,
+          this.editedItem.username,
+          identity,
+          this.editedItem.password,
+          this.editedItem.phone,
+          this.editedItem.email,
+          this.editedItem.creditCard,
+          this.editedItem.address
+        );
       } else {
         this.users.push(this.editedItem);
         createUser(
