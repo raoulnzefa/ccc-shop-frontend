@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="mx-10">
+  <v-card flat class="mx-10 my-5">
     <v-card-text>
       <v-container>
         <v-row>
@@ -69,8 +69,15 @@
           </v-col>
         </v-row>
         <v-row class="mx-3">
-        <v-spacer></v-spacer>
-        <v-btn color="primary" @click="save"> SAVE </v-btn>
+          <v-spacer></v-spacer>
+          <!-- <v-btn class="mr-3" color="success" @click="onEdit">
+            <v-icon left> mdi-pencil </v-icon>
+            edit
+          </v-btn> -->
+          <v-btn color="primary" @click="save">
+            <v-icon left> mdi-content-save-all </v-icon>
+            SAVE
+          </v-btn>
         </v-row>
       </v-container>
     </v-card-text>
@@ -84,6 +91,7 @@ export default {
   name: "AccountManagementPage",
   data: () => {
     return {
+      // isEditDisabled: true,
       usernameRules: [
         (v) => !!v || "欄位不可留空",
         (v) => /^[A-Za-z0-9]+$/.test(v) || "使用者名稱只能有英文字母或數字",
@@ -108,7 +116,11 @@ export default {
     };
   },
   methods: {
+    onEdit() {
+      // this.isEditDisabled = false;
+    },
     save() {
+      // this.isEditDisabled = true;
       updateUser(
         this.$store.state.userStore.id,
         this.$store.state.userStore.username,
@@ -119,6 +131,16 @@ export default {
         this.$store.state.userStore.creditCard,
         this.$store.state.userStore.address
       );
+      sessionStorage.setItem("id", this.$store.state.userStore.id);
+      sessionStorage.setItem("username", this.$store.state.userStore.username);
+      sessionStorage.setItem("identity", this.$store.state.userStore.identity);
+      sessionStorage.setItem("phone", this.$store.state.userStore.phone);
+      sessionStorage.setItem("email", this.$store.state.userStore.email);
+      sessionStorage.setItem(
+        "creditCard",
+        this.$store.state.userStore.creditCard
+      );
+      sessionStorage.setItem("address", this.$store.state.userStore.address);
     },
   },
 };

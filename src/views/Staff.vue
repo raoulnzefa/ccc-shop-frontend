@@ -11,9 +11,9 @@ import StaffPage from "../components/StaffPage";
 
 export default {
   name: "Staff",
-    components: {
+  components: {
     StaffPage,
-  }
+  },
 };
 </script>
 

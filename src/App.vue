@@ -28,7 +28,8 @@
 
       <router-link
         to="/admin"
-        v-if="$store.state.userStore.identity === 'admin'"
+        v-if="$store.state.userStore.identity === 'ADMIN'"
+        style="text-decoration: none"
       >
         <v-btn plain color="deep-purple accent-1"> admin </v-btn>
       </router-link>
@@ -36,14 +37,17 @@
       <router-link
         to="/staff"
         v-if="
-          $store.state.userStore.identity === 'staff' ||
-          $store.state.userStore.identity === 'admin'
+          $store.state.userStore.identity === 'STAFF' ||
+          $store.state.userStore.identity === 'ADMIN'
         "
+        style="text-decoration: none"
       >
         <v-btn plain color="teal darken-2"> staff </v-btn>
       </router-link>
 
-      <v-btn @click="$refs.signUpDialog.openDialog()" plain> 我想賣東西 </v-btn>
+      <v-btn @click="$refs.signUpDialog.openDialog()" plain>
+        我想成為商家
+      </v-btn>
 
       <v-btn
         @click="$refs.signInSignUpDialog.openDialog()"
@@ -76,7 +80,9 @@
 
       <router-link to="/cart">
         <v-btn icon>
-          <v-icon>mdi-cart-outline</v-icon>
+          <!-- <v-badge color="pink" dot> -->
+            <v-icon>mdi-cart</v-icon>
+          <!-- </v-badge> -->
         </v-btn>
       </router-link>
     </v-app-bar>

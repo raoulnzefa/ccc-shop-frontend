@@ -1,7 +1,7 @@
 <template>
-  <v-card height="700px" min-width="300px" class="elevation-5 my-5">
+  <v-card min-height="600px" min-width="300px" class="elevation-5 my-3">
     <v-toolbar flat color="primary" dark>
-      <v-toolbar-title
+      <v-toolbar-title class="pl-3"
         >{{ $store.state.userStore.username }}'s Management Page
       </v-toolbar-title>
     </v-toolbar>

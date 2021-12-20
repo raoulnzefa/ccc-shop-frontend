@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Admin -->
-    <v-container v-if="$store.state.userStore.identity === 'admin'">
+    <v-container v-if="$store.state.userStore.identity === 'ADMIN'">
       <UserTable />
     </v-container>
 
@@ -19,7 +19,7 @@ export default {
   name: "Admin",
   components: {
     UserTable,
-  }
+  },
 };
 </script>
 
