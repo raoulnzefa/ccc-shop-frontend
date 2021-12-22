@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- Admin -->
-    <v-container v-if="$store.state.userStore.identity === 'ADMIN'">
+    <v-container
+      v-if="$store.state.userStore.identity === 'ADMIN'"
+      style="max-width: 1500px"
+    >
       <UserTable />
     </v-container>
 

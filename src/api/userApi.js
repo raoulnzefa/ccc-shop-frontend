@@ -34,12 +34,11 @@ export const createUser = async function (username, identity, password, phone, e
   }
 };
 
-export const updateUser = async function (id, username, identity, password, phone, email, creditCard, address) {
+export const updateUser = async function (id, username, identity, phone, email, creditCard, address) {
   let json = {
     "id": id,
     "username": username,
     "identity": identity,
-    "password": password,
     "phone": phone,
     "email": email,
     "creditCard": creditCard,
@@ -55,7 +54,7 @@ export const updateUser = async function (id, username, identity, password, phon
 };
 
 export const getAllUser = async function () {
-// export const getAllUser = function () {
+  // export const getAllUser = function () {
   // var users = [
   //   {
   //     id: "0",
@@ -91,7 +90,6 @@ export const getAllUser = async function () {
 
   try {
     const response = await axios.get("/api/user/get-all");
-    console.log("api: response.data.userList", response.data.userList);
     return response.data.userList;
     // return users;
   } catch (err) {

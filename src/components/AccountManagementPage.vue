@@ -125,7 +125,6 @@ export default {
         this.$store.state.userStore.id,
         this.$store.state.userStore.username,
         "2",
-        this.$store.state.userStore.password,
         this.$store.state.userStore.phone,
         this.$store.state.userStore.email,
         this.$store.state.userStore.creditCard,
