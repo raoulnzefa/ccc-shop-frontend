@@ -44,24 +44,31 @@
 export default {
   name: "ShoppingCartItemRow",
   props: ["item"],
-  data: () => {
-    return {
-      totalPrice: 0
+  computed: {
+    totalPrice: function() {
+      return this.item.price * this.item.quantity
     }
-  },
-  mounted() {
-    this.totalPrice = this.item.price * this.item.quantity;
   },
   methods: {
     decreaseQuantity() {
       if (this.item.quantity <= 1) return;
       this.item.quantity--;
-      this.totalPrice = this.item.price * this.item.quantity;
+
+      this.$store.dispatch("shoppingCartStore/updateCartProductState", {
+        productId: this.item.id,
+        quantity: this.item.quantity,
+        venderName: this.item.venderName
+      })
     },
     increaseQuantity() {
       if (this.item.quantity >= this.item.stock) return;
       this.item.quantity++;
-      this.totalPrice = this.item.price * this.item.quantity;
+
+      this.$store.dispatch("shoppingCartStore/updateCartProductState", {
+        productId: this.item.id,
+        quantity: this.item.quantity,
+        venderName: this.item.venderName
+      })
     },
     deleteCartItem() {
       console.log("刪除");

@@ -1,4 +1,4 @@
-import { getShoppingCartProducts } from "../../api/shoppingCartApi";
+import { getShoppingCartProducts, updateShoppingCartProduct } from "../../api/shoppingCartApi";
 
 const state = {
     cartProducts: [],
@@ -17,15 +17,30 @@ const getters = {
 }
 
 const actions = {
-    async loadUserCartProducts({ commit }, id) {
-        const cartData = await getShoppingCartProducts(id)
-        commit('updateUserCartState', cartData.shoppingCartItems)
+    async loadUserCartProducts({ commit }, customerId) {
+        const cartData = await getShoppingCartProducts(customerId)
+        commit('updateAllUserCartState', cartData.shoppingCartItems)
+    },
+    async updateCartProductState({ commit }, productData) {
+        commit('updateProductState', productData)
+    },
+    async updateCartStateToBackend({ state }, customerId) {
+        for (const shop of state.cartProducts) {
+            for (const item of shop.items) {
+                await updateShoppingCartProduct(item.id, customerId, item.quantity)
+            }
+        }
     }
 }
 
 const mutations = {
-    updateUserCartState(state, shoppingCartProducts) {
+    updateAllUserCartState(state, shoppingCartProducts) {
         state.cartProducts = shoppingCartProducts
+    },
+    updateProductState(state, productData) {
+        const shopIndex = state.cartProducts.findIndex(shop => shop.venderName === productData.venderName)
+        const productIndex = state.cartProducts[shopIndex].items.findIndex(item => item.id === productData.productId)
+        state.cartProducts[shopIndex].items[productIndex].quantity = productData.quantity
     }
 }
 

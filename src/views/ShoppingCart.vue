@@ -47,6 +47,10 @@ export default {
     purchaseCartItems() {
       console.log("下單");
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$store.dispatch("shoppingCartStore/updateCartStateToBackend", this.$store.state.userStore.id)
+    next()
   }
 };
 </script>
