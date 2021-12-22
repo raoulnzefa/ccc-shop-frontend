@@ -39,7 +39,7 @@
           <div class="mx-6 my-4 text-subtitle-2">
             只剩 {{ product.stock }} 個 !
           </div>
-          <ReviewDialog />
+          <ReviewDialog :productId="this.product.id"/>
         </v-row>
       </v-container>
 

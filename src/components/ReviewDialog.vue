@@ -1,15 +1,59 @@
 <template>
-  <v-dialog transition="dialog-bottom-transition" width="400">
+  <v-dialog width="400">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn outlined class="mx-3" color="indigo" v-bind="attrs" v-on="on"
+      <v-btn
+        outlined
+        class="mx-3"
+        color="indigo"
+        v-bind="attrs"
+        v-on="on"
+        @click="getReviews"
         >看看大家怎麼說</v-btn
       >
     </template>
     <template v-slot:default="dialog">
       <v-card>
-        <v-toolbar color="primary" dark>Reviews</v-toolbar>
-        <v-card-text>
-          <div class="text-h6 py-5">Hello world!</div>
+        <v-toolbar color="indigo" dark>買家真心話</v-toolbar>
+        <v-card-text class="text-center mt-3 pb-1">
+          <div v-if="reviews.length === 0">
+            <v-row dense>
+              <v-col>
+                <div class="text-h5 mt-4">No review, Only me...</div>
+                <div class="text--lighten-1 mt-5">⧸⎩⎠⎞͏(・∀・)⎛͏⎝⎭⧹</div>
+              </v-col>
+            </v-row>
+          </div>
+          <div
+            class="subtitle-1 py-3"
+            v-for="review in reviews"
+            :key="review.customerId"
+          >
+            <v-row dense>
+              <v-col cols="1">
+                <v-icon small color="black"> mdi-account </v-icon>
+              </v-col>
+              <v-col>
+                <div style="color: black; font-weight: 600">
+                  {{ review.customerName }} :
+                </div>
+              </v-col>
+            </v-row>
+
+            <v-row dense>
+              <v-col>
+                <div>{{ review.comment }}</div>
+              </v-col>
+              <v-col cols="1">
+                <v-icon small color="blue lighten-2" v-if="review.rating >= 3">
+                  mdi-thumb-up
+                </v-icon>
+                <v-icon small color="red lighten-2" v-else>
+                  mdi-thumb-down
+                </v-icon>
+              </v-col>
+            </v-row>
+            <v-divider></v-divider>
+          </div>
         </v-card-text>
         <v-card-actions class="justify-end">
           <v-btn text @click="dialog.value = false">Close</v-btn>
@@ -20,7 +64,22 @@
 </template>
 
 <script>
-export default {};
+import { getReviews } from "@/api/reviewApi";
+
+export default {
+  props: ["productId"],
+  data: () => {
+    return {
+      reviews: [],
+    };
+  },
+  methods: {
+    async getReviews() {
+      this.reviews = await getReviews(this.productId);
+      console.log(this.reviews.length);
+    },
+  },
+};
 </script>
 
 <style>
