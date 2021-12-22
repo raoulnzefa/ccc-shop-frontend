@@ -27,7 +27,7 @@
 
     <!-- products -->
     <v-container class="mb-4">
-      <v-row justify="start">
+      <v-row justify="center">
         <div
           v-for="product in getShowingProducts()"
           :key="product.name"
@@ -82,4 +82,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#home {
+  background-image: url(https://mdn.mozillademos.org/files/11307/bubbles.png),
+    linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0));
+
+  background-repeat: no-repeat, no-repeat, no-repeat;
+
+  background-position: bottom right, left, right;
+}
+
+</style>

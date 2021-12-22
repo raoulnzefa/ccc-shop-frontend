@@ -1,10 +1,10 @@
 <template>
   <v-row class="text-center welcome-page" align="center">
     <v-col cols="4">
-      <h1 class="font-weight-medium mt-5 ml-10 text-left">
+      <h1 class="font-weight-medium mt-5 ml-10 pl-10 text-left">
         <i>Welcome to CCC Shop</i>
       </h1>
-      <h3 class="headline font-weight-regular ml-10 text-left">
+      <h3 class="headline font-weight-regular ml-10 pl-10 text-left">
         <i>— Laugh out Loud =)</i>
       </h3>
     </v-col>
@@ -34,13 +34,13 @@ export default {
     return {
       items: [
         {
-          src: "https://techsaydigi.com/wp-content/uploads/2021/10/c5482f525b8615658cc1a33d35ce0fed.jpg",
+          src: "https://i.imgur.com/imJCVKW.png",
+        },
+        {
+          src: "https://dlcdnwebimgs.asus.com/gain/c05b6491-6d2b-48f0-81f0-d268840208d6/",
         },
         {
           src: "https://cdn2.ettoday.net/images/5953/5953731.jpg",
-        },
-        {
-          src: "https://www.apple.com/newsroom/images/product/mac/standard/Apple_MacBook-Pro_14-16-inch_10182021_big.jpg.slideshow-xlarge_2x.jpg",
         },
         {
           src: "https://s.yimg.com/os/creatr-uploaded-images/2020-09/412dfe00-f77c-11ea-afdf-134045af78fd",
@@ -52,7 +52,31 @@ export default {
 </script>
 
 <style>
-.welcome-page {
+/* .welcome-page {
   background-color: aliceblue;
+} */
+
+.welcome-page {
+  animation-duration: 3s;
+  animation-name: slideIn;
+  font-size: 140%;
+}
+
+@keyframes slideIn {
+  from {
+    margin-right: 50%;
+    width: 200%;
+  }
+
+  75% {
+    font-size: 200%;
+    margin-right: 25%;
+    width: 150%;
+  }
+
+  to {
+    margin-right: 10%;
+    width: 100%;
+  }
 }
 </style>

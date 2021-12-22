@@ -10,19 +10,7 @@
               type="text"
               :rules="usernameRules"
               required
-              dense
               prepend-icon="mdi-account-circle"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-text-field
-              v-model="$store.state.userStore.password"
-              label="密碼"
-              type="password"
-              :rules="passwordRules"
-              required
-              dense
-              prepend-icon="mdi-lock"
             ></v-text-field>
           </v-col>
           <v-col cols="12">
@@ -32,7 +20,6 @@
               type="tel"
               :rules="phoneRules"
               required
-              dense
               prepend-icon="mdi-cellphone"
             ></v-text-field>
           </v-col>
@@ -43,7 +30,6 @@
               type="email"
               :rules="emailRules"
               required
-              dense
               prepend-icon="mdi-email"
             ></v-text-field>
           </v-col>
@@ -53,7 +39,6 @@
               label="信用卡"
               type="text"
               :rules="creditCardRules"
-              dense
               prepend-icon="mdi-credit-card"
             ></v-text-field>
           </v-col>
@@ -63,7 +48,6 @@
               label="住址"
               type="text"
               :rules="addressRules"
-              dense
               prepend-icon="mdi-map-marker"
             ></v-text-field>
           </v-col>
@@ -95,10 +79,6 @@ export default {
       usernameRules: [
         (v) => !!v || "欄位不可留空",
         (v) => /^[A-Za-z0-9]+$/.test(v) || "使用者名稱只能有英文字母或數字",
-      ],
-      passwordRules: [
-        (v) => !!v || "欄位不可留空",
-        (v) => (v && v.length >= 6) || "密碼至少需有 6 個字元",
       ],
       phoneRules: [
         (v) => !!v || "欄位不可留空",

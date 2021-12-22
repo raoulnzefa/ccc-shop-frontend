@@ -88,7 +88,7 @@
     </v-app-bar>
 
     <v-main>
-      <div style="margin-top: 80px"></div>
+      <div style="margin-top: 75px"></div>
       <router-view />
     </v-main>
   </v-app>

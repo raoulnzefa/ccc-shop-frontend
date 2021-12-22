@@ -1,8 +1,14 @@
 <template>
-  <v-card min-height="600px" min-width="300px" class="elevation-5 my-3">
+  <v-card
+    min-height="600px"
+    min-width="300px"
+    max-width="1600px"
+    class="elevation-5 my-3"
+  >
     <v-toolbar flat color="primary" dark>
-      <v-toolbar-title class="pl-3"
-        >{{ $store.state.userStore.username }}'s Management Page
+      <v-toolbar-title class="pl-3">
+        <v-icon class="mr-3"> mdi-wrench </v-icon>
+        {{ $store.state.userStore.username }}'s Management Page
       </v-toolbar-title>
     </v-toolbar>
     <v-tabs vertical>
@@ -28,7 +34,7 @@
       </v-tab>
 
       <v-tab-item>
-        <AccountManagementPage />
+        <AccountManagementTab />
       </v-tab-item>
 
       <v-tab-item>
@@ -137,12 +143,12 @@
 </template>
 
 <script>
-import AccountManagementPage from "./AccountManagementPage";
+import AccountManagementTab from "./AccountManagementTab";
 
 export default {
   name: "StaffPage",
   components: {
-    AccountManagementPage,
+    AccountManagementTab,
   },
 };
 </script>
