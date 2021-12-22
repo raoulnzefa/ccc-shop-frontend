@@ -1,4 +1,4 @@
-import { getAllProducts } from "@/api/productApi";
+import { getAllProducts } from "../../api/productApi";
 
 //   id: "",
 // "venderId": 2,

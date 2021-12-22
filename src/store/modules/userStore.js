@@ -1,4 +1,4 @@
-import { loginUser } from "@/api/userApi";
+import { loginUser } from "../../api/userApi";
 
 const blankUserData = {
   id: null,
@@ -25,11 +25,10 @@ const getDefaultState = () => {
     }
     : blankUserData;
 };
+
 const state = getDefaultState();
 
-const getters = {
-
-}
+const getters = {}
 
 const actions = {
   async loginUser({ commit }, loginData) {
