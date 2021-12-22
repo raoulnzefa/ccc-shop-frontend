@@ -8,9 +8,7 @@ const getters = {
     getShoppingCartTotalPrice(state) {
         let totalPrice = 0
         for (const shop of state.cartProducts) {
-            console.log(shop)
             for (const item of shop.items) {
-                console.log(item.price + "*" + item.quantity)
                 totalPrice += item.price * item.quantity
             }
         }
