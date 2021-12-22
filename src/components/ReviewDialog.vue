@@ -14,12 +14,16 @@
     <template v-slot:default="dialog">
       <v-card>
         <v-toolbar color="indigo" dark>買家真心話</v-toolbar>
-        <v-card-text class="text-center mt-3 pb-1">
+        <v-card-text class="mt-3 pb-1">
           <div v-if="reviews.length === 0">
             <v-row dense>
               <v-col>
-                <div class="text-h5 mt-4">No review, Only me...</div>
-                <div class="text--lighten-1 mt-5">⧸⎩⎠⎞͏(・∀・)⎛͏⎝⎭⧹</div>
+                <div class="text-center text-h5 mt-4">
+                  No review, Only me...
+                </div>
+                <div class="text-center text--lighten-1 mt-5">
+                  ⧸⎩⎠⎞͏(・∀・)⎛͏⎝⎭⧹
+                </div>
               </v-col>
             </v-row>
           </div>
@@ -30,7 +34,7 @@
           >
             <v-row dense>
               <v-col cols="1">
-                <v-icon small color="black"> mdi-account </v-icon>
+                <v-icon small color="indigo"> mdi-account </v-icon>
               </v-col>
               <v-col>
                 <div style="color: black; font-weight: 600">
