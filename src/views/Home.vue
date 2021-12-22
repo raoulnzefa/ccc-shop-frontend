@@ -63,7 +63,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch("productStore/loadAllProducts");
-    // this.$store.dispatch("productStore/loadAllProductsFake");
   },
   methods: {
     getShowingProducts() {

@@ -5,22 +5,23 @@ const state = {
 }
 
 const getters = {
-    // getShoppingCartTotalPrice(state) {
-    //     let totalPrice = 0
-    //     for (let shoppingCart in state.cartProducts) {
-    //         for (let items in shoppingCart.items) {
-    //             totalPrice += items.price * items.quantity
-    //         }
-    //     }
-    //     return totalPrice
-    // }
+    getShoppingCartTotalPrice(state) {
+        let totalPrice = 0
+        for (const shop of state.cartProducts) {
+            console.log(shop)
+            for (const item of shop.items) {
+                console.log(item.price + "*" + item.quantity)
+                totalPrice += item.price * item.quantity
+            }
+        }
+        return totalPrice
+    }
 }
 
 const actions = {
     async loadUserCartProducts({ commit }, id) {
         const cartData = await getShoppingCartProducts(id)
         commit('updateUserCartState', cartData.shoppingCartItems)
-        console.log(state.cartProducts)
     }
 }
 

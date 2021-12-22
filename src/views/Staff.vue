@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container class="d-flex flex-column justify-center align-center">
-      <StaffPage></StaffPage>
+      <StaffPage />
     </v-container>
   </div>
 </template>

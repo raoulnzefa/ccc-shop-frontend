@@ -16,11 +16,7 @@ import ShoppingCartItemRow from "./ShoppingCartItemRow";
 export default {
   name: "ShoppingCartCard",
   components: {ShoppingCartItemRow},
-  props: ["items"],
-  mounted() {
-    // console.log("shopping cart card")
-    // console.log(this.items)
-  }
+  props: ["items"]
 }
 </script>
 
