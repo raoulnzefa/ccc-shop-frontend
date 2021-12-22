@@ -14,3 +14,16 @@ export const addProductToShoppingCart = async function (productId, customerId, q
         console.log(err);
     }
 };
+
+export const getShoppingCartProducts = async function (id) {
+    let json = {
+        "id": id
+    }
+
+    try {
+        const response = await axios.post("/api/shopping-cart/get", json)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+}

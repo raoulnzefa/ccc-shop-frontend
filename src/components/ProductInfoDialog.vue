@@ -98,8 +98,9 @@ export default {
       if (this.quantity >= this.product.stock) return;
       this.quantity++;
     },
-    addProductToCart() {
-      addProductToShoppingCart(this.product.id, this.$store.state.userStore.id, this.quantity);
+    async addProductToCart() {
+      const data = await addProductToShoppingCart(this.product.id, this.$store.state.userStore.id, this.quantity);
+      console.log(data) // debug
       this.isOpenDialog = false;
     },
   },
