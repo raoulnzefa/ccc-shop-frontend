@@ -2,7 +2,7 @@
   <div>
     <!-- Logged in -->
     <v-container class="d-flex flex-column justify-center align-center pt-4" v-if="$store.state.userStore.isLogin">
-      <h1>{{ $store.state.userStore.username }} 的購物車</h1>
+      <h3 class="text-h3">{{ $store.state.userStore.username }} 的購物車</h3>
       <ShoppingCartCard v-for="items in shoppingCartItems" :key="items.venderName" :items="items" />
       <v-row class="d-flex flex-row justify-space-between align-center ma-4">
         <h3>總金額：$34000</h3>
