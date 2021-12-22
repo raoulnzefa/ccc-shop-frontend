@@ -4,12 +4,6 @@
     <v-container class="d-flex flex-column justify-center align-center pt-4" v-if="$store.state.userStore.isLogin">
       <h3 class="text-h3">{{ $store.state.userStore.username }} 的購物車</h3>
       <ShoppingCartCard v-for="(items, index) in $store.state.shoppingCartStore.cartProducts" :key="index" :items="items" />
-      <v-row class="d-flex flex-row justify-space-between align-center ma-4">
-        <h3>總金額：$ {{ totalPrice }}</h3>
-        <v-btn color="cyan" class="white--text ma-5" @click="purchaseCartItems()">
-          立即下單
-        </v-btn>
-      </v-row>
     </v-container>
 
     <!-- Not logged in -->
@@ -42,11 +36,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
-  },
-  methods: {
-    purchaseCartItems() {
-      console.log("下單");
-    }
   },
   beforeRouteLeave(to, from, next) {
     this.$store.dispatch("shoppingCartStore/updateCartStateToBackend", this.$store.state.userStore.id)
