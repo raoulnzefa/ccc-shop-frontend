@@ -18,8 +18,8 @@ export default {
   components: {ShoppingCartItemRow},
   props: ["items"],
   mounted() {
-    console.log("shopping cart card")
-    console.log(this.items)
+    // console.log("shopping cart card")
+    // console.log(this.items)
   }
 }
 </script>
