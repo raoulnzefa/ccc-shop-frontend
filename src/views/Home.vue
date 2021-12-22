@@ -4,14 +4,13 @@
     <Welcome />
 
     <!-- dropdown menu -->
-    <v-container class="mt-12 mb-4">
+    <v-container class="mt-5">
       <v-menu>
         <template v-slot:activator="{ attrs, on }">
           <v-btn color="cyan" class="white--text ma-5" v-bind="attrs" v-on="on">
             Category: {{ categories[selectedIndex] }}
           </v-btn>
         </template>
-
         <v-list>
           <v-list-item
             v-for="(category, index) in categories"
@@ -85,7 +84,7 @@ export default {
 <style>
 #home {
   background-image: url(https://mdn.mozillademos.org/files/11307/bubbles.png),
-    linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0));
+    linear-gradient(to right, rgb(73, 127, 173), rgba(255, 255, 255, 0));
 
   background-repeat: no-repeat, no-repeat, no-repeat;
 
