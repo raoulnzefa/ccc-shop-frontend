@@ -72,7 +72,7 @@
 
 <script>
 import ReviewDialog from "./ReviewDialog";
-import {addProductToShoppingCart} from "../api/shoppingCartApi";
+import {addShoppingCartProduct} from "../api/shoppingCartApi";
 
 export default {
   name: "ProductInfoDialog",
@@ -99,8 +99,9 @@ export default {
       this.quantity++;
     },
     async addProductToCart() {
-      const data = await addProductToShoppingCart(this.product.id, this.$store.state.userStore.id, this.quantity);
-      console.log(data) // debug
+      await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
+      // const data = await addProductToShoppingCart(this.product.id, this.$store.state.userStore.id, this.quantity);
+      // console.log(data) // debug
       this.isOpenDialog = false;
     },
   },

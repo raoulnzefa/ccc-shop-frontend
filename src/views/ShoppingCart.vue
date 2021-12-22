@@ -5,7 +5,7 @@
       <h3 class="text-h3">{{ $store.state.userStore.username }} 的購物車</h3>
       <ShoppingCartCard v-for="(items, index) in $store.state.shoppingCartStore.cartProducts" :key="index" :items="items" />
       <v-row class="d-flex flex-row justify-space-between align-center ma-4">
-        <h3>總金額：$ ?</h3>
+        <h3>總金額：$ {{ totalPrice }}</h3>
         <v-btn color="cyan" class="white--text ma-5" @click="purchaseCartItems()">
           立即下單
         </v-btn>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 import SignInDialog from "../components/SignInDialog";
 import ShoppingCartCard  from "../components/ShoppingCartCard";
 
@@ -34,10 +35,13 @@ export default {
     ShoppingCartCard,
     SignInDialog
   },
+  computed: {
+    ...mapGetters("shoppingCartStore", {
+      totalPrice: "getShoppingCartTotalPrice"
+    })
+  },
   mounted() {
     this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
-    // const data = await getShoppingCartProducts(this.$store.state.userStore.id)
-    // this.shoppingCartItems = data.shoppingCartItems
   },
   methods: {
     purchaseCartItems() {
