@@ -100,8 +100,6 @@ export default {
     },
     async addProductToCart() {
       await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
-      // const data = await addProductToShoppingCart(this.product.id, this.$store.state.userStore.id, this.quantity);
-      // console.log(data) // debug
       this.isOpenDialog = false;
     },
   },

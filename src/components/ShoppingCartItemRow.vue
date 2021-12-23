@@ -1,14 +1,13 @@
 <template>
   <v-row justify="space-between" align="center" class="pl-4">
     <v-col cols="1">
-      <v-checkbox :input-value="false"></v-checkbox>
+      <v-checkbox v-model="checkbox" @change="updateSelectedState()"></v-checkbox>
     </v-col>
     <v-col cols="3">
       <v-img
           :src="item.pictureURL"
           max-height="200"
           max-width="300"
-          class=""
       ></v-img>
     </v-col>
     <v-col cols="4">
@@ -46,22 +45,41 @@ export default {
   props: ["item"],
   data: () => {
     return {
-      totalPrice: 0
+      checkbox: false
     }
   },
-  mounted() {
-    this.totalPrice = this.item.price * this.item.quantity;
+  computed: {
+    totalPrice: function () {
+      return this.item.price * this.item.quantity;
+    }
   },
   methods: {
     decreaseQuantity() {
       if (this.item.quantity <= 1) return;
       this.item.quantity--;
-      this.totalPrice = this.item.price * this.item.quantity;
+
+      this.$store.dispatch("shoppingCartStore/updateCartProductQuantity", {
+        productId: this.item.id,
+        quantity: this.item.quantity,
+        venderName: this.item.venderName
+      });
     },
     increaseQuantity() {
       if (this.item.quantity >= this.item.stock) return;
       this.item.quantity++;
-      this.totalPrice = this.item.price * this.item.quantity;
+
+      this.$store.dispatch("shoppingCartStore/updateCartProductQuantity", {
+        productId: this.item.id,
+        quantity: this.item.quantity,
+        venderName: this.item.venderName
+      });
+    },
+    updateSelectedState() {
+      this.$store.dispatch("shoppingCartStore/updateCartProductSelected", {
+        productId: this.item.id,
+        venderName: this.item.venderName,
+        selected: this.checkbox
+      })
     },
     deleteCartItem() {
       console.log("刪除");

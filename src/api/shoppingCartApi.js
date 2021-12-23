@@ -36,7 +36,7 @@ export const updateShoppingCartProduct = async function (productId, customerId, 
     }
 
     try {
-        const response = await axios.post("/api/shopping-cart/get", json)
+        const response = await axios.post("/api/shopping-cart/update", json)
         return response.data
     } catch (err) {
         console.log(err)
