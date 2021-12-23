@@ -29,6 +29,11 @@ export default {
     shopTotalPrice: function () {
       return this.$store.getters['shoppingCartStore/getShopTotalPrice'](this.items.venderName)
     }
+  },
+  methods: {
+    purchaseItemsFromShop() {
+
+    }
   }
 }
 </script>
