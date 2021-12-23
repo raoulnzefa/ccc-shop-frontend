@@ -9,10 +9,10 @@ export const getAllProducts = async function () {
   }
 };
 
-export const createProduct = async function (name, userId, category, price, stock, warehouseAddress, description, pictureURL) {
+export const createProduct = async function (name, venderId, category, price, stock, warehouseAddress, description, pictureURL) {
   let json = {
     "name": name,
-    "userId": userId,
+    "venderId": venderId,
     "category": category,
     "price": price,
     "stock": stock,

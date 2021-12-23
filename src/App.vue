@@ -72,6 +72,9 @@
           <v-list-item link @click="logoutUser()">
             <v-list-item-title v-text="'登出'"></v-list-item-title>
           </v-list-item>
+          <v-list-item link @click="logoutUser()">
+            <v-list-item-title v-text="'登出'"></v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
 
