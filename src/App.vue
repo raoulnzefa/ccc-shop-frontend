@@ -81,14 +81,14 @@
       <router-link to="/cart">
         <v-btn icon>
           <!-- <v-badge color="pink" dot> -->
-            <v-icon>mdi-cart</v-icon>
+          <v-icon>mdi-cart</v-icon>
           <!-- </v-badge> -->
         </v-btn>
       </router-link>
     </v-app-bar>
 
     <v-main>
-      <div style="margin-top: 75px"></div>
+      <div style="margin-top: 64px"></div>
       <router-view />
     </v-main>
   </v-app>

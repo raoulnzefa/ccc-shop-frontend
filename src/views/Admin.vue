@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="theme">
     <!-- Admin -->
     <v-container
       v-if="$store.state.userStore.identity === 'ADMIN'"
@@ -26,4 +26,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.theme {
+  background-image: linear-gradient(to bottom, rgb(50, 155, 165), rgba(255, 255, 255, 0));
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: bottom right, left, right;
+  min-height: 900px;
+}
+</style>

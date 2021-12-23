@@ -123,11 +123,10 @@ export default {
 <style>
 #home {
   background-image: url(https://mdn.mozillademos.org/files/11307/bubbles.png),
-    linear-gradient(to right, rgb(73, 127, 173), rgba(255, 255, 255, 0));
-
+    linear-gradient(to bottom, rgba(34, 86, 155, 0.911), rgba(255, 255, 255, 0));
   background-repeat: no-repeat, no-repeat, no-repeat;
-
   background-position: bottom right, left, right;
+  font-family: monospace;
 }
 
 .broadcaster {
