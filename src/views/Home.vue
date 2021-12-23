@@ -3,6 +3,43 @@
     <!-- header -->
     <Welcome />
 
+    <v-container class="broadcaster discount mt-5" style="max-width: 1600px">
+      <div>
+        <div
+          v-for="shippingDiscounts in $store.state.discountStore
+            .shippingDiscounts"
+          :key="shippingDiscounts.discountCode"
+        >
+          <v-icon class="mx-2"> mdi-bullhorn </v-icon>
+          {{ shippingDiscounts.policyDescription }}
+        </div>
+      </div>
+
+      <div>
+        <div
+          class="mt-5"
+          v-for="seasoningsDiscounts in $store.state.discountStore
+            .seasoningsDiscounts"
+          :key="seasoningsDiscounts.discountCode"
+        >
+          <v-icon class="mx-2"> mdi-bullhorn </v-icon>
+          {{ seasoningsDiscounts.policyDescription }}
+        </div>
+      </div>
+
+      <div>
+        <div
+          class="mt-5"
+          v-for="specialDiscounts in $store.state.discountStore
+            .specialDiscounts"
+          :key="specialDiscounts.discountCode"
+        >
+          <v-icon class="mx-2"> mdi-bullhorn </v-icon>
+          {{ specialDiscounts.policyDescription }}
+        </div>
+      </div>
+    </v-container>
+
     <!-- dropdown menu -->
     <v-container class="mt-5">
       <v-menu>
@@ -62,6 +99,9 @@ export default {
   },
   mounted() {
     this.$store.dispatch("productStore/loadAllProducts");
+    this.$store.dispatch("discountStore/loadCurrentShippingDiscount");
+    this.$store.dispatch("discountStore/loadCurrentSpecialDiscount");
+    this.$store.dispatch("discountStore/loadCurrentSeasoningDiscount");
   },
   methods: {
     getShowingProducts() {
@@ -90,4 +130,11 @@ export default {
   background-position: bottom right, left, right;
 }
 
+.broadcaster {
+  background-color: rgb(46, 187, 145);
+}
+
+.discount {
+  border-radius: 10px;
+}
 </style>
