@@ -41,7 +41,7 @@
     </v-container>
 
     <!-- dropdown menu -->
-    <v-container class="mt-5">
+    <!-- <v-container class="mt-5">
       <v-menu>
         <template v-slot:activator="{ attrs, on }">
           <v-btn color="cyan" class="white--text ma-5" v-bind="attrs" v-on="on">
@@ -59,19 +59,38 @@
           </v-list-item>
         </v-list>
       </v-menu>
-    </v-container>
-
-    <!-- products -->
-    <v-container class="mb-4">
-      <v-row justify="center">
-        <div
-          v-for="product in getShowingProducts()"
-          :key="product.name"
-          class="pa-4"
-        >
-          <Product :product="product" />
-        </div>
-      </v-row>
+    </v-container> -->
+    <v-container
+      class="d-flex justify-center align-center"
+      style="width: 1600px"
+    >
+      <v-card color="product" style="width: 1600px">
+        <v-card-title class="text-center justify-center py-6">
+          <h1 class="font-weight-bold text-h2 product--text">Products</h1>
+        </v-card-title>
+        <v-tabs color="product" fixed-tabs background-color="transparent">
+          <v-tab @click="chooseCategory(0)">ALL</v-tab>
+          <v-tab @click="chooseCategory(1)">COMPUTER</v-tab>
+          <v-tab @click="chooseCategory(2)">NOTEBOOK</v-tab>
+          <v-tab @click="chooseCategory(3)">TABLET</v-tab>
+          <v-tab @click="chooseCategory(4)">PHONE</v-tab>
+          <v-tab-item v-for="n in 5" :key="n">
+            <v-card color="product">
+              <v-container>
+                <v-row justify="center">
+                  <div
+                    v-for="product in getShowingProducts()"
+                    :key="product.name"
+                    class="pa-4"
+                  >
+                    <Product :product="product" />
+                  </div>
+                </v-row>
+              </v-container>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
+      </v-card>
     </v-container>
 
     <!-- footer -->
@@ -130,10 +149,17 @@ export default {
 }
 
 .broadcaster {
-  background-color: rgb(46, 187, 145);
+  background-color: #b4ebca;
 }
 
 .discount {
   border-radius: 10px;
+}
+
+.product {
+  background-color: #fffbe6 !important;
+}
+.product--text {
+  color: #356859 !important;
 }
 </style>
