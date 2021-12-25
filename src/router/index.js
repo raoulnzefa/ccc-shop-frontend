@@ -35,6 +35,22 @@ const routes = [
     meta: {
       title: 'CCC Shop - 賣家'
     }
+  },
+  {
+    path: '/my-order',
+    name: 'MyOrder',
+    component: () => import('../views/MyOrder.vue'),
+    meta: {
+      title: 'CCC Shop - 我的訂單'
+    }
+  },
+  {
+    path: '/my-account',
+    name: 'MyAccount',
+    component: () => import('../views/MyAccount.vue'),
+    meta: {
+      title: 'CCC Shop - 帳號管理'
+    }
   }
 ]
 

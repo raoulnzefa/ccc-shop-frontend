@@ -56,8 +56,7 @@
       >
         登入/註冊
       </v-btn>
-
-      <v-menu offset-y>
+      <v-menu offset-y open-on-hover>
         <template v-slot:activator="{ attrs, on }">
           <v-btn
             plain
@@ -68,10 +67,21 @@
           >
         </template>
 
-        <v-list>
-          <v-list-item link @click="logoutUser()">
-            <v-list-item-title v-text="'登出'"></v-list-item-title>
-          </v-list-item>
+        <v-list class="mx-auto text-center">
+          <router-link to="/my-order" style="text-decoration: none">
+            <v-list-item link>
+              <v-list-item-title v-text="'訂單查詢'"></v-list-item-title>
+            </v-list-item>
+          </router-link>
+
+          <v-divider />
+          <router-link to="/my-account" style="text-decoration: none">
+            <v-list-item link>
+              <v-list-item-title v-text="'帳號設定'"></v-list-item-title>
+            </v-list-item>
+          </router-link>
+
+          <v-divider />
           <v-list-item link @click="logoutUser()">
             <v-list-item-title v-text="'登出'"></v-list-item-title>
           </v-list-item>

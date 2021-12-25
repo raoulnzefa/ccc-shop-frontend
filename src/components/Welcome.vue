@@ -1,12 +1,10 @@
 <template>
   <v-row class="text-center welcome-page mt-7" align="center">
     <v-col cols="4">
-      <h1 class="font-weight-medium mt-5 ml-10 pl-10 text-left">
-        <i>Welcome to CCC Shop</i>
+      <h1 class="font-weight-medium mt-5 text-center">
+        <i>CCC Shop</i>
       </h1>
-      <h3 class="headline font-weight-regular ml-10 pl-10 text-left">
-        <i>— Laugh out Loud =)</i>
-      </h3>
+      <h5 class="font-weight-regular text-center">享受尊爵不凡的購物體驗</h5>
     </v-col>
     <v-col cols="8">
       <v-carousel
@@ -56,20 +54,28 @@ export default {
   background-color: aliceblue;
 } */
 
+.welcome-page h1 {
+  color: rgb(243 222 76);
+}
+
+.welcome-page h5 {
+  color: rgb(199 207 136);
+}
+
 .welcome-page {
   animation-duration: 3s;
   animation-name: slideIn;
-  font-size: 140%;
+  font-size: 200%;
 }
 
 @keyframes slideIn {
   from {
     margin-right: 50%;
-    width: 200%;
+    width: 300%;
   }
 
   75% {
-    font-size: 200%;
+    font-size: 300%;
     margin-right: 25%;
     width: 150%;
   }
