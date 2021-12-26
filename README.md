@@ -30,7 +30,9 @@ Vue chart demo: https://apexcharts.com/vue-chart-demos/area-charts/spline/
 reference: https://github.com/apexcharts/vue-apexcharts
 
 Setup
+```
 npm install --save apexcharts
 npm install --save vue-apexcharts
 npm install
 npm run serve
+```
