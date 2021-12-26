@@ -2,7 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="users"
-    sort-by="identity"
+    sort-by="username"
     class="elevation-5 my-5"
   >
     <template v-slot:top>
@@ -169,7 +169,17 @@
         <!-- end of delete item dialog -->
       </v-toolbar>
     </template>
-
+    <template v-slot:[`item.identity`]="{ item }">
+      <v-chip
+        class="py-3 my-4"
+        :color="getColor(item.identity)"
+        label
+        x-small
+        dark
+      >
+        {{ item.identity }}
+      </v-chip>
+    </template>
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -262,6 +272,11 @@ export default {
     this.users = await getAllUser();
   },
   methods: {
+    getColor(identity) {
+      if (identity === "ADMIN") return "pink";
+      else if (identity === "STAFF") return "orange";
+      else return "green";
+    },
     validate() {
       this.$refs.form.validate();
     },
