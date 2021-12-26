@@ -23,13 +23,13 @@ yarn lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### ApexChart
+## ApexChart
 
-Official website: https://apexcharts.com/docs/installation/
-Vue chart demo: https://apexcharts.com/vue-chart-demos/area-charts/spline/
-reference: https://github.com/apexcharts/vue-apexcharts
+##### Official website: https://apexcharts.com/docs/installation/
+##### Vue chart demo: https://apexcharts.com/vue-chart-demos/area-charts/spline/
+##### reference: https://github.com/apexcharts/vue-apexcharts
 
-Setup
+#### Setup
 ```
 npm install --save apexcharts
 npm install --save vue-apexcharts
