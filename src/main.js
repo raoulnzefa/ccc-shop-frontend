@@ -14,6 +14,9 @@ axios.defaults.headers.common["Content-Type"] = "multipart/form-data";
 Vue.config.productionTip = false
 Vue.use(VueApexCharts)
 
+Vue.component('apexchart', VueApexCharts)
+
+
 new Vue({
   router,
   store,
