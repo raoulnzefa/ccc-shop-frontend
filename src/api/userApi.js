@@ -31,6 +31,7 @@ export const createUser = async function (username, identity, password, phone, e
     return response.data;
   } catch (err) {
     console.log(err);
+    alert("此使用者名稱已被使用，嘗試其他的試試 !")
   }
 };
 
@@ -50,6 +51,7 @@ export const updateUser = async function (id, username, identity, phone, email, 
     return response.data;
   } catch (err) {
     console.log(err);
+    alert("此使用者名稱已被使用，嘗試其他的試試 !")
   }
 };
 
