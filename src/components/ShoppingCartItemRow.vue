@@ -34,7 +34,39 @@
       <h3>$ {{ totalPrice }}</h3>
     </v-col>
     <v-col cols="1">
-      <v-icon @click="deleteCartItem()"> mdi-delete </v-icon>
+      <v-dialog v-model="showDeleteItemDialog" max-width="500px">
+        <div class="text-center">
+          <v-sheet
+              class="px-7 pt-7 pb-4 mx-auto text-center d-inline-block"
+              color="blue-grey darken-3"
+              dark
+          >
+            <div class="grey--text text--lighten-1 text-h5 mb-4">
+              你確定要將此商品從購物車移除嗎？
+            </div>
+            <v-btn
+                :disabled="loading"
+                class="ma-1"
+                color="grey"
+                plain
+                @click="showDeleteItemDialog = false"
+            >
+              取消
+            </v-btn>
+
+            <v-btn
+                :loading="loading"
+                class="ma-1"
+                color="error"
+                plain
+                @click="deleteCartItem()"
+            >
+              移除
+            </v-btn>
+          </v-sheet>
+        </div>
+      </v-dialog>
+      <v-icon @click="showDeleteItemDialog = true"> mdi-delete </v-icon>
     </v-col>
   </v-row>
 </template>
@@ -45,8 +77,9 @@ export default {
   props: ["item"],
   data: () => {
     return {
+      loading: false,
       checkbox: false,
-      show: true
+      showDeleteItemDialog: false
     }
   },
   computed: {
@@ -87,6 +120,7 @@ export default {
         productId: this.item.id,
         customerId: this.$store.state.userStore.id
       })
+      this.showDeleteItemDialog = false
     },
     parsePriceText(price) {
       let result = ""
