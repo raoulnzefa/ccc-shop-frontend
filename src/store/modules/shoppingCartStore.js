@@ -31,6 +31,15 @@ const getters = {
             return totalPrice
         }
     },
+    checkShoppingCartHasProduct(state) {
+       return (venderName, productId) => {
+           const shopIndex = state.cartProducts.findIndex(shop => shop.venderName === venderName)
+           if (shopIndex === -1) return false
+
+           const productIndex = state.cartProducts[shopIndex].items.find(item => item.id === productId)
+           return productIndex !== -1
+       }
+    },
     // deprecated
     getShoppingCartTotalPrice(state) {
         let totalPrice = 0

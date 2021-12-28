@@ -12,7 +12,6 @@ export const addShoppingCartProduct = async function (productId, customerId, qua
         return response.data;
     } catch (err) {
         console.log(err);
-        alert("購物車中已含有此商品");
     }
 };
 

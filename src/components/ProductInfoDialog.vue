@@ -11,12 +11,12 @@
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-rating
-            :value="product.rate"
-            color="amber"
-            dense
-            half-increments
-            readonly
-            size="14"
+              :value="product.rate"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="14"
           ></v-rating>
           <!-- <div class="grey--text ms-4">{{ product.rate }}</div> -->
         </v-row>
@@ -44,13 +44,23 @@
       </v-container>
 
       <v-card-actions>
+        <v-dialog
+          v-model="showAlert"
+        >
+          <template>
+            <v-alert
+              type="error"
+              class="mb-0"
+            >購物車中已含有此商品！</v-alert>
+          </template>
+        </v-dialog>
         <v-btn
-          v-if="$store.state.userStore.isLogin"
-          block
-          class="mb-3"
-          color="secondary"
-          elevation="5"
-          @click="addProductToCart"
+            v-if="$store.state.userStore.isLogin"
+            block
+            class="mb-3"
+            color="secondary"
+            elevation="5"
+            @click="addProductToCart"
         >
           加入購物車
         </v-btn>
@@ -76,13 +86,14 @@ import {addShoppingCartProduct} from "../api/shoppingCartApi";
 
 export default {
   name: "ProductInfoDialog",
-    components: {
+  components: {
     ReviewDialog,
   },
   props: ["product"],
   data: () => {
     return {
       isOpenDialog: false,
+      showAlert: false,
       quantity: 1,
     };
   },
@@ -99,6 +110,12 @@ export default {
       this.quantity++;
     },
     async addProductToCart() {
+      const hasProduct = this.$store.getters['shoppingCartStore/checkShoppingCartHasProduct'](this.product.venderName, this.product.id)
+      if (hasProduct) {
+        this.showAlert = true
+        return
+      }
+
       await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
       this.isOpenDialog = false;
     },
