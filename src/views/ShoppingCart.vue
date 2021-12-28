@@ -2,8 +2,32 @@
   <div>
     <!-- Logged in -->
     <v-container class="d-flex flex-column justify-center align-center pt-4" v-if="$store.state.userStore.isLogin">
-      <h3 class="text-h3">{{ $store.state.userStore.username }} 的購物車</h3>
-      <ShoppingCartCard v-for="(items, index) in $store.state.shoppingCartStore.cartProducts" :key="index" :items="items" />
+      <h3 class="text-h3 mt-6">{{ $store.state.userStore.username }} 的購物車</h3>
+      <div v-if="cartProducts.length > 0">
+        <ShoppingCartCard
+            v-for="(items, index) in cartProducts"
+            :key="index"
+            :items="items"
+        />
+      </div>
+      <div v-else class="d-flex flex-column justify-start align-center py-8 px-8 my-4">
+        <h5 class="text-h5 font-weight-bold">你的購物車是空的，給我去買東西！</h5>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <router-link to="/">
+              <v-btn
+                  color="cyan"
+                  class="white--text ma-5"
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                去逛街
+              </v-btn>
+            </router-link>
+          </template>
+          <span>快去啦</span>
+        </v-tooltip>
+      </div>
     </v-container>
 
     <!-- Not logged in -->
@@ -14,14 +38,13 @@
       </v-btn>
     </v-container>
 
-    <SignInDialog ref="signInDialog" identity="1" />
+    <SignInDialog ref="signInDialog" identity="1"/>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
 import SignInDialog from "../components/SignInDialog";
-import ShoppingCartCard  from "../components/ShoppingCartCard";
+import ShoppingCartCard from "../components/ShoppingCartCard";
 
 export default {
   name: "ShoppingCart",
@@ -30,9 +53,9 @@ export default {
     SignInDialog
   },
   computed: {
-    ...mapGetters("shoppingCartStore", {
-      totalPrice: "getShoppingCartTotalPrice"
-    })
+    cartProducts() {
+      return this.$store.state.shoppingCartStore.cartProducts
+    }
   },
   mounted() {
     this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)

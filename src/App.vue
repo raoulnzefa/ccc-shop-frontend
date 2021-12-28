@@ -117,6 +117,11 @@ export default {
     SignInSignUpDialog,
     SignUpDialog,
   },
+  mounted() {
+    if (this.$store.state.userStore.isLogin) {
+      this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
+    }
+  },
   methods: {
     logoutUser() {
       this.$store.dispatch("userStore/logoutUser");

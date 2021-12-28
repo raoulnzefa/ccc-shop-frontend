@@ -12,7 +12,6 @@ export const addShoppingCartProduct = async function (productId, customerId, qua
         return response.data;
     } catch (err) {
         console.log(err);
-        alert("購物車中已含有此商品");
     }
 };
 
@@ -38,6 +37,20 @@ export const updateShoppingCartProduct = async function (productId, customerId, 
 
     try {
         const response = await axios.post("/api/shopping-cart/update", json)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const deleteShoppingCartProduct = async function (productId, customerId) {
+    const json = {
+        "productId": productId,
+        "customerId": customerId
+    }
+
+    try {
+        const response = await axios.post("/api/shopping-cart/delete-item", json)
         return response.data
     } catch (err) {
         console.log(err)

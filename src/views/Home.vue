@@ -40,26 +40,6 @@
       </div>
     </v-container>
 
-    <!-- dropdown menu -->
-    <!-- <v-container class="mt-5">
-      <v-menu>
-        <template v-slot:activator="{ attrs, on }">
-          <v-btn color="cyan" class="white--text ma-5" v-bind="attrs" v-on="on">
-            Category: {{ categories[selectedIndex] }}
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(category, index) in categories"
-            :key="index"
-            @click="chooseCategory(index)"
-            link
-          >
-            <v-list-item-title v-text="category"></v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-container> -->
     <v-container
       class="d-flex justify-center align-center"
       style="width: 1600px"

@@ -1,6 +1,13 @@
-# ccc-shop-frontend-v2
+# ccc-shop-frontend
 
-## Project setup
+## Installation
+
+### Install Yarn
+```
+npm install --global yarn
+```
+
+### Install dependencies
 ```
 yarn install
 ```
@@ -10,7 +17,7 @@ yarn install
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Build production
 ```
 yarn build
 ```
@@ -20,5 +27,14 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Packages
+
+- [Vue](https://vuejs.org/)
+- [Vue Router](https://router.vuejs.org/)
+- [Vuetify](https://vuetifyjs.com/)
+- [Apexcharts](https://apexcharts.com)
+- [Axios](https://axios-http.com/)
+
+## Examples
+
+- [Vue Chart Demo](https://apexcharts.com/vue-chart-demos/area-charts/spline/)
