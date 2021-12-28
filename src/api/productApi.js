@@ -1,5 +1,18 @@
 import axios from "axios";
 
+export const getProduct = async function (id) {
+  let json = {
+    "id": id
+  }
+
+  try {
+    const response = await axios.post("/api/product/get", json);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getAllProducts = async function () {
   try {
     const response = await axios.get("/api/product/get-all");

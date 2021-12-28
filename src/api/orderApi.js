@@ -12,6 +12,24 @@ export const getCustomerOrders = async function (customerId) {
     }
 }
 
+export const updateOrders = async function (orderId, status) {
+    // orderId
+    // status
+    // time
+    let json = {
+        "orderId": orderId,
+        "status": status,
+        "time": Date.now()
+    }
+
+    try {
+        const response = await axios.post("/api/order/get-customer", json)
+        return response.data.orderList
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 // {
 //     "id": 2,
 //     "customerId": 5,
