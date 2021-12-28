@@ -43,3 +43,17 @@ export const updateShoppingCartProduct = async function (productId, customerId, 
         console.log(err)
     }
 }
+
+export const deleteShoppingCartProduct = async function (productId, customerId) {
+    const json = {
+        "productId": productId,
+        "customerId": customerId
+    }
+
+    try {
+        const response = await axios.post("/api/shopping-cart/delete-item", json)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+}

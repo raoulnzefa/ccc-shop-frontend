@@ -1,4 +1,4 @@
-import { getShoppingCartProducts, updateShoppingCartProduct } from "../../api/shoppingCartApi";
+import { getShoppingCartProducts, updateShoppingCartProduct, deleteShoppingCartProduct } from "../../api/shoppingCartApi";
 
 // selectedProducts = {
 //     {
@@ -18,15 +18,6 @@ const state = {
 }
 
 const getters = {
-    getShoppingCartTotalPrice(state) {
-        let totalPrice = 0
-        for (const shop of state.cartProducts) {
-            for (const item of shop.items) {
-                totalPrice += item.price * item.quantity
-            }
-        }
-        return totalPrice
-    },
     getShopTotalPrice(state) {
         return (venderName) => {
             const shopIndex = state.cartProducts.findIndex(shop => shop.venderName === venderName)
@@ -39,6 +30,16 @@ const getters = {
             }
             return totalPrice
         }
+    },
+    // deprecated
+    getShoppingCartTotalPrice(state) {
+        let totalPrice = 0
+        for (const shop of state.cartProducts) {
+            for (const item of shop.items) {
+                totalPrice += item.price * item.quantity
+            }
+        }
+        return totalPrice
     }
 }
 
@@ -52,6 +53,11 @@ const actions = {
     },
     async updateCartProductSelected({ commit }, productData) {
         commit('updateProductSelected', productData)
+    },
+    async deleteCartProduct({ commit }, productData) {
+        await deleteShoppingCartProduct(productData.productId, productData.customerId)
+        const cartData = await getShoppingCartProducts(productData.customerId)
+        commit('updateAllUserCartState', cartData.shoppingCartItems)
     },
     async updateCartStateToBackend({ state }, customerId) {
         for (const shop of state.cartProducts) {

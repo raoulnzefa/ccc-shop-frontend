@@ -45,7 +45,8 @@ export default {
   props: ["item"],
   data: () => {
     return {
-      checkbox: false
+      checkbox: false,
+      show: true
     }
   },
   computed: {
@@ -82,7 +83,10 @@ export default {
       })
     },
     deleteCartItem() {
-      console.log("刪除");
+      this.$store.dispatch("shoppingCartStore/deleteCartProduct", {
+        productId: this.item.id,
+        customerId: this.$store.state.userStore.id
+      })
     },
     parsePriceText(price) {
       let result = ""
