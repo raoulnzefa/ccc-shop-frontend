@@ -81,7 +81,7 @@
             color="blue-grey"
             text
             @click="
-              closeSignUpDialog();
+              closeDialog();
               reset();
             "
           >
@@ -92,7 +92,7 @@
             text
             @click="
               signUpUser();
-              closeSignUpDialog();
+              closeDialog();
               reset();
             "
             :disabled="!valid"
@@ -145,18 +145,15 @@ export default {
     };
   },
   methods: {
-    validate() {
-      this.$refs.form.validate();
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
     resetValidation() {
       this.$refs.form.resetValidation();
     },
     openDialog() {
-      this.closeSignUpDialog();
+      this.closeDialog();
       this.isOpenDialog = true;
+    },
+    closeDialog() {
+      this.isOpenDialog = false;
     },
     signUpUser() {
       createUser(
@@ -170,8 +167,11 @@ export default {
       );
       this.$emit("close");
     },
-    closeSignUpDialog() {
-      this.isOpenDialog = false;
+    reset() {
+      this.$refs.form.reset();
+    },
+    validate() {
+      this.$refs.form.validate();
     },
   },
 };
