@@ -11,7 +11,7 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <!-- new/edit item dialog -->
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="info mr-5" dark v-bind="attrs" v-on="on">
               New User
