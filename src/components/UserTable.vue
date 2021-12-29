@@ -11,7 +11,7 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <!-- new/edit item dialog -->
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="info mr-5" dark v-bind="attrs" v-on="on">
               New User
@@ -286,6 +286,11 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
+
+    async refersh() {
+      this.users = await getAllUser();
+    },
+
     editItem(item) {
       this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -299,10 +304,10 @@ export default {
 
     async deleteItemConfirm() {
       this.loading = true;
-      deleteUser(this.users[this.editedIndex].id);
-      this.users.splice(this.editedIndex, 1);
+      await deleteUser(this.users[this.editedIndex].id);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       this.loading = false;
+      await this.refersh();
       this.closeDelete();
     },
 
@@ -312,7 +317,6 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
-      // reset();
     },
     closeDelete() {
       this.dialogDelete = false;
@@ -321,13 +325,13 @@ export default {
         this.editedIndex = -1;
       });
     },
-    save() {
+    async save() {
       const identities = ["ADMIN", "STAFF", "CUSTOMER"];
       let identity = identities.indexOf(this.editedItem.identity).toString();
 
       if (this.editedIndex > -1) {
         Object.assign(this.users[this.editedIndex], this.editedItem);
-        updateUser(
+        await updateUser(
           this.editedItem.id,
           this.editedItem.username,
           identity,
@@ -337,8 +341,7 @@ export default {
           this.editedItem.address
         );
       } else {
-        this.users.push(this.editedItem);
-        createUser(
+        await createUser(
           this.editedItem.username,
           identity,
           this.editedItem.password,
@@ -348,7 +351,7 @@ export default {
           this.editedItem.address
         );
       }
-      // reset();
+      await this.refersh();
       this.close();
     },
   },

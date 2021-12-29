@@ -35,8 +35,7 @@ const getters = {
        return (venderName, productId) => {
            const shopIndex = state.cartProducts.findIndex(shop => shop.venderName === venderName)
            if (shopIndex === -1) return false
-
-           const productIndex = state.cartProducts[shopIndex].items.find(item => item.id === productId)
+           const productIndex = state.cartProducts[shopIndex].items.findIndex(item => item.id === productId)
            return productIndex !== -1
        }
     },

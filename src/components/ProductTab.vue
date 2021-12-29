@@ -11,144 +11,171 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <!-- new/edit product dialog -->
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
               New Product
             </v-btn>
           </template>
           <!-- new/edit product card -->
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
+          <v-form ref="form">
+            <v-card>
+              <v-card-title>
+                <span class="text-h5">{{ formTitle }}</span>
+              </v-card-title>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Product Name*"
-                      :rules="productNameRules"
-                      required
-                      dense
-                      prepend-icon="mdi-package-variant-closed"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-select
-                      v-model="editedItem.category"
-                      label="Category*"
-                      :items="['COMPUTER', 'NOTEBOOK', 'TABLET', 'PHONE']"
-                      :rules="categoryRules"
-                      required
-                      dense
-                      prepend-icon="mdi-shape"
-                    ></v-select>
-                  </v-col>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                        v-model="editedItem.name"
+                        label="Product Name*"
+                        :rules="productNameRules"
+                        required
+                        dense
+                        prepend-icon="mdi-package-variant-closed"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                      <v-select
+                        v-model="editedItem.category"
+                        label="Category*"
+                        :items="['COMPUTER', 'NOTEBOOK', 'TABLET', 'PHONE']"
+                        :rules="categoryRules"
+                        required
+                        dense
+                        prepend-icon="mdi-shape"
+                      ></v-select>
+                    </v-col>
                   </v-row>
                   <v-row>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="editedItem.price"
-                      label="Price*"
-                      :rules="priceRules"
-                      required
-                      dense
-                      prepend-icon="mdi-currency-usd"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-text-field
-                      v-model="editedItem.stock"
-                      label="Stock*"
-                      :rules="stockRules"
-                      required
-                      dense
-                      prepend-icon="mdi-counter"
-                    ></v-text-field>
-                  </v-col>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                        v-model="editedItem.price"
+                        label="Price*"
+                        :rules="priceRules"
+                        required
+                        dense
+                        prepend-icon="mdi-currency-usd"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                        v-model="editedItem.stock"
+                        label="Stock*"
+                        :rules="stockRules"
+                        required
+                        dense
+                        prepend-icon="mdi-counter"
+                      ></v-text-field>
+                    </v-col>
                   </v-row>
                   <v-row>
-                  <v-col cols="12" md="12">
-                    <v-text-field
-                      v-model="editedItem.warehouseAddress"
-                      label="Warehouse Address*"
-                      :rules="warehouseAddressRules"
-                      required
-                      dense
-                      prepend-icon="mdi-map-marker"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                    <v-col cols="12" md="12">
+                      <v-text-field
+                        v-model="editedItem.warehouseAddress"
+                        label="Warehouse Address*"
+                        :rules="warehouseAddressRules"
+                        required
+                        dense
+                        prepend-icon="mdi-map-marker"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
                   <v-row>
-                  <v-col cols="12" md="12">
-                    <v-text-field
-                      v-model="editedItem.description"
-                      label="Description"
-                      :rules="descriptionRules"
-                      dense
-                      prepend-icon="mdi-note-edit"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" md="12">
-                    <v-text-field
-                      v-model="editedItem.pictureURL"
-                      label="Picture URL"
-                      :rules="pictureURLRules"
-                      dense
-                      prepend-icon="mdi-image"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+                    <v-col cols="12" md="12">
+                      <v-text-field
+                        v-model="editedItem.description"
+                        label="Description"
+                        :rules="descriptionRules"
+                        dense
+                        prepend-icon="mdi-note-edit"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12" md="12">
+                      <v-text-field
+                        v-model="editedItem.pictureURL"
+                        label="Picture URL"
+                        :rules="pictureURLRules"
+                        dense
+                        prepend-icon="mdi-image"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">
-                Cancel
-              </v-btn>
-              <v-btn color="blue darken-1" text @click="save">
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="
+                    close();
+                    reset();
+                  "
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="
+                    save();
+                    reset();
+                  "
+                >
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-form>
         </v-dialog>
         <!-- end of new/edit product dialog -->
 
         <!-- delete product dialog -->
         <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5">
-              Are you sure to delete this product?
-            </v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn :disabled="loading" color="blue darken-1" text @click="closeDelete">
+          <div class="text-center">
+            <v-sheet
+              class="px-7 pt-7 pb-4 mx-auto text-center d-inline-block"
+              color="blue-grey darken-3"
+              dark
+            >
+              <div class="grey--text text--lighten-1 text-h5 mb-4">
+                Are you sure you want to delete this product?
+              </div>
+
+              <v-btn
+                :disabled="loading"
+                class="ma-1"
+                color="grey"
+                plain
+                @click="closeDelete"
+              >
                 Cancel
               </v-btn>
-              <v-btn :loading="loading" color="blue darken-1" text @click="deleteItemConfirm">
+
+              <v-btn
+                :loading="loading"
+                class="ma-1"
+                color="error"
+                plain
+                @click="deleteItemConfirm"
+              >
                 Delete
               </v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
+            </v-sheet>
+          </div>
         </v-dialog>
         <!-- end of delete product dialog -->
       </v-toolbar>
     </template>
 
     <template v-slot:[`item.pictureURL`]="{ item }">
-      <v-img
-      class="img"
-      height="90"
-      width="150"
-      :src="item.pictureURL"
-      ></v-img>
+      <v-img class="img" height="90" width="150" :src="item.pictureURL"></v-img>
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
@@ -159,7 +186,6 @@
     <!-- <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
     </template> -->
-
   </v-data-table>
 </template>
 
@@ -183,12 +209,8 @@ export default {
       { text: "Description", value: "description" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    productNameRules: [
-      (v) => !!v || "欄位不可留空",
-    ],
-    categoryRules: [
-      (v) => !!v || "欄位不可留空",
-    ],
+    productNameRules: [(v) => !!v || "欄位不可留空"],
+    categoryRules: [(v) => !!v || "欄位不可留空"],
     priceRules: [
       (v) => !!v || "欄位不可留空",
       (v) => /^\d+$/.test(v) || "價格只能包含數字",
@@ -197,9 +219,7 @@ export default {
       (v) => !!v || "欄位不可留空",
       (v) => /^\d+$/.test(v) || "庫存只能包含數字",
     ],
-    warehouseAddressRules: [
-      (v) => !!v || "欄位不可留空",
-    ],
+    warehouseAddressRules: [(v) => !!v || "欄位不可留空"],
     descriptionRules: [],
     pictureURLRules: [],
     products: [],
@@ -243,17 +263,33 @@ export default {
     await this.$store.dispatch("productStore/loadAllProducts");
     this.products = this.$store.state.productStore.products.filter(
       (product) => {
-        return product.venderId === this.$store.state.userStore.id && product.existFlag === true
+        return (
+          product.venderId === this.$store.state.userStore.id &&
+          product.existFlag === true
+        );
       }
     );
   },
 
   methods: {
+    validate() {
+      this.$refs.form.validate();
+    },
+    reset() {
+      this.$refs.form.reset();
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation();
+    },
+
     async refersh() {
       await this.$store.dispatch("productStore/loadAllProducts");
       this.products = this.$store.state.productStore.products.filter(
         (product) => {
-          return product.venderId === this.$store.state.userStore.id && product.existFlag === true
+          return (
+            product.venderId === this.$store.state.userStore.id &&
+            product.existFlag === true
+          );
         }
       );
     },
@@ -273,7 +309,6 @@ export default {
     async deleteItemConfirm() {
       this.loading = true;
       await deleteProduct(this.products[this.editedIndex].id);
-      this.products.splice(this.editedIndex, 1);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       this.loading = false;
       this.refersh();
@@ -297,7 +332,7 @@ export default {
     },
 
     async save() {
-      const categorys = ['COMPUTER', 'NOTEBOOK', 'TABLET', 'PHONE'];
+      const categorys = ["COMPUTER", "NOTEBOOK", "TABLET", "PHONE"];
       let category = categorys.indexOf(this.editedItem.category).toString();
 
       if (this.editedIndex > -1) {
@@ -314,7 +349,6 @@ export default {
           this.editedItem.id
         );
       } else {
-        this.products.push(this.editedItem);
         await createProduct(
           this.editedItem.name,
           this.$store.state.userStore.id,
