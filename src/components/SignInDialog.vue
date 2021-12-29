@@ -37,7 +37,7 @@
             color="blue-grey"
             text
             @click="
-              closeSignInDialog();
+              closeDialog();
               reset();
             "
           >
@@ -90,8 +90,9 @@ export default {
     openDialog() {
       this.isOpenDialog = true;
     },
-    reset() {
-      this.$refs.form.reset();
+    closeDialog() {
+      this.reset();
+      this.isOpenDialog = false;
     },
     signInUser() {
       this.$store.dispatch("userStore/loginUser", {
@@ -101,7 +102,7 @@ export default {
 
       setTimeout(() => {
         if (this.$store.state.userStore.isLogin) {
-          this.closeSignInDialog();
+          this.closeDialog();
           this.$emit("close");
           location.reload();
         } else {
@@ -110,9 +111,8 @@ export default {
         }
       }, 500);
     },
-    closeSignInDialog() {
-      this.reset();
-      this.isOpenDialog = false;
+    reset() {
+      this.$refs.form.reset();
     },
   },
 };
