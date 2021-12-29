@@ -24,6 +24,14 @@
         :vender="items.venderName"
         @close="isOpenDialog = false"
     />
+
+    <v-snackbar
+        v-model="isShowSnackbar"
+        :timeout="2000"
+        color="red"
+    >
+      請勾選購物車商品再下單！
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -40,7 +48,8 @@ export default {
   props: ["items"],
   data: () => {
     return {
-      isOpenDialog: false
+      isOpenDialog: false,
+      isShowSnackbar: false
     }
   },
   computed: {
@@ -53,6 +62,7 @@ export default {
       const selectedProducts = this.$store.getters["shoppingCartStore/getSelectedVenderProducts"](this.items.venderName)
       if (selectedProducts.length === 0) {
         console.log("No selected products")
+        this.isShowSnackbar = true
         return
       }
 

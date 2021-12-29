@@ -202,8 +202,10 @@ export default {
         "totalPrice": this.totalPrice,
         "orderItems": orderItems
       }
+
       createOrder(orderData)
-      this.isOpenDialog = false;
+      this.$store.dispatch("shoppingCartStore/deleteSelectedCartProducts", this.vender)
+      this.isOpenDialog = false
     }
   }
 }

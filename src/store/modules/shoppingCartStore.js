@@ -82,6 +82,16 @@ const actions = {
         const cartData = await getShoppingCartProducts(productData.customerId)
         commit('updateAllUserCartState', cartData.shoppingCartItems)
     },
+    async deleteSelectedCartProducts({ commit, state, rootState }, venderName) {
+        const shopIndex = state.cartProducts.findIndex(shop => venderName === shop.venderName)
+        for (let index = 0; index < state.cartProducts[shopIndex].items.length; index++) {
+            if (state.selectedProducts[shopIndex].selectedItemFlags[index].selected) {
+                await deleteShoppingCartProduct(state.cartProducts[shopIndex].items[index].id, rootState.userStore.id)
+            }
+        }
+        const cartData = await getShoppingCartProducts(rootState.userStore.id)
+        commit('updateAllUserCartState', cartData.shoppingCartItems)
+    },
     async updateCartStateToBackend({ state }, customerId) {
         for (const shop of state.cartProducts) {
             for (const item of shop.items) {
