@@ -309,7 +309,6 @@ export default {
     async deleteItemConfirm() {
       this.loading = true;
       await deleteProduct(this.products[this.editedIndex].id);
-      // this.products.splice(this.editedIndex, 1);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       this.loading = false;
       this.refersh();
@@ -350,7 +349,6 @@ export default {
           this.editedItem.id
         );
       } else {
-        // this.products.push(this.editedItem);
         await createProduct(
           this.editedItem.name,
           this.$store.state.userStore.id,
