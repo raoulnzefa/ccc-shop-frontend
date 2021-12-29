@@ -1,21 +1,23 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
-    sort-by="calories"
+    :items="products"
+    sort-by="name"
     class="elevation-1"
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>My CRUD</v-toolbar-title>
+        <v-toolbar-title>商品管理列表</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
+        <!-- new/edit product dialog -->
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              New Item
+              New Product
             </v-btn>
           </template>
+          <!-- new/edit product card -->
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -24,34 +26,81 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" md="6">
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Dessert name"
+                      label="Product Name*"
+                      :rules="productNameRules"
+                      required
+                      dense
+                      prepend-icon="mdi-package-variant-closed"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" md="6">
+                    <v-select
+                      v-model="editedItem.category"
+                      label="Category*"
+                      :items="['COMPUTER', 'NOTEBOOK', 'TABLET', 'PHONE']"
+                      :rules="categoryRules"
+                      required
+                      dense
+                      prepend-icon="mdi-shape"
+                    ></v-select>
+                  </v-col>
+                  </v-row>
+                  <v-row>
+                  <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
+                      v-model="editedItem.price"
+                      label="Price*"
+                      :rules="priceRules"
+                      required
+                      dense
+                      prepend-icon="mdi-currency-usd"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
+                      v-model="editedItem.stock"
+                      label="Stock*"
+                      :rules="stockRules"
+                      required
+                      dense
+                      prepend-icon="mdi-counter"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  </v-row>
+                  <v-row>
+                  <v-col cols="12" md="12">
                     <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
+                      v-model="editedItem.warehouseAddress"
+                      label="Warehouse Address*"
+                      :rules="warehouseAddressRules"
+                      required
+                      dense
+                      prepend-icon="mdi-map-marker"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                </v-row>
+                  <v-row>
+                  <v-col cols="12" md="12">
                     <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
+                      v-model="editedItem.description"
+                      label="Description"
+                      :rules="descriptionRules"
+                      dense
+                      prepend-icon="mdi-note-edit"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <v-text-field
+                      v-model="editedItem.pictureURL"
+                      label="Picture URL"
+                      :rules="pictureURLRules"
+                      dense
+                      prepend-icon="mdi-image"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -60,79 +109,124 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+              <v-btn color="blue darken-1" text @click="close">
+                Cancel
+              </v-btn>
+              <v-btn color="blue darken-1" text @click="save">
+                Save
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <!-- end of new/edit product dialog -->
+
+        <!-- delete product dialog -->
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5"
-              >Are you sure you want to delete this item?</v-card-title
-            >
+            <v-card-title class="text-h5">
+              Are you sure to delete this product?
+            </v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
-              >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >OK</v-btn
-              >
+              <v-btn :disabled="loading" color="blue darken-1" text @click="closeDelete">
+                Cancel
+              </v-btn>
+              <v-btn :loading="loading" color="blue darken-1" text @click="deleteItemConfirm">
+                Delete
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <!-- end of delete product dialog -->
       </v-toolbar>
     </template>
+
+    <template v-slot:[`item.pictureURL`]="{ item }">
+      <v-img
+      class="img"
+      height="90"
+      width="150"
+      :src="item.pictureURL"
+      ></v-img>
+    </template>
+
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
-    <template v-slot:no-data>
+
+    <!-- <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
-    </template>
+    </template> -->
+
   </v-data-table>
 </template>
 
 <script>
+import { createProduct } from "@/api/productApi";
+import { updateProduct } from "@/api/productApi";
+import { deleteProduct } from "@/api/productApi";
+
 export default {
   data: () => ({
+    loading: false,
     dialog: false,
     dialogDelete: false,
     headers: [
-      {
-        text: "Dessert (100g serving)",
-        align: "start",
-        sortable: false,
-        value: "name",
-      },
-      { text: "Calories", value: "calories" },
-      { text: "Fat (g)", value: "fat" },
-      { text: "Carbs (g)", value: "carbs" },
-      { text: "Protein (g)", value: "protein" },
+      { text: "Picture", align: "start", sortable: false, value: "pictureURL" },
+      { text: "Product Name", value: "name" },
+      { text: "Category", value: "category" },
+      { text: "Price", value: "price" },
+      { text: "Stock", value: "stock" },
+      { text: "Warehouse Address", value: "warehouseAddress" },
+      { text: "Description", value: "description" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    desserts: [],
+    productNameRules: [
+      (v) => !!v || "欄位不可留空",
+    ],
+    categoryRules: [
+      (v) => !!v || "欄位不可留空",
+    ],
+    priceRules: [
+      (v) => !!v || "欄位不可留空",
+      (v) => /^\d+$/.test(v) || "價格只能包含數字",
+    ],
+    stockRules: [
+      (v) => !!v || "欄位不可留空",
+      (v) => /^\d+$/.test(v) || "庫存只能包含數字",
+    ],
+    warehouseAddressRules: [
+      (v) => !!v || "欄位不可留空",
+    ],
+    descriptionRules: [],
+    pictureURLRules: [],
+    products: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      name: null,
+      category: null,
+      price: null,
+      stock: null,
+      warehouseAddress: null,
+      description: null,
+      pictureURL: null,
     },
     defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      name: null,
+      category: "COMPUTER",
+      price: null,
+      stock: null,
+      warehouseAddress: null,
+      description: null,
+      pictureURL: null,
     },
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "New Product" : "Edit Product";
     },
   },
 
@@ -145,100 +239,44 @@ export default {
     },
   },
 
-  created() {
-    this.initialize();
+  async mounted() {
+    await this.$store.dispatch("productStore/loadAllProducts");
+    this.products = this.$store.state.productStore.products.filter(
+      (product) => {
+        return product.venderId === this.$store.state.userStore.id && product.existFlag === true
+      }
+    );
   },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ];
+    async refersh() {
+      await this.$store.dispatch("productStore/loadAllProducts");
+      this.products = this.$store.state.productStore.products.filter(
+        (product) => {
+          return product.venderId === this.$store.state.userStore.id && product.existFlag === true
+        }
+      );
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+    async deleteItemConfirm() {
+      this.loading = true;
+      await deleteProduct(this.products[this.editedIndex].id);
+      this.products.splice(this.editedIndex, 1);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      this.loading = false;
+      this.refersh();
       this.closeDelete();
     },
 
@@ -258,12 +296,37 @@ export default {
       });
     },
 
-    save() {
+    async save() {
+      const categorys = ['COMPUTER', 'NOTEBOOK', 'TABLET', 'PHONE'];
+      let category = categorys.indexOf(this.editedItem.category).toString();
+
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        Object.assign(this.products[this.editedIndex], this.editedItem);
+        await updateProduct(
+          this.editedItem.name,
+          this.$store.state.userStore.id,
+          category,
+          this.editedItem.price,
+          this.editedItem.stock,
+          this.editedItem.warehouseAddress,
+          this.editedItem.description,
+          this.editedItem.pictureURL,
+          this.editedItem.id
+        );
       } else {
-        this.desserts.push(this.editedItem);
+        this.products.push(this.editedItem);
+        await createProduct(
+          this.editedItem.name,
+          this.$store.state.userStore.id,
+          category,
+          this.editedItem.price,
+          this.editedItem.stock,
+          this.editedItem.warehouseAddress,
+          this.editedItem.description,
+          this.editedItem.pictureURL
+        );
       }
+      await this.refersh();
       this.close();
     },
   },
