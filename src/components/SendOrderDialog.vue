@@ -61,9 +61,7 @@
               </v-list-item>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat.
+              折扣功能未開啟
             </v-expansion-panel-content>
           </v-expansion-panel>
 
@@ -75,10 +73,6 @@
                   <v-list-item-title>付款方式</v-list-item-title>
                   <v-list-item-subtitle>{{ paymentInfo }}</v-list-item-subtitle>
                 </v-list-item-content>
-                <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
               </v-list-item>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="ml-6">
