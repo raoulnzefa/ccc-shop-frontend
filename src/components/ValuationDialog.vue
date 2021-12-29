@@ -7,7 +7,7 @@
         color="indigo"
         v-bind="attrs"
         v-on="on"
-        @click="getReviews"
+        @click="getValuations"
         >看看大家怎麼說</v-btn
       >
     </template>
@@ -15,11 +15,11 @@
       <v-card>
         <v-toolbar color="indigo" dark>買家真心話</v-toolbar>
         <v-card-text class="mt-3 pb-1">
-          <div v-if="reviews.length === 0">
+          <div v-if="valuations.length === 0">
             <v-row dense>
               <v-col>
                 <div class="text-center text-h5 mt-4">
-                  No review, Only me...
+                  No valuation, Only me...
                 </div>
                 <div class="text-center text--lighten-1 mt-5">
                   ⧸⎩⎠⎞͏(・∀・)⎛͏⎝⎭⧹
@@ -29,8 +29,8 @@
           </div>
           <div
             class="subtitle-1 py-3"
-            v-for="review in reviews"
-            :key="review.customerId"
+            v-for="valuation in valuations"
+            :key="valuation.customerId"
           >
             <v-row dense>
               <v-col cols="1">
@@ -38,17 +38,17 @@
               </v-col>
               <v-col>
                 <div style="color: black; font-weight: 600">
-                  {{ review.customerName }} :
+                  {{ valuation.customerName }} :
                 </div>
               </v-col>
             </v-row>
 
             <v-row dense>
               <v-col>
-                <div>{{ review.comment }}</div>
+                <div>{{ valuation.comment }}</div>
               </v-col>
               <v-col cols="1">
-                <v-icon small color="blue lighten-2" v-if="review.rating >= 3">
+                <v-icon small color="blue lighten-2" v-if="valuation.rating >= 3">
                   mdi-thumb-up
                 </v-icon>
                 <v-icon small color="red lighten-2" v-else>
@@ -68,19 +68,19 @@
 </template>
 
 <script>
-import { getReviews } from "@/api/reviewApi";
+import { getValuations } from "@/api/valuationApi";
 
 export default {
   props: ["productId"],
   data: () => {
     return {
-      reviews: [],
+      valuations: [],
     };
   },
   methods: {
-    async getReviews() {
-      this.reviews = await getReviews(this.productId);
-      console.log(this.reviews.length);
+    async getValuations() {
+      this.valuations = await getValuations(this.productId);
+      console.log(this.valuations.length);
     },
   },
 };

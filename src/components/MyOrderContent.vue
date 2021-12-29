@@ -2,6 +2,9 @@
   <v-card>
     <v-card-title>
       訂單列表
+      <v-alert text type="info" elevation="2" class="mx-10">
+        <div class="text-body-2">點擊商品即可給出屬於你的評價</div>
+      </v-alert>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -55,8 +58,13 @@
       </template> -->
 
       <template v-slot:[`item.orderItems`]="{ item }">
-        <v-row class="my-4" v-for="(value, key) in item.orderItems" :key="key">
-          {{ getProductName(key) + ": " + value }}
+        <v-row
+          class="my-4"
+          v-for="(value, key) in item.orderItems"
+          :key="key"
+          @click="$refs.giveValuationDialog.openDialog(key)"
+        >
+          {{ key + " : " + value }}
         </v-row>
       </template>
 
@@ -72,15 +80,20 @@
         </v-chip>
       </template>
     </v-data-table>
+    <GiveValuationDialog ref="giveValuationDialog" />
   </v-card>
 </template>
 
 <script>
 import { getCustomerOrders } from "@/api/orderApi";
-import { getProduct } from "@/api/productApi";
+// import { getProduct } from "@/api/productApi";
 // import { updateOrders } from "@/api/productApi";
+import GiveValuationDialog from "./GiveValuationDialog";
 
 export default {
+  components: {
+    GiveValuationDialog,
+  },
   data: () => ({
     // loading: false,
     // dialogDelete: false,
@@ -88,7 +101,7 @@ export default {
     headers: [
       { text: "訂單編號", value: "id" },
       { text: "收件人", value: "recipientName" },
-      { text: "購買商品", value: "orderItems" },
+      { text: "購買商品 : 數量", value: "orderItems" },
       { text: "總金額", value: "totalPrice" },
       { text: "收件地址", value: "shippingAddress" },
       { text: "運費", value: "shippingFee" },
@@ -148,16 +161,16 @@ export default {
       else if (type === "ORDER") return "blue";
       else return "green";
     },
-    getProductName(id) {
-      var product = getProduct(id);
-      console.log(product);
-      var promise = Promise.resolve(product);
-      promise.then(function (p) {
-        console.log(p.name);
-        return p.name;
-      });
-      return product.name;
-    },
+    // getProductName(id) {
+    //   var product = getProduct(id);
+    //   console.log(product);
+    //   var promise = Promise.resolve(product);
+    //   promise.then(function (p) {
+    //     console.log(p.name);
+    //     return p.name;
+    //   });
+    //   return product.name;
+    // },
   },
 };
 </script>
