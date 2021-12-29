@@ -11,7 +11,7 @@
           <v-btn
               color="cyan"
               class="white--text ma-5"
-              @click="$refs.sendOrderDialog.openDialog()"
+              @click="submitOrder()"
           >
             立即下單
           </v-btn>
@@ -21,7 +21,7 @@
 
     <SendOrderDialog
         ref="sendOrderDialog"
-        identity="2"
+        :vender="items.venderName"
         @close="isOpenDialog = false"
     />
   </v-container>
@@ -46,6 +46,17 @@ export default {
   computed: {
     shopTotalPrice: function () {
       return this.$store.getters['shoppingCartStore/getShopTotalPrice'](this.items.venderName)
+    }
+  },
+  methods: {
+    submitOrder() {
+      const selectedProducts = this.$store.getters["shoppingCartStore/getSelectedVenderProducts"](this.items.venderName)
+      if (selectedProducts.length === 0) {
+        console.log("No selected products")
+        return
+      }
+
+      this.$refs.sendOrderDialog.openDialog()
     }
   }
 }

@@ -39,6 +39,21 @@ const getters = {
            return productIndex !== -1
        }
     },
+    getSelectedVenderProducts() {
+        return (venderName) => {
+            const shopIndex = state.cartProducts.findIndex(shop => shop.venderName === venderName)
+            if (shopIndex === -1) return null
+
+            const shopItems = state.cartProducts[shopIndex].items
+            const selectedItems = []
+            for (let index = 0; index < shopItems.length; index++) {
+                if (state.selectedProducts[shopIndex].selectedItemFlags[index].selected) {
+                    selectedItems.push(shopItems[index])
+                }
+            }
+            return selectedItems
+        }
+    },
     // deprecated
     getShoppingCartTotalPrice(state) {
         let totalPrice = 0
