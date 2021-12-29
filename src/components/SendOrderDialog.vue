@@ -18,16 +18,6 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>訂單確認</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn
-              dark
-              text
-              @click="closeDialog()"
-          >
-            結帳
-          </v-btn>
-        </v-toolbar-items>
       </v-toolbar>
 
       <!-- shopping cart items list -->
@@ -105,9 +95,15 @@
         <v-list-item>
           <v-icon large>mdi-currency-usd</v-icon>
           <v-list-item-content class="ml-6">
-            <v-list-item-title class="d-flex flex-row justify-space-between">
-              <div>總金額</div>
-              <div>$ 0</div>
+            <v-list-item-title class="d-flex flex-row justify-space-between align-center">
+              <div class="text-subtitle-1">總金額: $ 0</div>
+              <v-btn
+                  color="cyan"
+                  class="white--text ma-5"
+                  @click="sendOrder()"
+              >
+                結帳
+              </v-btn>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -118,6 +114,8 @@
 </template>
 
 <script>
+import { createOrder } from "../api/orderApi"
+
 export default {
   name: "SendOrderDialog",
   data: () => {
@@ -131,11 +129,27 @@ export default {
     },
     closeDialog() {
       this.isOpenDialog = false
+    },
+    sendOrder() {
+      const orderData = {
+        "customerId": 1,
+        "shippingFee": 100,
+        "recipientName": "Admin",
+        "shippingAddress": "home",
+        "paymentMethod": 0,
+        "creditCardId": "1111-2222-3333-4444",
+        "shippingDiscountCode": null,
+        "seasoningDiscountCode": null,
+        "totalPrice": 10000,
+        "orderItems": {
+          "1": 1,
+          "2": 2,
+          "3": 3
+        }
+      }
+      createOrder(orderData)
+      this.isOpenDialog = false;
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
