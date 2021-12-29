@@ -1,18 +1,18 @@
 <template>
   <div>
     <v-container class="d-flex flex-column justify-center align-center">
-      <MyOrderPage />
+      <MyOrderContent />
     </v-container>
   </div>
 </template>
 
 <script>
-import MyOrderPage from "../components/MyOrderPage";
+import MyOrderContent from "../components/MyOrderContent";
 
 export default {
-  name: "MyOrder",
+  name: "Order",
   components: {
-    MyOrderPage,
+    MyOrderContent,
   },
 };
 </script>

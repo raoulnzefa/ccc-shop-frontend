@@ -38,6 +38,8 @@
       </v-btn>
     </v-container>
 
+    <Footer />
+
     <SignInDialog ref="signInDialog" identity="1"/>
   </div>
 </template>
@@ -45,10 +47,12 @@
 <script>
 import SignInDialog from "../components/SignInDialog";
 import ShoppingCartCard from "../components/ShoppingCartCard";
+import Footer from "../components/Footer";
 
 export default {
   name: "ShoppingCart",
   components: {
+    Footer,
     ShoppingCartCard,
     SignInDialog
   },

@@ -68,14 +68,14 @@
         </template>
 
         <v-list class="mx-auto text-center">
-          <router-link to="/my-order" style="text-decoration: none">
+          <router-link to="/order" style="text-decoration: none">
             <v-list-item link>
               <v-list-item-title v-text="'訂單查詢'"></v-list-item-title>
             </v-list-item>
           </router-link>
 
           <v-divider />
-          <router-link to="/my-account" style="text-decoration: none">
+          <router-link to="/account" style="text-decoration: none">
             <v-list-item link>
               <v-list-item-title v-text="'帳號設定'"></v-list-item-title>
             </v-list-item>

@@ -63,7 +63,7 @@
                     :key="product.name"
                     class="pa-4"
                   >
-                    <Product :product="product" />
+                    <ProductCard :product="product" />
                   </div>
                 </v-row>
               </v-container>
@@ -80,14 +80,14 @@
 
 <script>
 import Welcome from "../components/Welcome";
-import Product from "../components/Product";
+import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 
 export default {
   name: "Home",
   components: {
     Welcome,
-    Product,
+    ProductCard,
     Footer,
   },
   data: () => {

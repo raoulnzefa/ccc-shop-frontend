@@ -46,7 +46,7 @@
 import ProductInfoDialog from "./ProductInfoDialog";
 
 export default {
-  name: "Product",
+  name: "ProductCard",
   components: {
     ProductInfoDialog,
   },

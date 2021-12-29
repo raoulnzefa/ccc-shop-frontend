@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue'),
+    component: () => import('../views/HomePage.vue'),
     meta: {
       title: 'CCC Shop'
     }
@@ -15,7 +15,7 @@ const routes = [
   {
     path: '/cart',
     name: 'ShoppingCart',
-    component: () => import('../views/ShoppingCart.vue'),
+    component: () => import('../views/ShoppingCartPage.vue'),
     meta: {
       title: 'CCC Shop - 購物車'
     }
@@ -23,7 +23,7 @@ const routes = [
   {
     path: '/admin',
     name: 'Admin',
-    component: () => import('../views/Admin.vue'),
+    component: () => import('../views/AdminPage.vue'),
     meta: {
       title: 'CCC Shop - 管理員'
     }
@@ -31,23 +31,23 @@ const routes = [
   {
     path: '/staff',
     name: 'Staff',
-    component: () => import('../views/Staff.vue'),
+    component: () => import('../views/StaffPage.vue'),
     meta: {
       title: 'CCC Shop - 賣家'
     }
   },
   {
-    path: '/my-order',
-    name: 'MyOrder',
-    component: () => import('../views/MyOrder.vue'),
+    path: '/order',
+    name: 'Order',
+    component: () => import('../views/OrderPage.vue'),
     meta: {
       title: 'CCC Shop - 我的訂單'
     }
   },
   {
-    path: '/my-account',
-    name: 'MyAccount',
-    component: () => import('../views/MyAccount.vue'),
+    path: '/account',
+    name: 'Account',
+    component: () => import('../views/AccountPage.vue'),
     meta: {
       title: 'CCC Shop - 帳號管理'
     }
