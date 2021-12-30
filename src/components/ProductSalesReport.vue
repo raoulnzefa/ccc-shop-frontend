@@ -24,7 +24,7 @@
         ></v-text-field>
       </v-col>
       <v-col cols="1">
-        <v-btn color="green lighten-3" @click="generateReport">Generate</v-btn>
+        <v-btn color="green accent-1" @click="generateReport">Generate</v-btn>
       </v-col>
     </v-row>
     <template>
@@ -45,14 +45,14 @@
     </template>
     <v-container class="mt-10 d-flex justify-center align-center">
       <apexchart
-        width="500"
+        width="530"
         type="bar"
         :options="options"
         :series="series"
       ></apexchart>
       <apexchart
         class="ml-10"
-        width="500"
+        width="450"
         type="pie"
         :options="pieOptions"
         :series="pieSeries"
