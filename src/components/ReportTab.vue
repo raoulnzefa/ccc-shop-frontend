@@ -1,16 +1,20 @@
 <template>
   <div>
     title 5
-    <apexchart width="500" type="area" :options="chartOptions" :series="series"></apexchart>
+    <apexchart width="500" type="line" :options="chartOptions" :series="series"></apexchart>
     788675
     <apexchart width="500" type="bar" :options="chartOptions_bar" :series="series_bar"></apexchart>
+    <button @click="loginUser('Admin', 'Admin123')">login</button>
   </div>
 </template>
 
 <script>
+import loginUser from "../api/userApi"
+
 export default {
   data: function() {
     return {
+      userName: "",
       chartOptions: {
         dataLabels: {
             enabled: false
@@ -53,6 +57,18 @@ export default {
 
     }
   },
+  mounted() {
+    this.putInside()
+  },
+  methods: {
+    loginUser(username, password) {
+      this.userName = await loginUser(username, password)
+      this.chartOptions.xaxis.categories = []
+    },
+    putInside() {
+      // akdjhlkgfjhf
+    }
+  }
 }
 </script>
 
