@@ -2,19 +2,19 @@
   <div>
     
     <ProductSalesReport />
-    <!-- <SalesReport /> -->
+    <SalesReport />
     
   </div>
 </template>
 
 <script>
 import ProductSalesReport from "./ProductSalesReport";
-// import SalesReport from "./SalesReport.vue";
+import SalesReport from "./SalesReport.vue";
 
 export default {
   components: {
     ProductSalesReport,
-    // SalesReport,
+    SalesReport,
   },
   data: function() {
     return {

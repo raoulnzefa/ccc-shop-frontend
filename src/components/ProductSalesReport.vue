@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5">
+  <div class="mt-10">
     <div class="text-h4 font-weight-bold" style="text-align: center">
       產品銷售量統計圖
     </div>
