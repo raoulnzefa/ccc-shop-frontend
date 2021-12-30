@@ -7,41 +7,45 @@
     <apexchart
       width="500"
       type="bar"
-      :options="chartOptions_bar"
-      :series="series_bar"
+      :options="options"
+      :series="series"
     ></apexchart>
   </div>
 </template>
 
 <script>
 import { getSalesReport } from "@/api/reportApi";
+// import axios from "axios";
 
 export default {
   data: function () {
     return {
-      startTimepicker: "2018-12-20",
-      endTimepicker: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
-      chartOptions_bar: {
+      options: {
+        chart: {
+          id: "productSalesReport",
+        },
         plotOptions: {
           bar: {
             horizontal: false,
           },
         },
         xaxis: {
-          categories: ["1", "2"],
+          categories: ["A", "B", "C"],
         },
       },
-      series_bar: [
+      series: [
         {
           name: "銷售數量",
-          data: [],
+          data: [13, 4, 6],
         },
       ],
       reportData: {},
+      startTimepicker: "2017-12-20",
+      endTimepicker: new Date(
+        Date.now() - new Date().getTimezoneOffset() * 60000
+      )
+        .toISOString()
+        .substr(0, 10),
     };
   },
   async mounted() {
@@ -50,13 +54,37 @@ export default {
       this.startTimepicker,
       this.endTimepicker
     );
-    this.chartOptions_bar.xaxis.categories = this.reportData.categoryList;
-    this.series_bar[0].data = this.reportData.quantityList;
 
-    // console.log("chartOptions_bar", this.chartOptions_bar.xaxis.categories);
-    // console.log("quantityList", this.reportData.quantityList);
+    this.options = this.prepareOptions(this.reportData.categoryList);
+    this.series = this.prepareSeries(this.reportData.quantityList);
   },
-  methods: {},
+  methods: {
+    prepareOptions(responseCategories) {
+      const options = {
+        chart: {
+          id: "productSalesReport",
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+          },
+        },
+        xaxis: {
+          categories: responseCategories,
+        },
+      };
+      return options;
+    },
+    prepareSeries(responseQuantity) {
+      const series = [
+        {
+          name: "銷售數量",
+          data: responseQuantity,
+        },
+      ];
+      return series;
+    },
+  },
 };
 </script>
 
