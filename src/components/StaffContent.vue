@@ -1,6 +1,6 @@
 <template>
   <v-card
-    min-height="750px"
+    min-height="850px"
     min-width="300px"
     max-width="1600px"
     class="elevation-5 my-3"
@@ -41,7 +41,7 @@
         <ProductTab />
       </v-tab-item>
 
-      <v-tab-item style="width: 1300px;">
+      <v-tab-item style="width: 1300px">
         <OrderTab />
       </v-tab-item>
       <v-tab-item style="width: 1300px">
