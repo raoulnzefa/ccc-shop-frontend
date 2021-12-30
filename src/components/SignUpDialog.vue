@@ -80,21 +80,14 @@
           <v-btn
             color="blue-grey"
             text
-            @click="
-              closeDialog();
-              reset();
-            "
+            @click="closeDialog()"
           >
             關閉
           </v-btn>
           <v-btn
             color="blue"
             text
-            @click="
-              signUpUser();
-              closeDialog();
-              reset();
-            "
+            @click="signUpUser()"
             :disabled="!valid"
           >
             註冊
@@ -102,6 +95,14 @@
         </v-card-actions>
       </v-card>
     </v-form>
+
+    <v-snackbar
+        v-model="isOpenSnackbar"
+        :timeout="2000"
+        color="green darken-2"
+    >
+      註冊成功
+    </v-snackbar>
   </v-dialog>
 </template>
 
@@ -114,6 +115,7 @@ export default {
   data: () => {
     return {
       isOpenDialog: false,
+      isOpenSnackbar: false,
       valid: false,
       username: "",
       password: "",
@@ -145,18 +147,15 @@ export default {
     };
   },
   methods: {
-    resetValidation() {
-      this.$refs.form.resetValidation();
-    },
     openDialog() {
-      this.closeDialog();
       this.isOpenDialog = true;
     },
     closeDialog() {
+      this.reset();
       this.isOpenDialog = false;
     },
-    signUpUser() {
-      createUser(
+    async signUpUser() {
+      const result = await createUser(
         this.username,
         this.identity,
         this.password,
@@ -165,13 +164,25 @@ export default {
         this.creditCard,
         this.address
       );
-      this.$emit("close");
+
+      if (!result.username) {
+        // sign up failed
+        return
+      }
+      this.isOpenSnackbar = true;
+      setTimeout(() => {
+        this.closeDialog();
+        this.$emit("close");
+      }, 2000);
     },
     reset() {
       this.$refs.form.reset();
     },
     validate() {
       this.$refs.form.validate();
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation();
     },
   },
 };
