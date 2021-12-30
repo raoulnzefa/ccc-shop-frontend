@@ -4,9 +4,7 @@
       產品銷售量統計圖
     </div>
     <v-row class="mt-3 justify-center align-center">
-      <v-col cols="1">
-        <div class="text-h5 font-weight-bold">From:</div>
-      </v-col>
+      <div class="text-h5 font-weight-bold">From:</div>
       <v-col cols="2">
         <v-text-field
           v-model="startTimepicker"
@@ -16,17 +14,17 @@
           @click="startTimeDialog = true"
         ></v-text-field>
       </v-col>
-      <v-col cols="1">
-        <div class="text-h5 font-weight-bold">To:</div>
-      </v-col>
+      <div class="text-h5 font-weight-bold">To:</div>
       <v-col cols="2">
         <v-text-field
           v-model="endTimepicker"
-          type="text"
           prepend-inner-icon="mdi-calendar"
           readonly
           @click="endTimeDialog = true"
         ></v-text-field>
+      </v-col>
+      <v-col cols="1">
+        <v-btn color="green lighten-3" @click="generateReport">Generate</v-btn>
       </v-col>
     </v-row>
     <template>
@@ -38,17 +36,28 @@
         <v-btn @click="startTimeDialog = false">OK</v-btn>
       </v-dialog>
       <v-dialog v-model="endTimeDialog" max-width="300px">
-        <v-date-picker v-model="endTimepicker"></v-date-picker>
+        <v-date-picker
+          color="green lighten-1"
+          v-model="endTimepicker"
+        ></v-date-picker>
         <v-btn @click="endTimeDialog = false">OK</v-btn>
       </v-dialog>
     </template>
-    <apexchart
-      class="ma-10"
-      width="500"
-      type="bar"
-      :options="options"
-      :series="series"
-    ></apexchart>
+    <v-container class="mt-10 d-flex justify-center align-center">
+      <apexchart
+        width="500"
+        type="bar"
+        :options="options"
+        :series="series"
+      ></apexchart>
+      <apexchart
+        class="ml-10"
+        width="500"
+        type="pie"
+        :options="pieOptions"
+        :series="pieSeries"
+      ></apexchart>
+    </v-container>
   </div>
 </template>
 
@@ -62,11 +71,6 @@ export default {
         chart: {
           id: "productSalesReport",
         },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-          },
-        },
         xaxis: {
           categories: ["A", "B", "C"],
         },
@@ -77,6 +81,10 @@ export default {
           data: [13, 4, 6],
         },
       ],
+      pieOptions: {
+        labels: ["A", "B", "C"],
+      },
+      pieSeries: [13, 4, 6],
       startTimeDialog: false,
       endTimeDialog: false,
       reportData: {},
@@ -88,26 +96,25 @@ export default {
         .substr(0, 10),
     };
   },
-  async mounted() {
-    this.reportData = await getSalesReport(
-      sessionStorage.getItem("id"),
-      this.startTimepicker,
-      this.endTimepicker
-    );
-
-    this.options = this.prepareOptions(this.reportData.categoryList);
-    this.series = this.prepareSeries(this.reportData.quantityList);
+  mounted() {
+    this.generateReport();
   },
   methods: {
+    async generateReport() {
+      this.reportData = await getSalesReport(
+        sessionStorage.getItem("id"),
+        this.startTimepicker,
+        this.endTimepicker
+      );
+      this.options = this.prepareOptions(this.reportData.categoryList);
+      this.series = this.prepareSeries(this.reportData.quantityList);
+      this.pieOptions = this.preparePieOptions(this.reportData.categoryList);
+      this.pieSeries = this.preparePieSeries(this.reportData.quantityList);
+    },
     prepareOptions(responseCategories) {
       const options = {
         chart: {
           id: "productSalesReport",
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-          },
         },
         xaxis: {
           categories: responseCategories,
@@ -123,6 +130,16 @@ export default {
         },
       ];
       return series;
+    },
+    preparePieOptions(responseCategories) {
+      const pieOptions = {
+        labels: responseCategories,
+      };
+      return pieOptions;
+    },
+    preparePieSeries(responseQuantity) {
+      const pieSeries = responseQuantity;
+      return pieSeries;
     },
   },
 };
