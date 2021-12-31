@@ -12,6 +12,18 @@ export const getCustomerOrders = async function (customerId) {
     }
 }
 
+export const getVenderOrders = async function (venderId) {
+    let json = {
+        "venderId": parseInt(venderId, 10)
+    }
+    try {
+        const response = await axios.post("/api/order/get-vender", json)
+        return response.data.orderList
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const updateOrders = async function (orderId, status) {
     // orderId
     // status
@@ -23,8 +35,8 @@ export const updateOrders = async function (orderId, status) {
     }
 
     try {
-        const response = await axios.post("/api/order/get-customer", json)
-        return response.data.orderList
+        const response = await axios.post("/api/order/update", json)
+        return response.data
     } catch (err) {
         console.log(err)
     }

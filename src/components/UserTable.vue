@@ -141,7 +141,7 @@
               dark
             >
               <div class="grey--text text--lighten-1 text-h5 mb-4">
-                Are you sure you want to delete this user?
+                Are you sure to delete this user?
               </div>
 
               <v-btn
@@ -287,7 +287,7 @@ export default {
       this.$refs.form.resetValidation();
     },
 
-    async refersh() {
+    async refresh() {
       this.users = await getAllUser();
     },
 
@@ -307,7 +307,7 @@ export default {
       await deleteUser(this.users[this.editedIndex].id);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       this.loading = false;
-      await this.refersh();
+      await this.refresh();
       this.closeDelete();
     },
 
@@ -351,7 +351,7 @@ export default {
           this.editedItem.address
         );
       }
-      await this.refersh();
+      await this.refresh();
       this.close();
     },
   },

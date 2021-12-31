@@ -2,7 +2,6 @@
   <v-data-table
     :headers="headers"
     :items="products"
-    sort-by="name"
     class="elevation-1"
   >
     <template v-slot:top>
@@ -145,7 +144,7 @@
               dark
             >
               <div class="grey--text text--lighten-1 text-h5 mb-4">
-                Are you sure you want to delete this product?
+                Are you sure to delete this product?
               </div>
 
               <v-btn
@@ -282,7 +281,7 @@ export default {
       this.$refs.form.resetValidation();
     },
 
-    async refersh() {
+    async refresh() {
       await this.$store.dispatch("productStore/loadAllProducts");
       this.products = this.$store.state.productStore.products.filter(
         (product) => {
@@ -311,7 +310,7 @@ export default {
       await deleteProduct(this.products[this.editedIndex].id);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       this.loading = false;
-      this.refersh();
+      await this.refresh();
       this.closeDelete();
     },
 
@@ -360,7 +359,7 @@ export default {
           this.editedItem.pictureURL
         );
       }
-      await this.refersh();
+      await this.refresh();
       this.close();
     },
   },
