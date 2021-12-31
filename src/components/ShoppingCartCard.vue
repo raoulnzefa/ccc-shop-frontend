@@ -11,7 +11,7 @@
           <v-btn
               color="cyan"
               class="white--text ma-5"
-              @click="$refs.sendOrderDialog.openDialog()"
+              @click="submitOrder()"
           >
             立即下單
           </v-btn>
@@ -21,9 +21,17 @@
 
     <SendOrderDialog
         ref="sendOrderDialog"
-        identity="2"
+        :vender="items.venderName"
         @close="isOpenDialog = false"
     />
+
+    <v-snackbar
+        v-model="isShowSnackbar"
+        :timeout="2000"
+        color="red"
+    >
+      請勾選購物車商品再下單！
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -40,7 +48,8 @@ export default {
   props: ["items"],
   data: () => {
     return {
-      isOpenDialog: false
+      isOpenDialog: false,
+      isShowSnackbar: false
     }
   },
   computed: {
@@ -49,8 +58,15 @@ export default {
     }
   },
   methods: {
-    purchaseItemsFromShop() {
+    submitOrder() {
+      const selectedProducts = this.$store.getters["shoppingCartStore/getSelectedVenderProducts"](this.items.venderName)
+      if (selectedProducts.length === 0) {
+        console.log("No selected products")
+        this.isShowSnackbar = true
+        return
+      }
 
+      this.$refs.sendOrderDialog.openDialog()
     }
   }
 }

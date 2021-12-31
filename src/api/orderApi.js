@@ -1,5 +1,27 @@
 import axios from "axios";
 
+export const createOrder = async function (orderData) {
+    let json = {
+        "customerId": orderData.customerId,
+        "shippingFee": orderData.shippingFee,
+        "recipientName": orderData.recipientName,
+        "shippingAddress": orderData.shippingAddress,
+        "paymentMethod": orderData.paymentMethod,
+        "creditCartId": orderData.creditCardId,
+        "shippingDiscountCode": orderData.shippingDiscountCode,
+        "seasoningDiscountCode": orderData.seasoningDiscountCode,
+        "totalPrice": orderData.totalPrice,
+        "orderItems": orderData.orderItems
+    }
+
+    try {
+        const response = await axios.post("/api/order/create", json)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const getCustomerOrders = async function (customerId) {
     let json = {
         "customerId": parseInt(customerId, 10)
@@ -29,9 +51,7 @@ export const updateOrders = async function (orderId, status) {
     // status
     // time
     let json = {
-        "orderId": orderId,
-        "status": status,
-        "time": Date.now()
+        "orderId": orderId, "status": status, "time": Date.now()
     }
 
     try {

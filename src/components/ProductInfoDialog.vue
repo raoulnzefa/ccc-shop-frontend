@@ -11,12 +11,12 @@
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-rating
-            :value="product.rate"
-            color="amber"
-            dense
-            half-increments
-            readonly
-            size="14"
+              :value="product.rate"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="14"
           ></v-rating>
           <!-- <div class="grey--text ms-4">{{ product.rate }}</div> -->
         </v-row>
@@ -50,23 +50,23 @@
           </template>
         </v-dialog>
         <v-btn
-          v-if="$store.state.userStore.isLogin"
-          block
-          class="mb-3"
-          color="secondary"
-          elevation="5"
-          @click="addProductToCart"
+            v-if="$store.state.userStore.isLogin"
+            block
+            class="mb-3"
+            color="secondary"
+            elevation="5"
+            @click="addProductToCart"
         >
           加入購物車
         </v-btn>
         <v-btn
-          v-else
-          block
-          disabled
-          class="mb-3"
-          color="secondary"
-          elevation="5"
-          @click="addProductToCart"
+            v-else
+            block
+            disabled
+            class="mb-3"
+            color="secondary"
+            elevation="5"
+            @click="addProductToCart"
         >
           請先登入帳號以購買商品
         </v-btn>
@@ -77,7 +77,7 @@
 
 <script>
 import ValuationDialog from "./ValuationDialog";
-import { addShoppingCartProduct } from "../api/shoppingCartApi";
+import {addShoppingCartProduct} from "../api/shoppingCartApi";
 
 export default {
   name: "ProductInfoDialog",
@@ -105,21 +105,16 @@ export default {
       this.quantity++;
     },
     async addProductToCart() {
-      const hasProduct = this.$store.getters[
-        "shoppingCartStore/checkShoppingCartHasProduct"
-      ](this.product.venderName, this.product.id);
+      const hasProduct = this.$store.getters["shoppingCartStore/checkShoppingCartHasProduct"](this.product.venderName, this.product.id);
       if (hasProduct) {
         this.showAlert = true;
         return;
       }
 
-      await addShoppingCartProduct(
-        this.product.id,
-        this.$store.state.userStore.id,
-        this.quantity
-      );
+      await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
+      await this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
       this.isOpenDialog = false;
-    },
+    }
   },
 };
 </script>
