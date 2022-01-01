@@ -1,6 +1,6 @@
 <template>
   <v-card
-    min-height="750px"
+    min-height="850px"
     min-width="300px"
     max-width="1600px"
     class="elevation-5 my-3"
@@ -30,7 +30,11 @@
       </v-tab>
       <v-tab>
         <v-icon left> mdi-finance </v-icon>
-        Report
+        銷售量報表
+      </v-tab>
+      <v-tab>
+        <v-icon left> mdi-cash-multiple </v-icon>
+        銷售額報表
       </v-tab>
 
       <v-tab-item style="width: 1300px">
@@ -41,15 +45,22 @@
         <ProductTab />
       </v-tab-item>
 
-      <v-tab-item style="width: 1300px;">
+      <v-tab-item style="width: 1300px">
         <OrderTab />
       </v-tab-item>
+
       <v-tab-item style="width: 1300px">
         <DiscountTab />
       </v-tab-item>
+
       <v-tab-item style="width: 1300px">
-        <ReportTab />
+        <ProductSalesReport />
       </v-tab-item>
+
+      <v-tab-item style="width: 1300px">
+        <SalesReport />
+      </v-tab-item>
+      
     </v-tabs>
   </v-card>
 </template>
@@ -59,7 +70,9 @@ import AccountManagementTab from "./AccountManagementTab";
 import ProductTab from "./ProductTab";
 import OrderTab from "./OrderTab";
 import DiscountTab from "./DiscountTab";
-import ReportTab from "./ReportTab";
+// import ReportTab from "./ReportTab";
+import ProductSalesReport from "./ProductSalesReport";
+import SalesReport from "./SalesReport.vue";
 
 export default {
   name: "StaffPage",
@@ -68,7 +81,9 @@ export default {
     ProductTab,
     OrderTab,
     DiscountTab,
-    ReportTab,
+    // ReportTab,
+    ProductSalesReport,
+    SalesReport,
   },
 };
 </script>

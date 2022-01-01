@@ -35,10 +35,24 @@ const getters = {
        return (venderName, productId) => {
            const shopIndex = state.cartProducts.findIndex(shop => shop.venderName === venderName)
            if (shopIndex === -1) return false
-
-           const productIndex = state.cartProducts[shopIndex].items.find(item => item.id === productId)
+           const productIndex = state.cartProducts[shopIndex].items.findIndex(item => item.id === productId)
            return productIndex !== -1
        }
+    },
+    getSelectedVenderProducts() {
+        return (venderName) => {
+            const shopIndex = state.cartProducts.findIndex(shop => shop.venderName === venderName)
+            if (shopIndex === -1) return null
+
+            const shopItems = state.cartProducts[shopIndex].items
+            const selectedItems = []
+            for (let index = 0; index < shopItems.length; index++) {
+                if (state.selectedProducts[shopIndex].selectedItemFlags[index].selected) {
+                    selectedItems.push(shopItems[index])
+                }
+            }
+            return selectedItems
+        }
     },
     // deprecated
     getShoppingCartTotalPrice(state) {
@@ -66,6 +80,16 @@ const actions = {
     async deleteCartProduct({ commit }, productData) {
         await deleteShoppingCartProduct(productData.productId, productData.customerId)
         const cartData = await getShoppingCartProducts(productData.customerId)
+        commit('updateAllUserCartState', cartData.shoppingCartItems)
+    },
+    async deleteSelectedCartProducts({ commit, state, rootState }, venderName) {
+        const shopIndex = state.cartProducts.findIndex(shop => venderName === shop.venderName)
+        for (let index = 0; index < state.cartProducts[shopIndex].items.length; index++) {
+            if (state.selectedProducts[shopIndex].selectedItemFlags[index].selected) {
+                await deleteShoppingCartProduct(state.cartProducts[shopIndex].items[index].id, rootState.userStore.id)
+            }
+        }
+        const cartData = await getShoppingCartProducts(rootState.userStore.id)
         commit('updateAllUserCartState', cartData.shoppingCartItems)
     },
     async updateCartStateToBackend({ state }, customerId) {

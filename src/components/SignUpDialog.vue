@@ -80,21 +80,14 @@
           <v-btn
             color="blue-grey"
             text
-            @click="
-              closeSignUpDialog();
-              reset();
-            "
+            @click="closeDialog()"
           >
             關閉
           </v-btn>
           <v-btn
             color="blue"
             text
-            @click="
-              signUpUser();
-              closeSignUpDialog();
-              reset();
-            "
+            @click="signUpUser()"
             :disabled="!valid"
           >
             註冊
@@ -102,6 +95,14 @@
         </v-card-actions>
       </v-card>
     </v-form>
+
+    <v-snackbar
+        v-model="isOpenSnackbar"
+        :timeout="2000"
+        color="green darken-2"
+    >
+      註冊成功
+    </v-snackbar>
   </v-dialog>
 </template>
 
@@ -114,6 +115,7 @@ export default {
   data: () => {
     return {
       isOpenDialog: false,
+      isOpenSnackbar: false,
       valid: false,
       username: "",
       password: "",
@@ -145,21 +147,15 @@ export default {
     };
   },
   methods: {
-    validate() {
-      this.$refs.form.validate();
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
-    },
     openDialog() {
-      this.closeSignUpDialog();
       this.isOpenDialog = true;
     },
-    signUpUser() {
-      createUser(
+    closeDialog() {
+      this.reset();
+      this.isOpenDialog = false;
+    },
+    async signUpUser() {
+      const result = await createUser(
         this.username,
         this.identity,
         this.password,
@@ -168,10 +164,25 @@ export default {
         this.creditCard,
         this.address
       );
-      this.$emit("close");
+
+      if (!result.username) {
+        // sign up failed
+        return
+      }
+      this.isOpenSnackbar = true;
+      setTimeout(() => {
+        this.closeDialog();
+        this.$emit("close");
+      }, 2000);
     },
-    closeSignUpDialog() {
-      this.isOpenDialog = false;
+    reset() {
+      this.$refs.form.reset();
+    },
+    validate() {
+      this.$refs.form.validate();
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation();
     },
   },
 };

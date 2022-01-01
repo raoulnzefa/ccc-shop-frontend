@@ -39,19 +39,14 @@
           <div class="mx-6 my-4 text-subtitle-2">
             只剩 {{ product.stock }} 個 !
           </div>
-          <ReviewDialog :productId="this.product.id"/>
+          <ValuationDialog :productId="this.product.id"/>
         </v-row>
       </v-container>
 
       <v-card-actions>
-        <v-dialog
-          v-model="showAlert"
-        >
+        <v-dialog v-model="showAlert">
           <template>
-            <v-alert
-              type="error"
-              class="mb-0"
-            >購物車中已含有此商品！</v-alert>
+            <v-alert type="error" class="mb-0">購物車中已含有此商品！</v-alert>
           </template>
         </v-dialog>
         <v-btn
@@ -81,13 +76,13 @@
 </template>
 
 <script>
-import ReviewDialog from "./ReviewDialog";
+import ValuationDialog from "./ValuationDialog";
 import {addShoppingCartProduct} from "../api/shoppingCartApi";
 
 export default {
   name: "ProductInfoDialog",
   components: {
-    ReviewDialog,
+    ValuationDialog,
   },
   props: ["product"],
   data: () => {
@@ -110,15 +105,16 @@ export default {
       this.quantity++;
     },
     async addProductToCart() {
-      const hasProduct = this.$store.getters['shoppingCartStore/checkShoppingCartHasProduct'](this.product.venderName, this.product.id)
+      const hasProduct = this.$store.getters["shoppingCartStore/checkShoppingCartHasProduct"](this.product.venderName, this.product.id);
       if (hasProduct) {
-        this.showAlert = true
-        return
+        this.showAlert = true;
+        return;
       }
 
       await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
+      await this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
       this.isOpenDialog = false;
-    },
+    }
   },
 };
 </script>

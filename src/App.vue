@@ -127,7 +127,7 @@ export default {
       this.$store.dispatch("userStore/logoutUser");
       this.$router.push("/");
       setTimeout(() => location.reload(), 500);
-    },
+    }
   },
 };
 </script>

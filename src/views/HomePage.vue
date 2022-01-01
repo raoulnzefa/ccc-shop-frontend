@@ -3,41 +3,46 @@
     <!-- header -->
     <Welcome />
 
-    <v-container class="broadcaster discount mt-5" style="max-width: 1600px">
-      <div>
-        <div
-          v-for="shippingDiscounts in $store.state.discountStore
-            .shippingDiscounts"
-          :key="shippingDiscounts.discountCode"
-        >
-          <v-icon class="mx-2"> mdi-bullhorn </v-icon>
-          {{ shippingDiscounts.policyDescription }}
+    <v-container
+      class="broadcaster discount mt-5 justify-center d-flex"
+      style="width: 1550px"
+    >
+      <v-col cols="12">
+        <div>
+          <div
+            v-for="shippingDiscounts in $store.state.discountStore
+              .shippingDiscounts"
+            :key="shippingDiscounts.discountCode"
+          >
+            <v-icon color="blue darken-2"> mdi-bullhorn </v-icon>
+            {{ shippingDiscounts.policyDescription }}
+          </div>
         </div>
-      </div>
 
-      <div>
-        <div
-          class="mt-5"
-          v-for="seasoningsDiscounts in $store.state.discountStore
-            .seasoningsDiscounts"
-          :key="seasoningsDiscounts.discountCode"
-        >
-          <v-icon class="mx-2"> mdi-bullhorn </v-icon>
-          {{ seasoningsDiscounts.policyDescription }}
+        <div>
+          <div
+            class="mt-5"
+            v-for="seasoningsDiscounts in $store.state.discountStore
+              .seasoningsDiscounts"
+            :key="seasoningsDiscounts.discountCode"
+          >
+            <v-icon color="blue darken-2"> mdi-bullhorn </v-icon>
+            {{ seasoningsDiscounts.policyDescription }}
+          </div>
         </div>
-      </div>
 
-      <div>
-        <div
-          class="mt-5"
-          v-for="specialDiscounts in $store.state.discountStore
-            .specialDiscounts"
-          :key="specialDiscounts.discountCode"
-        >
-          <v-icon class="mx-2"> mdi-bullhorn </v-icon>
-          {{ specialDiscounts.policyDescription }}
+        <div>
+          <div
+            class="mt-5"
+            v-for="specialDiscounts in $store.state.discountStore
+              .specialDiscounts"
+            :key="specialDiscounts.discountCode"
+          >
+            <v-icon color="blue darken-2"> mdi-bullhorn </v-icon>
+            {{ specialDiscounts.policyDescription }}
+          </div>
         </div>
-      </div>
+      </v-col>
     </v-container>
 
     <v-container
@@ -114,6 +119,9 @@ export default {
     },
     chooseCategory(index) {
       this.selectedIndex = index;
+    },
+    test() {
+      console.log(this.$store.state.shoppingCartStore.cartProducts);
     },
   },
 };

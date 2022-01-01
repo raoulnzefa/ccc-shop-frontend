@@ -32,6 +32,7 @@ export const createUser = async function (username, identity, password, phone, e
   } catch (err) {
     console.log(err);
     alert("此使用者名稱已被使用，嘗試其他的試試 !")
+    return null;
   }
 };
 

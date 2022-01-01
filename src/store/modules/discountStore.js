@@ -40,18 +40,15 @@ const actions = {
     async loadCurrentSeasoningDiscount({ commit }) {
         const seasoningsDiscounts = await getCurrentSeasoningsDiscount();
         commit('loadCurrentSeasoningDiscountData', seasoningsDiscounts.seasoningsDiscountList);
-        console.log("seasoningsDiscounts.seasoningsDiscountList", seasoningsDiscounts.seasoningsDiscountList)
     },
     async loadCurrentSpecialDiscount({ commit }) {
         const specialDiscounts = await getCurrentSpecialDiscount();
         commit('loadCurrentSpecialDiscountData', specialDiscounts.specialDiscountList);
-        console.log("specialDiscounts.specialDiscountList", specialDiscounts.specialDiscountList)
 
     },
     async loadCurrentShippingDiscount({ commit }) {
         const shippingDiscounts = await getCurrentShippingDiscount();
         commit('loadCurrentShippingDiscountData', shippingDiscounts.shippingDiscountList);
-        console.log("shippingDiscounts.shippingDiscountList", shippingDiscounts.shippingDiscountList)
     }
 }
 

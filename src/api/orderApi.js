@@ -1,5 +1,27 @@
 import axios from "axios";
 
+export const createOrder = async function (orderData) {
+    let json = {
+        "customerId": orderData.customerId,
+        "shippingFee": orderData.shippingFee,
+        "recipientName": orderData.recipientName,
+        "shippingAddress": orderData.shippingAddress,
+        "paymentMethod": orderData.paymentMethod,
+        "creditCartId": orderData.creditCardId,
+        "shippingDiscountCode": orderData.shippingDiscountCode,
+        "seasoningDiscountCode": orderData.seasoningDiscountCode,
+        "totalPrice": orderData.totalPrice,
+        "orderItems": orderData.orderItems
+    }
+
+    try {
+        const response = await axios.post("/api/order/create", json)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const getCustomerOrders = async function (customerId) {
     let json = {
         "customerId": parseInt(customerId, 10)
@@ -12,19 +34,29 @@ export const getCustomerOrders = async function (customerId) {
     }
 }
 
+export const getVenderOrders = async function (venderId) {
+    let json = {
+        "venderId": parseInt(venderId, 10)
+    }
+    try {
+        const response = await axios.post("/api/order/get-vender", json)
+        return response.data.orderList
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const updateOrders = async function (orderId, status) {
     // orderId
     // status
     // time
     let json = {
-        "orderId": orderId,
-        "status": status,
-        "time": Date.now()
+        "orderId": orderId, "status": status, "time": Date.now()
     }
 
     try {
-        const response = await axios.post("/api/order/get-customer", json)
-        return response.data.orderList
+        const response = await axios.post("/api/order/update", json)
+        return response.data
     } catch (err) {
         console.log(err)
     }

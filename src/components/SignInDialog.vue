@@ -10,22 +10,22 @@
             <v-row>
               <v-col cols="12">
                 <v-text-field
-                  v-model="username"
-                  label="使用者名稱"
-                  type="text"
-                  :rules="usernameRules"
-                  required
-                  prepend-icon="mdi-account-circle"
+                    v-model="username"
+                    label="使用者名稱"
+                    type="text"
+                    :rules="usernameRules"
+                    required
+                    prepend-icon="mdi-account-circle"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  v-model="password"
-                  label="密碼"
-                  :rules="passwordRules"
-                  type="password"
-                  required
-                  prepend-icon="mdi-lock"
+                    v-model="password"
+                    label="密碼"
+                    :rules="passwordRules"
+                    type="password"
+                    required
+                    prepend-icon="mdi-lock"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -34,12 +34,9 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue-grey"
-            text
-            @click="
-              closeSignInDialog();
-              reset();
-            "
+              color="blue-grey"
+              text
+              @click="closeDialog()"
           >
             關閉
           </v-btn>
@@ -48,21 +45,15 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-
-      <v-snackbar v-model="isOpenSnackbar" :timeout="2000">
-        Login Fail
-        <template v-slot:action="{ attrs }">
-          <v-btn
-            color="blue"
-            text
-            v-bind="attrs"
-            @click="isOpenSnackbar = false"
-          >
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
     </v-form>
+
+    <v-snackbar
+        v-model="isOpenSnackbar"
+        :timeout="2000"
+        color="red"
+    >
+      登入失敗，帳號或密碼錯誤
+    </v-snackbar>
   </v-dialog>
 </template>
 
@@ -90,29 +81,27 @@ export default {
     openDialog() {
       this.isOpenDialog = true;
     },
-    reset() {
-      this.$refs.form.reset();
+    closeDialog() {
+      this.reset();
+      this.isOpenDialog = false;
     },
-    signInUser() {
-      this.$store.dispatch("userStore/loginUser", {
+    async signInUser() {
+      await this.$store.dispatch("userStore/loginUser", {
         username: this.username,
         password: this.password,
       });
 
-      setTimeout(() => {
-        if (this.$store.state.userStore.isLogin) {
-          this.closeSignInDialog();
-          this.$emit("close");
-          location.reload();
-        } else {
-          this.reset();
-          this.isOpenSnackbar = true;
-        }
-      }, 500);
+      if (this.$store.state.userStore.isLogin) {
+        this.closeDialog();
+        this.$emit("close");
+        location.reload();
+      } else {
+        this.reset();
+        this.isOpenSnackbar = true;
+      }
     },
-    closeSignInDialog() {
-      this.reset();
-      this.isOpenDialog = false;
+    reset() {
+      this.$refs.form.reset();
     },
   },
 };

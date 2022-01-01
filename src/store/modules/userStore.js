@@ -14,7 +14,7 @@ const blankUserData = {
 const getDefaultState = () => {
   return sessionStorage.getItem("username")
     ? {
-      id: sessionStorage.getItem("id"),
+      id: parseInt(sessionStorage.getItem("id")),
       username: sessionStorage.getItem("username"),
       identity: sessionStorage.getItem("identity"),
       phone: sessionStorage.getItem("phone"),
@@ -59,6 +59,7 @@ const actions = {
 
 const mutations = {
   updateUserData(state, userData) {
+    state.id = userData.id
     state.username = userData.username
     state.identity = userData.identity
     state.phone = userData.phone
