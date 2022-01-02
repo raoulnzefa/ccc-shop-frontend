@@ -70,7 +70,7 @@ import AccountManagementTab from "./AccountManagementTab";
 import ProductTab from "./ProductTab";
 import OrderTab from "./OrderTab";
 import DiscountTab from "./DiscountTab";
-import ReportTab from "./ReportTab";
+// import ReportTab from "./ReportTab";
 import ProductSalesReport from "./ProductSalesReport";
 import SalesReport from "./SalesReport.vue";
 
@@ -81,7 +81,7 @@ export default {
     ProductTab,
     OrderTab,
     DiscountTab,
-    ReportTab,
+    // ReportTab,
     ProductSalesReport,
     SalesReport,
   },
