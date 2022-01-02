@@ -121,6 +121,10 @@ export default {
     if (this.$store.state.userStore.isLogin) {
       this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
     }
+
+    this.$store.dispatch("discountStore/loadCurrentShippingDiscount")
+    this.$store.dispatch("discountStore/loadCurrentSpecialDiscount")
+    this.$store.dispatch("discountStore/loadCurrentSeasoningDiscount")
   },
   methods: {
     logoutUser() {

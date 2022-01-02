@@ -103,9 +103,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch("productStore/loadAllProducts");
-    this.$store.dispatch("discountStore/loadCurrentShippingDiscount");
-    this.$store.dispatch("discountStore/loadCurrentSpecialDiscount");
-    this.$store.dispatch("discountStore/loadCurrentSeasoningDiscount");
   },
   methods: {
     getShowingProducts() {
