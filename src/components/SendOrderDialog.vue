@@ -185,26 +185,26 @@ export default {
       if (!this.address) return
       if (!this.$store.state.userStore.creditCard) return
 
-      const orderItems = new Map()
+      const orderItems = {}
       for (const product of this.products) {
-        orderItems.set(product.id.toString(), product.quantity)
+        orderItems[product.id.toString()] = product.quantity
       }
 
       const orderData = {
-        "customerId": this.$store.state.userStore.id,
-        "shippingFee": 278,
-        "recipientName": this.$store.state.userStore.username,
-        "shippingAddress": this.address,
-        "paymentMethod": this.paymentMethodIndex,
-        "creditCardId": this.$store.state.userStore.creditCard,
-        "shippingDiscountCode": null,
-        "seasoningDiscountCode": null,
-        "totalPrice": this.totalPrice,
-        "orderItems": orderItems
+        customerId: this.$store.state.userStore.id,
+        shippingFee: 278, // not set
+        recipientName: this.$store.state.userStore.username,
+        shippingAddress: this.address,
+        paymentMethod: this.paymentMethodIndex,
+        creditCardId: this.$store.state.userStore.creditCard,
+        shippingDiscountCode: null, // not set
+        seasoningDiscountCode: null, // not set
+        totalPrice: this.totalPrice,
+        orderItems: orderItems
       }
 
       createOrder(orderData)
-      this.$store.dispatch("shoppingCartStore/deleteSelectedCartProducts", this.vender)
+      location.reload()
       this.isOpenDialog = false
     }
   }

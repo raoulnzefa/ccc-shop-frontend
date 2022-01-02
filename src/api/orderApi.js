@@ -7,7 +7,7 @@ export const createOrder = async function (orderData) {
         "recipientName": orderData.recipientName,
         "shippingAddress": orderData.shippingAddress,
         "paymentMethod": orderData.paymentMethod,
-        "creditCartId": orderData.creditCardId,
+        "creditCardId": orderData.creditCardId,
         "shippingDiscountCode": orderData.shippingDiscountCode,
         "seasoningDiscountCode": orderData.seasoningDiscountCode,
         "totalPrice": orderData.totalPrice,

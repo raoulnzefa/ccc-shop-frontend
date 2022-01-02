@@ -61,12 +61,10 @@ export default {
     submitOrder() {
       const selectedProducts = this.$store.getters["shoppingCartStore/getSelectedVenderProducts"](this.items.venderName)
       if (selectedProducts.length === 0) {
-        console.log("No selected products")
         this.isShowSnackbar = true
-        return
+      } else {
+        this.$refs.sendOrderDialog.openDialog()
       }
-
-      this.$refs.sendOrderDialog.openDialog()
     }
   }
 }
