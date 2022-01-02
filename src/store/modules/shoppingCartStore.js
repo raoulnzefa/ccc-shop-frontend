@@ -77,9 +77,10 @@ const actions = {
     async updateCartProductSelected({ commit }, productData) {
         commit('updateProductSelected', productData)
     },
-    async deleteCartProduct({ commit }, productData) {
-        await deleteShoppingCartProduct(productData.productId, productData.customerId)
-        const cartData = await getShoppingCartProducts(productData.customerId)
+    async deleteCartProduct({ commit, rootState }, productId) {
+        const customerId = rootState.userStore.id
+        await deleteShoppingCartProduct(productId, customerId)
+        const cartData = await getShoppingCartProducts(customerId)
         commit('updateAllUserCartState', cartData.shoppingCartItems)
     },
     async updateCartStateToBackend({ state }, customerId) {

@@ -44,11 +44,6 @@
       </v-container>
 
       <v-card-actions>
-        <v-dialog v-model="showAlert">
-          <template>
-            <v-alert type="error" class="mb-0">購物車中已含有此商品！</v-alert>
-          </template>
-        </v-dialog>
         <v-btn
             v-if="$store.state.userStore.isLogin"
             block
@@ -70,6 +65,14 @@
         >
           請先登入帳號以購買商品
         </v-btn>
+
+        <v-snackbar
+            v-model="isShowSnackbar"
+            :timeout="2000"
+            color="red"
+        >
+          請勾選購物車商品再下單！
+        </v-snackbar>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -88,7 +91,9 @@ export default {
   data: () => {
     return {
       isOpenDialog: false,
-      showAlert: false,
+      isShowSuccessAlert: false,
+      isShowFailAlert: false,
+      isShowSnackbar: false,
       quantity: 1,
     };
   },
@@ -107,13 +112,12 @@ export default {
     async addProductToCart() {
       const hasProduct = this.$store.getters["shoppingCartStore/checkShoppingCartHasProduct"](this.product.venderName, this.product.id);
       if (hasProduct) {
-        this.showAlert = true;
-        return;
+        this.isShowSnackbar = true;
+      } else {
+        await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
+        await this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
+        this.isOpenDialog = false;
       }
-
-      await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
-      await this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
-      this.isOpenDialog = false;
     }
   },
 };

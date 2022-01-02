@@ -116,20 +116,8 @@ export default {
       })
     },
     deleteCartItem() {
-      this.$store.dispatch("shoppingCartStore/deleteCartProduct", {
-        productId: this.item.id,
-        customerId: this.$store.state.userStore.id
-      })
+      this.$store.dispatch("shoppingCartStore/deleteCartProduct", this.item.id)
       this.showDeleteItemDialog = false
-    },
-    parsePriceText(price) {
-      let result = ""
-      while (parseInt(price) > 0) {
-        let temp = price % 1000
-        price = parseInt(price / 1000)
-        result = temp + "," + result
-      }
-      return result.slice(0, -1)
     }
   }
 }
