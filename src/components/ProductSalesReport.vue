@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { getSalesReport } from "@/api/reportApi";
+import { getProductSalesReport } from "@/api/reportApi";
 
 export default {
   data: function () {
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     async generateReport() {
-      this.reportData = await getSalesReport(
+      this.reportData = await getProductSalesReport(
         sessionStorage.getItem("id"),
         this.startTimepicker,
         this.endTimepicker

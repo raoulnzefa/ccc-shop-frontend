@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getSalesReport = async function (venderId, startTime, endTime) {
+export const getProductSalesReport = async function (venderId, startTime, endTime) {
     let json = {
         "venderId": venderId,
         "startTime": startTime,
@@ -8,7 +8,20 @@ export const getSalesReport = async function (venderId, startTime, endTime) {
     }
 
     try {
-        const response = await axios.post("/api/report/get-sale-report", json)
+        const response = await axios.post("/api/report/get-product-sales-report", json)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const getSalesReport = async function (venderId) {
+    let json = {
+        "venderId": venderId,
+    }
+
+    try {
+        const response = await axios.post("/api/report/get-sales-report", json)
         return response.data
     } catch (err) {
         console.log(err)
