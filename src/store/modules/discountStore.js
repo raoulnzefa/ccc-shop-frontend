@@ -50,7 +50,7 @@ const actions = {
         const shippingDiscounts = await getCurrentShippingDiscount()
         console.log(shippingDiscounts)
         commit('loadCurrentShippingDiscountData', shippingDiscounts.shippingDiscountList)
-    }
+    },
 }
 
 const mutations = {
@@ -62,7 +62,7 @@ const mutations = {
     },
     loadCurrentShippingDiscountData(state, shippingDiscounts) {
         state.shippingDiscounts = shippingDiscounts
-    }
+    },
 }
 
 export default { namespaced: true, state, getters, actions, mutations };
