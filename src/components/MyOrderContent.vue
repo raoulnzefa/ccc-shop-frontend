@@ -3,7 +3,9 @@
     <v-card-title>
       訂單列表
       <v-alert text type="info" elevation="2" class="mx-10">
-        <div class="text-body-2">點擊商品即可給出屬於你的評價</div>
+        <div class="text-body-2">
+          點擊訂單中之「購買商品」，可給出屬於你的專屬評價
+        </div>
       </v-alert>
       <v-spacer></v-spacer>
       <v-text-field
@@ -59,10 +61,11 @@
 
       <template v-slot:[`item.orderItems`]="{ item }">
         <v-row
-          class="my-4"
+          class="my-4 px-2 py-1"
           v-for="(value, key) in item.orderItems"
           :key="key"
           @click="$refs.giveValuationDialog.openDialog(key)"
+          style="background-color: rgb(173 204 255); border-radius: 13px"
         >
           {{ key + " : " + value }}
         </v-row>
