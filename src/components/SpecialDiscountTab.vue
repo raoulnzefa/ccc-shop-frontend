@@ -127,6 +127,7 @@
 <script>
 import { createSpecialDiscount } from "@/api/discountApi";
 import { editSpecialDiscount } from "@/api/discountApi";
+import { getVenderSpecialDiscounts } from "@/api/discountApi";
 
 export default {
   data: () => ({
@@ -190,14 +191,7 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch("discountStore/loadCurrentSpecialDiscount");
-    this.specialDiscounts = this.$store.state.discountStore.specialDiscounts.filter(
-      (discount) => {
-        return (
-          discount.venderId === this.$store.state.userStore.id
-        );
-      }
-    );
+      this.specialDiscounts = await getVenderSpecialDiscounts(this.$store.state.userStore.id);
   },
 
   methods: {
@@ -212,14 +206,7 @@ export default {
     },
 
     async refersh() {
-      await this.$store.dispatch("discountStore/loadCurrentSpecialDiscount");
-      this.specialDiscounts = this.$store.state.discountStore.specialDiscounts.filter(
-        (discount) => {
-          return (
-            discount.venderId === this.$store.state.userStore.id
-          );
-        }
-      );
+      this.specialDiscounts = await getVenderSpecialDiscounts(this.$store.state.userStore.id);
     },
 
     editItem(item) {
