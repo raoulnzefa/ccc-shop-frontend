@@ -5,6 +5,7 @@ const state = {
     specialDiscounts: [],
     shippingDiscounts: [],
 }
+
 //////// shippingDiscounts: []
 // discountCode
 // endTime
@@ -12,6 +13,7 @@ const state = {
 // startTime
 // targetPrice
 // venderId
+// venderName
 //////////
 
 //////// seasoningsDiscountList: []
@@ -21,36 +23,54 @@ const state = {
 // policyDescription
 // startTime
 // venderId
+// venderName
 //////////
 
 //////// specialDiscountList: []
-// venderId;
-// policyDescription;
-// startTime;
-// endTime;
-// category;
-// discountRate;
+// venderId
+// venderName
+// policyDescription
+// startTime
+// endTime
+// category
+// discountRate
 //////////
 
-const getters = {}
+const getters = {
+    getVenderSeasoningDiscount(state) {
+        return (venderName) => {
+            return state.seasoningsDiscounts.filter(discount => venderName === discount.venderName)
+        }
+    },
+    getVenderSpecialDiscount(state) {
+        return (venderName) => {
+            return state.specialDiscounts.filter(discount => venderName === discount.venderName)
+        }
+    },
+    getVenderShippingDiscount(state) {
+        return (venderName) => {
+            return state.shippingDiscounts.filter(discount => venderName === discount.venderName)
+        }
+    },
+}
 
 const actions = {
-    async loadCurrentSeasoningDiscount({ commit }) {
+    async loadCurrentSeasoningDiscount({commit}) {
         const seasoningsDiscounts = await getCurrentSeasoningsDiscount()
-        console.log(seasoningsDiscounts)
+        // console.log(seasoningsDiscounts) // debug
         commit('loadCurrentSeasoningDiscountData', seasoningsDiscounts.seasoningsDiscountList)
     },
-    async loadCurrentSpecialDiscount({ commit }) {
+    async loadCurrentSpecialDiscount({commit}) {
         const specialDiscounts = await getCurrentSpecialDiscount()
-        console.log(specialDiscounts)
+        // console.log(specialDiscounts) // debug
         commit('loadCurrentSpecialDiscountData', specialDiscounts.specialDiscountList)
 
     },
-    async loadCurrentShippingDiscount({ commit }) {
+    async loadCurrentShippingDiscount({commit}) {
         const shippingDiscounts = await getCurrentShippingDiscount()
-        console.log(shippingDiscounts)
+        // console.log(shippingDiscounts) // debug
         commit('loadCurrentShippingDiscountData', shippingDiscounts.shippingDiscountList)
-    }
+    },
 }
 
 const mutations = {
@@ -62,7 +82,7 @@ const mutations = {
     },
     loadCurrentShippingDiscountData(state, shippingDiscounts) {
         state.shippingDiscounts = shippingDiscounts
-    }
+    },
 }
 
-export default { namespaced: true, state, getters, actions, mutations };
+export default {namespaced: true, state, getters, actions, mutations};
