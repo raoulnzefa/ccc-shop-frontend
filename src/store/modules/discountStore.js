@@ -4,6 +4,7 @@ const state = {
     seasoningsDiscounts: [],
     specialDiscounts: [],
     shippingDiscounts: [],
+    staffSeasoningsDiscounts: [],
 }
 
 //////// shippingDiscounts: []

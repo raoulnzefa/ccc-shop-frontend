@@ -88,6 +88,9 @@ export default {
       productName: "",
     };
   },
+  async mounted() {
+    await this.$store.dispatch("productStore/loadAllProducts");
+  },
   methods: {
     openDialog(productName) {
       this.isOpenDialog = true;
@@ -95,6 +98,7 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+      this.rating = 0;
     },
     createValuation() {
       var p = this.$store.state.productStore.products.filter(
