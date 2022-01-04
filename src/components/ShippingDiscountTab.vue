@@ -116,6 +116,7 @@
 <script>
 import { createShippingDiscount } from "@/api/discountApi";
 import { editShippingDiscount } from "@/api/discountApi";
+import { getVenderShippingDiscounts } from "@/api/discountApi";
 
 export default {
   data: () => ({
@@ -175,14 +176,7 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch("discountStore/loadCurrentShippingDiscount");
-    this.shippingDiscounts = this.$store.state.discountStore.shippingDiscounts.filter(
-      (discount) => {
-        return (
-          discount.venderId === this.$store.state.userStore.id
-        );
-      }
-    );
+      this.shippingDiscounts = await getVenderShippingDiscounts(this.$store.state.userStore.id);
   },
 
   methods: {
@@ -197,14 +191,7 @@ export default {
     },
 
     async refersh() {
-      await this.$store.dispatch("discountStore/loadCurrentShippingDiscount");
-      this.shippingDiscounts = this.$store.state.discountStore.shippingDiscounts.filter(
-        (discount) => {
-          return (
-            discount.venderId === this.$store.state.userStore.id
-          );
-        }
-      );
+      this.shippingDiscounts = await getVenderShippingDiscounts(this.$store.state.userStore.id);
     },
 
     editItem(item) {

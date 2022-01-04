@@ -32,7 +32,7 @@ export const getCurrentSeasoningsDiscount = async function () {
 //create
 export const createSeasoningsDiscount = async function(venderId, policyDescription, startTime, endTime, discountRate){
     let json = {
-        "venderId": venderId,
+        "venderId": parseInt(venderId, 10),
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
@@ -49,7 +49,7 @@ export const createSeasoningsDiscount = async function(venderId, policyDescripti
 
 export const createShippingDiscount = async function(venderId, policyDescription, startTime, endTime, targetPrice){
     let json = {
-        "venderId": venderId,
+        "venderId": parseInt(venderId, 10),
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
@@ -64,9 +64,9 @@ export const createShippingDiscount = async function(venderId, policyDescription
     }
 };
 
-export const createSpecialDiscount = async function (discountCode, venderId, policyDescription, startTime, endTime, category, discountRate) {
+export const createSpecialDiscount = async function (venderId, policyDescription, startTime, endTime, category, discountRate) {
     let json = {
-        "venderId": venderId,
+        "venderId": parseInt(venderId, 10),
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
@@ -84,37 +84,41 @@ export const createSpecialDiscount = async function (discountCode, venderId, pol
 
 
 //get_vender
-export const getVenderSeasoningsDiscount = async function (venderId) {
+
+export const getVenderSeasoningsDiscounts = async function (venderId) {
     let json = {
-        "venderId": venderId
+        "venderId": parseInt(venderId, 10)
     }
+
     try {
-        const response = await axios.get("/api/seasonings_discount/get-vender", json);
-        return response.data;
+        const response = await axios.post("/api/seasonings_discount/get-vender", json);
+        return response.data.seasoningsDiscountList
     } catch (err) {
         console.log(err);
     }
 };
 
-export const getVenderShippingDiscount = async function (venderId) {
+export const getVenderShippingDiscounts = async function (venderId) {
     let json = {
-        "venderId": venderId
+        "venderId": parseInt(venderId, 10)
     }
+
     try {
-        const response = await axios.get("/api/shipping_discount/get-vender", json);
-        return response.data;
+        const response = await axios.post("/api/shipping_discount/get-vender", json);
+        return response.data.shippingDiscountList
     } catch (err) {
         console.log(err);
     }
 };
 
-export const getVenderSpecialDiscount = async function (venderId) {
+export const getVenderSpecialDiscounts = async function (venderId) {
     let json = {
-        "venderId": venderId
+        "venderId": parseInt(venderId, 10)
     }
+
     try {
-        const response = await axios.get("/api/special_discount/get-vender", json);
-        return response.data;
+        const response = await axios.post("/api/special_discount/get-vender", json);
+        return response.data.specialDiscountList
     } catch (err) {
         console.log(err);
     }
@@ -123,8 +127,8 @@ export const getVenderSpecialDiscount = async function (venderId) {
 //edit
 export const editSeasoningsDiscount = async function (discountCode, venderId, policyDescription, startTime, endTime, discountRate) {
     let json = {
-        "discountCode": discountCode,
-        "venderId": venderId,
+        "discountCode": parseInt(discountCode, 10),
+        "venderId": parseInt(venderId, 10),
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
@@ -141,8 +145,8 @@ export const editSeasoningsDiscount = async function (discountCode, venderId, po
 
 export const editShippingDiscount = async function (discountCode, venderId, policyDescription, startTime, endTime, targetPrice) {
     let json = {
-        "discountCode": discountCode,
-        "venderId": venderId,
+        "discountCode": parseInt(discountCode, 10),
+        "venderId": parseInt(venderId, 10),
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
@@ -159,8 +163,8 @@ export const editShippingDiscount = async function (discountCode, venderId, poli
 
 export const editSpecialDiscount = async function (discountCode, venderId, policyDescription, startTime, endTime, category, discountRate) {
     let json = {
-        "discountCode": discountCode,
-        "venderId": venderId,
+        "discountCode": parseInt(discountCode, 10),
+        "venderId": parseInt(venderId, 10),
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,

@@ -117,6 +117,7 @@
 <script>
 import { createSeasoningsDiscount } from "@/api/discountApi";
 import { editSeasoningsDiscount } from "@/api/discountApi";
+import { getVenderSeasoningsDiscounts } from "@/api/discountApi";
 
 export default {
   data: () => ({
@@ -176,14 +177,7 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch("discountStore/loadCurrentSeasoningDiscount");
-    this.seasoningsDiscounts = this.$store.state.discountStore.seasoningsDiscounts.filter(
-      (discount) => {
-        return (
-          discount.venderId === this.$store.state.userStore.id
-        );
-      }
-    );
+    this.seasoningsDiscounts = await getVenderSeasoningsDiscounts(this.$store.state.userStore.id);
   },
 
   methods: {
@@ -198,14 +192,7 @@ export default {
     },
 
     async refersh() {
-      await this.$store.dispatch("discountStore/loadCurrentSeasoningDiscount");
-      this.seasoningsDiscounts = this.$store.state.discountStore.seasoningsDiscounts.filter(
-        (discount) => {
-          return (
-            discount.venderId === this.$store.state.userStore.id
-          );
-        }
-      );
+      this.seasoningsDiscounts = await getVenderSeasoningsDiscounts(this.$store.state.userStore.id);
     },
 
     editItem(item) {

@@ -123,8 +123,8 @@ export default {
     }
 
     this.$store.dispatch("discountStore/loadCurrentShippingDiscount")
-    this.$store.dispatch("discountStore/loadCurrentSpecialDiscount")
     this.$store.dispatch("discountStore/loadCurrentSeasoningDiscount")
+    this.$store.dispatch("discountStore/loadCurrentSpecialDiscount")
   },
   methods: {
     logoutUser() {

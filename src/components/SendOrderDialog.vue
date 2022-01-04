@@ -24,7 +24,7 @@
       <v-list three-line subheader>
         <v-subheader class="subtitle-1 ma-4">訂單內容</v-subheader>
 
-        <v-list-item v-for="product in products" :key="product.id" class="my-4">
+        <v-list-item v-for="product in products" :key="product.id" class="mx-2 my-4">
           <v-img
               max-height="150"
               max-width="150"
@@ -32,10 +32,19 @@
           ></v-img>
           <v-list-item-content class="ml-6">
             <v-list-item-title>{{ product.name }}</v-list-item-title>
-            <v-list-item-subtitle>${{ product.price }} x {{ product.quantity }} = ${{
-                product.price * product.quantity
-              }}
-            </v-list-item-subtitle>
+            <v-list-item-subtitle>{{ getProductPriceText(product.price, product.quantity) }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item class="mx-4 my-4">
+          <v-img
+              max-height="200"
+              max-width="150"
+              src="https://images.twgreatdaily.com/images/elastic/D8g/D8gfW3cBDlXMa8eqBJBF.jpg"
+          ></v-img>
+          <v-list-item-content class="ml-6">
+            <v-list-item-title>頭文字 D 飆速宅配服務</v-list-item-title>
+            <v-list-item-subtitle>$ {{ shippingFee }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -52,16 +61,46 @@
                 <v-icon large>mdi-ticket-percent</v-icon>
                 <v-list-item-content class="ml-6">
                   <v-list-item-title>使用折扣</v-list-item-title>
-                  <v-list-item-subtitle>未使用折扣</v-list-item-subtitle>
+                  <v-list-item-subtitle>{{ discountInfo }}</v-list-item-subtitle>
                 </v-list-item-content>
-                <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
               </v-list-item>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              折扣功能未開啟
+              <div class="d-flex flex-column justify-start align-start ml-4 my-2">
+                <v-select
+                    v-model="selectedShippingDiscount"
+                    :items="shippingDiscounts"
+                    :disabled="shippingDiscounts.length === 0"
+                    item-text="policyDescription"
+                    label="運費折抵"
+                    return-object
+                    dense
+                    outlined
+                    clearable
+                ></v-select>
+                <v-select
+                    v-model="selectedSeasoningDiscount"
+                    :items="seasoningDiscounts"
+                    :disabled="seasoningDiscounts.length === 0"
+                    item-text="policyDescription"
+                    label="季節性優惠"
+                    return-object
+                    dense
+                    outlined
+                    clearable
+                ></v-select>
+                <v-select
+                    v-model="selectedSpecialDiscount"
+                    :items="specialDiscounts"
+                    :disabled="true"
+                    item-text="policyDescription"
+                    label="特殊活動優惠 - 目前尚未開放"
+                    return-object
+                    dense
+                    outlined
+                    clearable
+                ></v-select>
+              </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
 
@@ -95,7 +134,6 @@
                   <v-list-item-title>寄送地址</v-list-item-title>
                   <v-list-item-subtitle>{{ address }}</v-list-item-subtitle>
                 </v-list-item-content>
-                <v-spacer></v-spacer>
               </v-list-item>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="ml-6">
@@ -114,16 +152,17 @@
         </v-expansion-panels>
       </v-list>
 
+      <!-- price and send order button -->
       <v-list subheader class="px-8 py-4">
         <v-list-item>
           <v-icon large>mdi-currency-usd</v-icon>
           <v-list-item-content class="ml-6">
             <v-list-item-title class="d-flex flex-row justify-space-between align-center">
-              <div class="text-subtitle-1">總金額: ${{ totalPrice }}</div>
+              <div class="text-subtitle-1">總金額: $ {{ totalPrice + shippingFee }}</div>
               <v-btn
                   color="cyan"
                   class="white--text ma-5"
-                  @click="sendOrder()"
+                  @click="test()"
               >
                 結帳
               </v-btn>
@@ -132,6 +171,14 @@
         </v-list-item>
       </v-list>
 
+      <!-- snackbar -->
+      <v-snackbar
+          v-model="isShowSnackbar"
+          :timeout="2000"
+          color="red"
+      >
+        訂單資料不完整！
+      </v-snackbar>
     </v-card>
   </v-dialog>
 </template>
@@ -149,10 +196,21 @@ export default {
       paymentMethods: ["貨到付款", "信用卡", "電信支付"],
       useDefaultAddress: true,
       inputAddress: "",
-      isOpenDialog: false
+      isOpenDialog: false,
+      isShowSnackbar: false,
+      shippingFee: 111,
+      selectedShippingDiscount: null,
+      selectedSeasoningDiscount: null,
+      selectedSpecialDiscount: null
     }
   },
   computed: {
+    discountInfo() {
+      const shippingDiscountText = this.selectedShippingDiscount ? `運費折抵 -${this.shippingFee}` : "運費折抵: 無"
+      const seasoningDiscountText = this.selectedSeasoningDiscount ? `季節性優惠 x${this.selectedSeasoningDiscount.discountRate * 100}%` : "季節性優惠: 無"
+      const specialDiscountText = this.selectedSpecialDiscount ? `特殊活動優惠 x${this.selectedSpecialDiscount.discountRate * 100}%` : "特殊活動優惠: 無"
+      return `${shippingDiscountText}, ${seasoningDiscountText}, ${specialDiscountText}`
+    },
     paymentInfo() {
       let paymentInfo = this.paymentMethods[this.paymentMethodIndex]
       if (this.paymentMethodIndex === 1) {
@@ -162,7 +220,7 @@ export default {
       return paymentInfo
     },
     address() {
-      return this.useDefaultAddress ? this.$store.state.userStore.address : this.inputAddress
+      return this.useDefaultAddress ? this.$store.state.userStore.address : this.inputAddress.trim()
     },
     totalPrice() {
       let totalPrice = 0
@@ -170,6 +228,15 @@ export default {
         totalPrice += product.price * product.quantity
       }
       return totalPrice
+    },
+    shippingDiscounts() {
+      return this.$store.getters["discountStore/getVenderShippingDiscount"](this.vender)
+    },
+    seasoningDiscounts() {
+      return this.$store.getters["discountStore/getVenderSeasoningDiscount"](this.vender)
+    },
+    specialDiscounts() {
+      return this.$store.getters["discountStore/getVenderSpecialDiscount"](this.vender)
     },
   },
   methods: {
@@ -180,10 +247,25 @@ export default {
     closeDialog() {
       this.isOpenDialog = false
     },
+    getProductPriceText(price, quantity) {
+      return `${price} x ${quantity} = ${price * quantity}`
+    },
+    test() {
+      console.log(this.selectedShippingDiscount)
+      console.log(this.selectedSeasoningDiscount)
+      console.log(this.selectedSpecialDiscount)
+    },
+    checkOrderInformation() {
+      if (this.totalPrice < this.selectedShippingDiscount.targetPrice) return false
+      if (!this.address) return false
+      if (!this.$store.state.userStore.creditCard.trim()) return false
+      return true
+    },
     sendOrder() {
-      // check if data valid
-      if (!this.address) return
-      if (!this.$store.state.userStore.creditCard) return
+      if (!this.checkOrderInformation()) {
+        this.isShowSnackbar = true
+        return
+      }
 
       const orderItems = {}
       for (const product of this.products) {
@@ -192,13 +274,13 @@ export default {
 
       const orderData = {
         customerId: this.$store.state.userStore.id,
-        shippingFee: 278, // not set
+        shippingFee: this.shippingFee,
         recipientName: this.$store.state.userStore.username,
         shippingAddress: this.address,
         paymentMethod: this.paymentMethodIndex,
         creditCardId: this.$store.state.userStore.creditCard,
-        shippingDiscountCode: null, // not set
-        seasoningDiscountCode: null, // not set
+        shippingDiscountCode: this.selectedShippingDiscount.discountCode,
+        seasoningDiscountCode: this.selectedSeasoningDiscount.discountCode,
         totalPrice: this.totalPrice,
         orderItems: orderItems
       }
