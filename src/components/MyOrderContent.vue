@@ -61,11 +61,10 @@
 
       <template v-slot:[`item.orderItems`]="{ item }">
         <v-row
-          class="my-4 px-2 py-1"
+          class="my-4 px-2 py-1 order"
           v-for="(value, key) in item.orderItems"
           :key="key"
           @click="$refs.giveValuationDialog.openDialog(key)"
-          style="background-color: rgb(173 204 255); border-radius: 13px"
         >
           {{ key + " : " + value }}
         </v-row>
@@ -179,4 +178,25 @@ export default {
 </script>
 
 <style>
+.order {
+  background-color: rgb(173 204 255);
+  border-radius: 13px;
+}
+
+.order:hover {
+  background-color: rgb(69 146 253);
+  border-radius: 13px;
+}
+
+.order {
+  transition: 500ms;
+  position: relative;
+  overflow: hidden;
+}
+
+.order:hover,
+.order:active {
+  transform: scaleY(1.05) scaleX(1.05);
+  box-shadow: 0 140px 98px rgba(0, 0, 0, 0.25), 0 0px 60px rgba(0, 0, 0, 0.22);
+}
 </style>
