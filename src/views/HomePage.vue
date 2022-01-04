@@ -116,10 +116,7 @@ export default {
     },
     chooseCategory(index) {
       this.selectedIndex = index;
-    },
-    test() {
-      console.log(this.$store.state.shoppingCartStore.cartProducts);
-    },
+    }
   },
 };
 </script>

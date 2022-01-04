@@ -15,10 +15,12 @@
         <v-container>
           <v-row>
             <v-text-field
+              v-model="searchText"
               label="搜尋商品"
               outlined
               dense
               append-icon="mdi-magnify"
+              @click:append="search()"
             ></v-text-field>
           </v-row>
         </v-container>
@@ -115,6 +117,11 @@ export default {
     SignInSignUpDialog,
     SignUpDialog,
   },
+  data: () => {
+    return {
+      searchText: "",
+    }
+  },
   mounted() {
     if (this.$store.state.userStore.isLogin) {
       this.$store.dispatch("shoppingCartStore/loadUserCartProducts")
@@ -129,6 +136,13 @@ export default {
       this.$store.dispatch("userStore/logoutUser");
       this.$router.push("/");
       setTimeout(() => location.reload(), 500);
+    },
+    search() {
+      if (this.searchText.trim() === "") return
+      if (this.$route.params.text === this.searchText) return
+      this.$store.dispatch("productStore/loadAllProducts")
+      // loading animation?
+      this.$router.push({ name: 'Search', params: { text: this.searchText } })
     }
   },
 };

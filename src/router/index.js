@@ -51,6 +51,14 @@ const routes = [
     meta: {
       title: 'CCC Shop - 帳號管理'
     }
+  },
+  {
+    path: '/search/:text',
+    name: 'Search',
+    component: () => import('../views/SearchPage.vue'),
+    meta: {
+      title: 'CCC Shop - 搜尋'
+    }
   }
 ]
 

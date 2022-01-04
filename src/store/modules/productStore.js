@@ -1,4 +1,4 @@
-import { getAllProducts } from "../../api/productApi";
+import {getAllProducts} from "../../api/productApi";
 
 //   id: "",
 // "venderId": 2,
@@ -13,22 +13,40 @@ import { getAllProducts } from "../../api/productApi";
 // "rate": 5
 
 const state = {
-  products: [],
+    products: [],
 }
 
-const getters = {}
+const getters = {
+    searchProductsByText(state) {
+        return (searchText) => {
+            const products = []
+            console.log(`searchText = ${searchText}`)
+            searchText = searchText.toLowerCase()
+            for (const product of state.products) {
+                const keywords = [product.category, product.name, product.venderName, product.description]
+                for (const keyword of keywords) {
+                    if (keyword.toLowerCase().includes(searchText)) {
+                        products.push(product)
+                        console.log(product)
+                    }
+                }
+            }
+            return products
+        }
+    }
+}
 
 const actions = {
-  async loadAllProducts({ commit }) {
-    const productsData = await getAllProducts();
-    commit('updateProductsData', productsData.productList);
-  }
+    async loadAllProducts({commit}) {
+        const productsData = await getAllProducts();
+        commit('updateProductsData', productsData.productList);
+    }
 }
 
 const mutations = {
-  updateProductsData(state, productsData) {
-    state.products = productsData
-  }
+    updateProductsData(state, productsData) {
+        state.products = productsData
+    }
 }
 
-export default { namespaced: true, state, getters, actions, mutations };
+export default {namespaced: true, state, getters, actions, mutations};
