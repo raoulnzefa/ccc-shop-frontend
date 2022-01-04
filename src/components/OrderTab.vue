@@ -3,7 +3,7 @@
     <v-card-title>
       訂單列表
       <v-alert text type="info" elevation="2" class="mx-10">
-        <div class="text-body-2">點擊運送狀態即可更新商品的運送狀態</div>
+        <div class="text-body-2">點擊「運送狀態」可更新商品的運送狀態</div>
       </v-alert>
       <v-spacer></v-spacer>
       <v-text-field
@@ -23,7 +23,7 @@
 
       <template v-slot:[`item.status`]="{ item }">
         <v-chip
-          class="py-3 my-4"
+          class="py-3 my-4 status"
           :color="getColor(item.status)"
           label
           x-small
@@ -122,9 +122,9 @@ export default {
       { text: "運費", value: "shippingFee" },
       { text: "運送狀態", value: "status" },
       { text: "付款方式", value: "paymentMethod" },
-      { text: "下訂日期", value: "orderTime" },
-      { text: "運送日期", value: "shippingTime" },
-      { text: "抵達日期", value: "deliveryTime" },
+      { text: "下訂日期", value: "orderDate" },
+      { text: "運送日期", value: "shippingDate" },
+      { text: "抵達日期", value: "deliveryDate" },
     ],
     orders: [],
     loading: false,
@@ -188,4 +188,15 @@ export default {
 </script>
 
 <style>
+.status {
+  transition: 500ms;
+  position: relative;
+  overflow: hidden;
+}
+
+.status:hover,
+.status:active {
+  transform: scaleY(1.05) scaleX(1.05);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
+}
 </style>
