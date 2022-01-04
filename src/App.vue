@@ -7,7 +7,7 @@
     >
       <v-toolbar-title style="height: 64px"></v-toolbar-title>
 
-      <router-link to="/">
+      <router-link to="/" class="toolbar-item">
         <v-icon x-large>mdi-store-outline</v-icon>
       </router-link>
 
@@ -91,11 +91,9 @@
       <SignInSignUpDialog ref="signInSignUpDialog" />
       <SignUpDialog ref="signUpDialog" identity="1" />
 
-      <router-link to="/cart">
+      <router-link to="/cart" class="toolbar-item">
         <v-btn icon>
-          <!-- <v-badge color="pink" dot> -->
           <v-icon>mdi-cart</v-icon>
-          <!-- </v-badge> -->
         </v-btn>
       </router-link>
     </v-app-bar>
@@ -140,5 +138,9 @@ export default {
 .search-bar {
   margin-top: 30px;
   margin-left: 20px;
+}
+
+.toolbar-item {
+  text-decoration: none;
 }
 </style>
