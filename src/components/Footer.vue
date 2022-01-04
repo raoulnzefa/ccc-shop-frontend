@@ -3,27 +3,32 @@
     <v-card flat tile class="indigo lighten-1 white--text text-center">
       <v-card-text>
         <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
-          <v-icon size="24px">
-            {{ icon }}
-          </v-icon>
+          <a href="/" style="color: inherit; text-decoration: none;">
+            <v-icon size="24px">
+              {{ icon }}
+            </v-icon>
+          </a>
         </v-btn>
       </v-card-text>
 
       <v-card-text class="white--text pt-0">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi molestiae
-        ab ipsa laboriosam consequatur rem inventore dolores suscipit animi
-        quaerat tempora minus assumenda quos odio accusamus totam eius excepturi
-        labore, aspernatur recusandae vel sapiente iure itaque. Et quod natus
-        porro reprehenderit perferendis optio expedita, sit aut magnam
-        perspiciatis nihil repellat voluptatem quia sequi, impedit, repellendus
-        error! Rem soluta sint rerum unde repellendus omnis quis quasi deleniti
-        itaque laudantium, vero necessitatibus.
+        This shopping platform is designed and developed by NTUT CCC-Shop,
+        which is a project for Database Systems course in NTUT.
+        All information and data from this platform are only for educational usages.
+        If you are interested or this project provides you some support or inspiration,
+        you can check out our source code
+        <a
+            href="https://github.com/CCC-Shop"
+            target="_blank"
+            style="text-decoration: underline;
+            color: inherit;"
+        >here</a>.
       </v-card-text>
 
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>CCC Shop</strong>
+        Copyright© <strong>CCC Shop</strong> — {{ currentYear }}
       </v-card-text>
     </v-card>
   </v-footer>
@@ -34,6 +39,11 @@ export default {
   data: () => ({
     icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
   }),
+  computed: {
+    currentYear() {
+      return new Date().getFullYear()
+    }
+  }
 };
 </script>
 
