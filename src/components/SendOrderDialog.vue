@@ -162,7 +162,7 @@
               <v-btn
                   color="cyan"
                   class="white--text ma-5"
-                  @click="test()"
+                  @click="sendOrder()"
               >
                 結帳
               </v-btn>
@@ -224,9 +224,9 @@ export default {
     },
     totalPrice() {
       let totalPrice = 0
-      for (const product of this.products) {
-        totalPrice += product.price * product.quantity
-      }
+      for (const product of this.products) totalPrice += product.price * product.quantity
+      if (this.selectedSeasoningDiscount) totalPrice = Math.round(totalPrice * this.selectedSeasoningDiscount.discountRate)
+      if (!this.selectedShippingDiscount) totalPrice += this.shippingFee
       return totalPrice
     },
     shippingDiscounts() {
@@ -249,11 +249,6 @@ export default {
     },
     getProductPriceText(price, quantity) {
       return `${price} x ${quantity} = ${price * quantity}`
-    },
-    test() {
-      console.log(this.selectedShippingDiscount)
-      console.log(this.selectedSeasoningDiscount)
-      console.log(this.selectedSpecialDiscount)
     },
     checkOrderInformation() {
       if (this.totalPrice < this.selectedShippingDiscount.targetPrice) return false
