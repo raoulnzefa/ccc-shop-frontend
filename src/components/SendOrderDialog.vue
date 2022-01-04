@@ -32,20 +32,32 @@
           ></v-img>
           <v-list-item-content class="ml-6">
             <v-list-item-title>{{ product.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{ getProductPriceText(product.price, product.quantity) }}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ getProductPriceText(product) }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item class="mx-4 my-4">
+        <v-list-item class="ma-4">
           <v-img
               max-height="200"
               max-width="150"
               src="https://images.twgreatdaily.com/images/elastic/D8g/D8gfW3cBDlXMa8eqBJBF.jpg"
-          ></v-img>
+              v-if="accelerateShippingSwitch"
+          />
+          <v-img
+              max-height="200"
+              max-width="150"
+              src="http://diz36nn4q02zr.cloudfront.net/webapi/imagesV3/Original/SalePage/5669285/0/637600552353230000?v=1"
+              v-else
+          />
           <v-list-item-content class="ml-6">
-            <v-list-item-title>頭文字 D 飆速宅配服務</v-list-item-title>
-            <v-list-item-subtitle>$ {{ shippingFee }}</v-list-item-subtitle>
+            <v-list-item-title>{{ accelerateShippingSwitch ? "頭文字 D 飆速宅配" : "普通宅配" }}</v-list-item-title>
+            <v-list-item-subtitle>$ {{ shippingPrice }}</v-list-item-subtitle>
           </v-list-item-content>
+          <v-spacer></v-spacer>
+          <v-switch
+              v-model="accelerateShippingSwitch"
+              label="切換宅配服務"
+          ></v-switch>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
@@ -84,17 +96,6 @@
                     :disabled="seasoningDiscounts.length === 0"
                     item-text="policyDescription"
                     label="季節性優惠"
-                    return-object
-                    dense
-                    outlined
-                    clearable
-                ></v-select>
-                <v-select
-                    v-model="selectedSpecialDiscount"
-                    :items="specialDiscounts"
-                    :disabled="true"
-                    item-text="policyDescription"
-                    label="特殊活動優惠 - 目前尚未開放"
                     return-object
                     dense
                     outlined
@@ -158,11 +159,11 @@
           <v-icon large>mdi-currency-usd</v-icon>
           <v-list-item-content class="ml-6">
             <v-list-item-title class="d-flex flex-row justify-space-between align-center">
-              <div class="text-subtitle-1">總金額: $ {{ totalPrice + shippingFee }}</div>
+              <div class="text-subtitle-1">總金額: $ {{ totalPrice }}</div>
               <v-btn
                   color="cyan"
                   class="white--text ma-5"
-                  @click="test()"
+                  @click="sendOrder()"
               >
                 結帳
               </v-btn>
@@ -192,24 +193,26 @@ export default {
   data: () => {
     return {
       products: [],
+      accelerateShippingSwitch: false,
       paymentMethodIndex: 0,
       paymentMethods: ["貨到付款", "信用卡", "電信支付"],
       useDefaultAddress: true,
       inputAddress: "",
       isOpenDialog: false,
       isShowSnackbar: false,
-      shippingFee: 111,
       selectedShippingDiscount: null,
       selectedSeasoningDiscount: null,
-      selectedSpecialDiscount: null
     }
   },
   computed: {
+    shippingPrice() {
+      if (this.selectedShippingDiscount) return 0
+      return this.accelerateShippingSwitch ? 2022 : 111
+    },
     discountInfo() {
-      const shippingDiscountText = this.selectedShippingDiscount ? `運費折抵 -${this.shippingFee}` : "運費折抵: 無"
+      const shippingDiscountText = this.selectedShippingDiscount ? `運費折抵 -${this.shippingPrice}` : "運費折抵: 無"
       const seasoningDiscountText = this.selectedSeasoningDiscount ? `季節性優惠 x${this.selectedSeasoningDiscount.discountRate * 100}%` : "季節性優惠: 無"
-      const specialDiscountText = this.selectedSpecialDiscount ? `特殊活動優惠 x${this.selectedSpecialDiscount.discountRate * 100}%` : "特殊活動優惠: 無"
-      return `${shippingDiscountText}, ${seasoningDiscountText}, ${specialDiscountText}`
+      return `${shippingDiscountText}, ${seasoningDiscountText}`
     },
     paymentInfo() {
       let paymentInfo = this.paymentMethods[this.paymentMethodIndex]
@@ -223,21 +226,21 @@ export default {
       return this.useDefaultAddress ? this.$store.state.userStore.address : this.inputAddress.trim()
     },
     totalPrice() {
-      let totalPrice = 0
-      for (const product of this.products) {
-        totalPrice += product.price * product.quantity
-      }
-      return totalPrice
+      let totalPrice = this.$store.getters["shoppingCartStore/getShopTotalPrice"](this.vender)
+      // for (const product of this.products) {
+      //   const discountRate = this.$store.getters["discountStore/getProductSpecialDiscountRate"](this.vender, product.category)
+      //   totalPrice += Math.round(product.price * product.quantity * discountRate)
+      // }
+      if (this.selectedSeasoningDiscount) totalPrice = Math.round(totalPrice * this.selectedSeasoningDiscount.discountRate)
+      return totalPrice + this.shippingPrice
     },
     shippingDiscounts() {
-      return this.$store.getters["discountStore/getVenderShippingDiscount"](this.vender)
+      const totalPrice = this.$store.getters["shoppingCartStore/getShopTotalPrice"](this.vender)
+      return this.$store.getters["discountStore/getVenderShippingDiscount"](this.vender).filter(discount => totalPrice >= discount.targetPrice)
     },
     seasoningDiscounts() {
       return this.$store.getters["discountStore/getVenderSeasoningDiscount"](this.vender)
-    },
-    specialDiscounts() {
-      return this.$store.getters["discountStore/getVenderSpecialDiscount"](this.vender)
-    },
+    }
   },
   methods: {
     openDialog() {
@@ -247,18 +250,14 @@ export default {
     closeDialog() {
       this.isOpenDialog = false
     },
-    getProductPriceText(price, quantity) {
-      return `${price} x ${quantity} = ${price * quantity}`
-    },
-    test() {
-      console.log(this.selectedShippingDiscount)
-      console.log(this.selectedSeasoningDiscount)
-      console.log(this.selectedSpecialDiscount)
+    getProductPriceText(product) {
+      const discountRate = this.$store.getters["discountStore/getProductSpecialDiscountRate"](this.vender, product.category)
+      return `${product.price * discountRate} x ${product.quantity} = ${product.price * product.quantity * discountRate}`
     },
     checkOrderInformation() {
-      if (this.totalPrice < this.selectedShippingDiscount.targetPrice) return false
+      if (this.selectedShippingDiscount && (this.totalPrice < this.selectedShippingDiscount.targetPrice)) return false
       if (!this.address) return false
-      if (!this.$store.state.userStore.creditCard.trim()) return false
+      if (this.paymentMethodIndex === 1 && !this.$store.state.userStore.creditCard.trim()) return false
       return true
     },
     sendOrder() {
@@ -274,13 +273,13 @@ export default {
 
       const orderData = {
         customerId: this.$store.state.userStore.id,
-        shippingFee: this.shippingFee,
+        shippingFee: this.shippingPrice,
         recipientName: this.$store.state.userStore.username,
         shippingAddress: this.address,
         paymentMethod: this.paymentMethodIndex,
         creditCardId: this.$store.state.userStore.creditCard,
-        shippingDiscountCode: this.selectedShippingDiscount.discountCode,
-        seasoningDiscountCode: this.selectedSeasoningDiscount.discountCode,
+        shippingDiscountCode: this.selectedShippingDiscount ? this.selectedShippingDiscount.discountCode : null,
+        seasoningDiscountCode: this.selectedShippingDiscount ? this.selectedSeasoningDiscount.discountCode : null,
         totalPrice: this.totalPrice,
         orderItems: orderItems
       }

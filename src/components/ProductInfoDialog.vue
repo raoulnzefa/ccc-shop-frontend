@@ -115,7 +115,7 @@ export default {
         this.isShowSnackbar = true;
       } else {
         await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
-        await this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
+        await this.$store.dispatch("shoppingCartStore/loadUserCartProducts")
         this.isOpenDialog = false;
       }
     }

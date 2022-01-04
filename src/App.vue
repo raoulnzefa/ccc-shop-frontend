@@ -7,7 +7,7 @@
     >
       <v-toolbar-title style="height: 64px"></v-toolbar-title>
 
-      <router-link to="/">
+      <router-link to="/" class="toolbar-item">
         <v-icon x-large>mdi-store-outline</v-icon>
       </router-link>
 
@@ -15,10 +15,12 @@
         <v-container>
           <v-row>
             <v-text-field
+              v-model="searchText"
               label="搜尋商品"
               outlined
               dense
               append-icon="mdi-magnify"
+              @click:append="search()"
             ></v-text-field>
           </v-row>
         </v-container>
@@ -91,11 +93,9 @@
       <SignInSignUpDialog ref="signInSignUpDialog" />
       <SignUpDialog ref="signUpDialog" identity="1" />
 
-      <router-link to="/cart">
+      <router-link to="/cart" class="toolbar-item">
         <v-btn icon>
-          <!-- <v-badge color="pink" dot> -->
           <v-icon>mdi-cart</v-icon>
-          <!-- </v-badge> -->
         </v-btn>
       </router-link>
     </v-app-bar>
@@ -117,9 +117,14 @@ export default {
     SignInSignUpDialog,
     SignUpDialog,
   },
+  data: () => {
+    return {
+      searchText: "",
+    }
+  },
   mounted() {
     if (this.$store.state.userStore.isLogin) {
-      this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
+      this.$store.dispatch("shoppingCartStore/loadUserCartProducts")
     }
 
     this.$store.dispatch("discountStore/loadCurrentShippingDiscount")
@@ -131,6 +136,13 @@ export default {
       this.$store.dispatch("userStore/logoutUser");
       this.$router.push("/");
       setTimeout(() => location.reload(), 500);
+    },
+    search() {
+      if (this.searchText.trim() === "") return
+      if (this.$route.params.text === this.searchText) return
+      this.$store.dispatch("productStore/loadAllProducts")
+      // loading animation?
+      this.$router.push({ name: 'Search', params: { text: this.searchText } })
     }
   },
 };
@@ -140,5 +152,9 @@ export default {
 .search-bar {
   margin-top: 30px;
   margin-left: 20px;
+}
+
+.toolbar-item {
+  text-decoration: none;
 }
 </style>

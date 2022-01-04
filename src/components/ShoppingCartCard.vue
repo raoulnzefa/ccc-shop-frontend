@@ -1,23 +1,21 @@
 <template>
   <v-container>
-    <v-list>
-      <v-card class="py-4 px-8 my-4">
-        <h3 class="text-center">{{ items.venderName }}</h3>
-        <v-divider class="my-4"></v-divider>
-        <ShoppingCartItemRow v-for="item in items.items" :key="item.id" :item="item"/>
-        <v-divider class="my-4"></v-divider>
-        <v-row class="d-flex flex-row justify-space-between align-center ma-4">
-          <h3>總金額：$ {{ shopTotalPrice }}</h3>
-          <v-btn
-              color="cyan"
-              class="white--text ma-5"
-              @click="submitOrder()"
-          >
-            立即下單
-          </v-btn>
-        </v-row>
-      </v-card>
-    </v-list>
+    <v-card class="py-4 px-8 my-4">
+      <h3 class="text-center">{{ items.venderName }}</h3>
+      <v-divider class="my-4"></v-divider>
+      <ShoppingCartItemRow v-for="item in items.items" :key="item.id" :item="item"/>
+      <v-divider class="my-4"></v-divider>
+      <v-row class="d-flex flex-row justify-space-between align-center ma-4">
+        <h3>總金額：$ {{ shopTotalPrice }}</h3>
+        <v-btn
+            color="cyan"
+            class="white--text ma-5"
+            @click="submitOrder()"
+        >
+          立即下單
+        </v-btn>
+      </v-row>
+    </v-card>
 
     <SendOrderDialog
         ref="sendOrderDialog"
@@ -63,6 +61,7 @@ export default {
       if (selectedProducts.length === 0) {
         this.isShowSnackbar = true
       } else {
+        this.$store.dispatch("shoppingCartStore/updateCartStateToBackend")
         this.$refs.sendOrderDialog.openDialog()
       }
     }

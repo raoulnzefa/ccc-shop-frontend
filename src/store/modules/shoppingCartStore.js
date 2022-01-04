@@ -18,15 +18,16 @@ const state = {
 }
 
 const getters = {
-    getShopTotalPrice(state) {
+    // eslint-disable-next-line no-unused-vars
+    getShopTotalPrice(state, getters, rootState, rootGetters) {
         return (venderName) => {
             const shopIndex = state.cartProducts.findIndex(shop => shop.venderName === venderName)
-
             const shopItems = state.cartProducts[shopIndex].items
             let totalPrice = 0
             for (let index = 0; index < shopItems.length; index++) {
                 if (!state.selectedProducts[shopIndex].selectedItemFlags[index].selected) continue
-                totalPrice += shopItems[index].price * shopItems[index].quantity
+                const discountRate = rootGetters["discountStore/getProductSpecialDiscountRate"](shopItems[index].venderName, shopItems[index].category)
+                totalPrice += shopItems[index].price * shopItems[index].quantity * discountRate
             }
             return totalPrice
         }
@@ -67,7 +68,8 @@ const getters = {
 }
 
 const actions = {
-    async loadUserCartProducts({ commit }, customerId) {
+    async loadUserCartProducts({ commit, rootState }) {
+        const customerId = rootState.userStore.id
         const cartData = await getShoppingCartProducts(customerId)
         commit('updateAllUserCartState', cartData.shoppingCartItems)
     },
@@ -83,7 +85,8 @@ const actions = {
         const cartData = await getShoppingCartProducts(customerId)
         commit('updateAllUserCartState', cartData.shoppingCartItems)
     },
-    async updateCartStateToBackend({ state }, customerId) {
+    async updateCartStateToBackend({ state, rootState }) {
+        const customerId = rootState.userStore.id
         for (const shop of state.cartProducts) {
             for (const item of shop.items) {
                 await updateShoppingCartProduct(item.id, customerId, item.quantity)
