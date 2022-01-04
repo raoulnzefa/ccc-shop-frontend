@@ -28,7 +28,6 @@ export const getCustomerOrders = async function (customerId) {
     }
     try {
         const response = await axios.post("/api/order/get-customer", json)
-        console.log("123", response.data.orderList)
         return response.data.orderList
     } catch (err) {
         console.log(err)
