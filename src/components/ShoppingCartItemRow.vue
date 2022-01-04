@@ -31,7 +31,8 @@
       </v-row>
     </v-col>
     <v-col cols="2" class="text-center">
-      <h3>$ {{ totalPrice }}</h3>
+      <h6 class="text-subtitle-2" v-if="discountRate < 1"><s>$ {{ totalPrice }}</s></h6>
+      <h5 class="text-h6 font-weight-bold">$ {{ totalPrice * discountRate }}</h5>
     </v-col>
     <v-col cols="1">
       <v-dialog v-model="showDeleteItemDialog" max-width="500px">
@@ -66,7 +67,7 @@
           </v-sheet>
         </div>
       </v-dialog>
-      <v-icon @click="showDeleteItemDialog = true"> mdi-delete </v-icon>
+      <v-icon @click="showDeleteItemDialog = true">mdi-delete</v-icon>
     </v-col>
   </v-row>
 </template>
@@ -85,6 +86,9 @@ export default {
   computed: {
     totalPrice: function () {
       return this.item.price * this.item.quantity;
+    },
+    discountRate: function () {
+      return this.$store.getters["discountStore/getProductSpecialDiscountRate"](this.item.venderName, this.item.category)
     }
   },
   methods: {

@@ -1,4 +1,8 @@
-import { getCurrentSeasoningsDiscount, getCurrentSpecialDiscount, getCurrentShippingDiscount } from "../../api/discountApi";
+import {
+    getCurrentSeasoningsDiscount,
+    getCurrentSpecialDiscount,
+    getCurrentShippingDiscount,
+} from "../../api/discountApi";
 
 const state = {
     seasoningsDiscounts: [],
@@ -38,6 +42,11 @@ const state = {
 //////////
 
 const getters = {
+    getVenderShippingDiscount(state) {
+        return (venderName) => {
+            return state.shippingDiscounts.filter(discount => venderName === discount.venderName)
+        }
+    },
     getVenderSeasoningDiscount(state) {
         return (venderName) => {
             return state.seasoningsDiscounts.filter(discount => venderName === discount.venderName)
@@ -48,29 +57,32 @@ const getters = {
             return state.specialDiscounts.filter(discount => venderName === discount.venderName)
         }
     },
-    getVenderShippingDiscount(state) {
-        return (venderName) => {
-            return state.shippingDiscounts.filter(discount => venderName === discount.venderName)
+    getProductSpecialDiscountRate(state) {
+        return (venderName, category) => {
+            let discountRate = 1
+            const discounts = state.specialDiscounts.filter(discount => venderName === discount.venderName)
+            for (let discount of discounts) {
+                if (discount.category === category && discount.discountRate < discountRate) {
+                    discountRate = discount.discountRate
+                }
+            }
+            return discountRate
         }
-    },
+    }
 }
 
 const actions = {
+    async loadCurrentShippingDiscount({commit}) {
+        const shippingDiscounts = await getCurrentShippingDiscount()
+        commit('loadCurrentShippingDiscountData', shippingDiscounts.shippingDiscountList)
+    },
     async loadCurrentSeasoningDiscount({commit}) {
         const seasoningsDiscounts = await getCurrentSeasoningsDiscount()
-        // console.log(seasoningsDiscounts) // debug
         commit('loadCurrentSeasoningDiscountData', seasoningsDiscounts.seasoningsDiscountList)
     },
     async loadCurrentSpecialDiscount({commit}) {
         const specialDiscounts = await getCurrentSpecialDiscount()
-        // console.log(specialDiscounts) // debug
         commit('loadCurrentSpecialDiscountData', specialDiscounts.specialDiscountList)
-
-    },
-    async loadCurrentShippingDiscount({commit}) {
-        const shippingDiscounts = await getCurrentShippingDiscount()
-        // console.log(shippingDiscounts) // debug
-        commit('loadCurrentShippingDiscountData', shippingDiscounts.shippingDiscountList)
     },
 }
 
