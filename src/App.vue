@@ -117,7 +117,7 @@ export default {
   },
   mounted() {
     if (this.$store.state.userStore.isLogin) {
-      this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
+      this.$store.dispatch("shoppingCartStore/loadUserCartProducts")
     }
 
     this.$store.dispatch("discountStore/loadCurrentShippingDiscount")

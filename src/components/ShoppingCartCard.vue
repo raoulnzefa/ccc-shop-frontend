@@ -63,6 +63,7 @@ export default {
       if (selectedProducts.length === 0) {
         this.isShowSnackbar = true
       } else {
+        this.$store.dispatch("shoppingCartStore/updateCartStateToBackend")
         this.$refs.sendOrderDialog.openDialog()
       }
     }

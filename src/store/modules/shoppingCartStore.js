@@ -68,7 +68,8 @@ const getters = {
 }
 
 const actions = {
-    async loadUserCartProducts({ commit }, customerId) {
+    async loadUserCartProducts({ commit, rootState }) {
+        const customerId = rootState.userStore.id
         const cartData = await getShoppingCartProducts(customerId)
         commit('updateAllUserCartState', cartData.shoppingCartItems)
     },
@@ -84,7 +85,8 @@ const actions = {
         const cartData = await getShoppingCartProducts(customerId)
         commit('updateAllUserCartState', cartData.shoppingCartItems)
     },
-    async updateCartStateToBackend({ state }, customerId) {
+    async updateCartStateToBackend({ state, rootState }) {
+        const customerId = rootState.userStore.id
         for (const shop of state.cartProducts) {
             for (const item of shop.items) {
                 await updateShoppingCartProduct(item.id, customerId, item.quantity)

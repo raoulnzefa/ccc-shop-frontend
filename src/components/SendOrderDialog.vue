@@ -36,16 +36,28 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item class="mx-4 my-4">
+        <v-list-item class="ma-4">
           <v-img
               max-height="200"
               max-width="150"
               src="https://images.twgreatdaily.com/images/elastic/D8g/D8gfW3cBDlXMa8eqBJBF.jpg"
-          ></v-img>
+              v-if="accelerateShippingSwitch"
+          />
+          <v-img
+              max-height="200"
+              max-width="150"
+              src="http://diz36nn4q02zr.cloudfront.net/webapi/imagesV3/Original/SalePage/5669285/0/637600552353230000?v=1"
+              v-else
+          />
           <v-list-item-content class="ml-6">
-            <v-list-item-title>頭文字 D 飆速宅配</v-list-item-title>
-            <v-list-item-subtitle>$ {{ shippingFee }}</v-list-item-subtitle>
+            <v-list-item-title>{{ accelerateShippingSwitch ? "頭文字 D 飆速宅配" : "普通宅配" }}</v-list-item-title>
+            <v-list-item-subtitle>$ {{ shippingPrice }}</v-list-item-subtitle>
           </v-list-item-content>
+          <v-spacer></v-spacer>
+          <v-switch
+              v-model="accelerateShippingSwitch"
+              label="切換宅配服務"
+          ></v-switch>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
@@ -181,20 +193,24 @@ export default {
   data: () => {
     return {
       products: [],
+      accelerateShippingSwitch: false,
       paymentMethodIndex: 0,
       paymentMethods: ["貨到付款", "信用卡", "電信支付"],
       useDefaultAddress: true,
       inputAddress: "",
       isOpenDialog: false,
       isShowSnackbar: false,
-      shippingFee: 111,
       selectedShippingDiscount: null,
       selectedSeasoningDiscount: null,
     }
   },
   computed: {
+    shippingPrice() {
+      if (this.selectedShippingDiscount) return 0
+      return this.accelerateShippingSwitch ? 2022 : 111
+    },
     discountInfo() {
-      const shippingDiscountText = this.selectedShippingDiscount ? `運費折抵 -${this.shippingFee}` : "運費折抵: 無"
+      const shippingDiscountText = this.selectedShippingDiscount ? `運費折抵 -${this.shippingPrice}` : "運費折抵: 無"
       const seasoningDiscountText = this.selectedSeasoningDiscount ? `季節性優惠 x${this.selectedSeasoningDiscount.discountRate * 100}%` : "季節性優惠: 無"
       return `${shippingDiscountText}, ${seasoningDiscountText}`
     },
@@ -210,17 +226,17 @@ export default {
       return this.useDefaultAddress ? this.$store.state.userStore.address : this.inputAddress.trim()
     },
     totalPrice() {
-      let totalPrice = 0
-      for (const product of this.products) {
-        const discountRate = this.$store.getters["discountStore/getProductSpecialDiscountRate"](this.vender, product.category)
-        totalPrice += Math.round(product.price * product.quantity * discountRate)
-      }
+      let totalPrice = this.$store.getters["shoppingCartStore/getShopTotalPrice"](this.vender)
+      // for (const product of this.products) {
+      //   const discountRate = this.$store.getters["discountStore/getProductSpecialDiscountRate"](this.vender, product.category)
+      //   totalPrice += Math.round(product.price * product.quantity * discountRate)
+      // }
       if (this.selectedSeasoningDiscount) totalPrice = Math.round(totalPrice * this.selectedSeasoningDiscount.discountRate)
-      if (!this.selectedShippingDiscount) totalPrice += this.shippingFee
-      return totalPrice
+      return totalPrice + this.shippingPrice
     },
     shippingDiscounts() {
-      return this.$store.getters["discountStore/getVenderShippingDiscount"](this.vender)
+      const totalPrice = this.$store.getters["shoppingCartStore/getShopTotalPrice"](this.vender)
+      return this.$store.getters["discountStore/getVenderShippingDiscount"](this.vender).filter(discount => totalPrice >= discount.targetPrice)
     },
     seasoningDiscounts() {
       return this.$store.getters["discountStore/getVenderSeasoningDiscount"](this.vender)
@@ -257,7 +273,7 @@ export default {
 
       const orderData = {
         customerId: this.$store.state.userStore.id,
-        shippingFee: this.shippingFee,
+        shippingFee: this.shippingPrice,
         recipientName: this.$store.state.userStore.username,
         shippingAddress: this.address,
         paymentMethod: this.paymentMethodIndex,

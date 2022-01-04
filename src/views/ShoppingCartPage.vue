@@ -58,10 +58,10 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("shoppingCartStore/loadUserCartProducts", this.$store.state.userStore.id)
+    this.$store.dispatch("shoppingCartStore/loadUserCartProducts")
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.dispatch("shoppingCartStore/updateCartStateToBackend", this.$store.state.userStore.id)
+    this.$store.dispatch("shoppingCartStore/updateCartStateToBackend")
     next()
   }
 };
