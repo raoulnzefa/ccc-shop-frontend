@@ -53,11 +53,19 @@ const routes = [
     }
   },
   {
-    path: '/search/:text',
+    path: '/search',
     name: 'Search',
-    component: () => import('../views/SearchPage.vue'),
+    component: () => import('../views/SearchLoadingPage.vue'),
     meta: {
       title: 'CCC Shop - 搜尋'
+    }
+  },
+  {
+    path: '/search/:text',
+    name: 'SearchResult',
+    component: () => import('../views/SearchPage.vue'),
+    meta: {
+      title: 'CCC Shop - 搜尋結果'
     }
   }
 ]

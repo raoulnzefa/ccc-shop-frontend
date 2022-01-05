@@ -139,9 +139,7 @@ export default {
     },
     search() {
       if (this.searchText.trim() === "") return
-      if (this.$route.params.text === this.searchText) return
       this.$store.dispatch("productStore/loadAllProducts")
-      // loading animation?
       this.$router.push({ name: 'Search', params: { text: this.searchText } })
     }
   },
