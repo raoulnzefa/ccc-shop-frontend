@@ -39,22 +39,23 @@
                   <v-row>
                     <v-col cols="12" md="6">
                       <v-text-field
-                        v-model="editedItem.startTime"
+                        v-model="startTimepicker"
+                        type="text"
                         label="Start Time*"
                         :rules="startTimeRules"
-                        required
-                        dense
-                        prepend-icon="mdi-calendar"
+                        prepend-inner-icon="mdi-calendar"
+                        readonly
+                        @click="startTimeDialog = true"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                       <v-text-field
-                        v-model="editedItem.endTime"
+                        v-model="endTimepicker"
                         label="End Time*"
-                        :rules="endTimeRules"
-                        required
-                        dense
-                        prepend-icon="mdi-calendar"
+                        :rules="startTimeRules"
+                        prepend-inner-icon="mdi-calendar"
+                        readonly
+                        @click="endTimeDialog = true"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -70,6 +71,22 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
+                  <template>
+                    <v-dialog v-model="startTimeDialog" max-width="300px">
+                      <v-date-picker
+                        v-model="startTimepicker"
+                        color="green lighten-1"
+                      ></v-date-picker>
+                      <v-btn @click="startTimeDialog = false">OK</v-btn>
+                    </v-dialog>
+                    <v-dialog v-model="endTimeDialog" max-width="300px">
+                      <v-date-picker
+                        color="green lighten-1"
+                        v-model="endTimepicker"
+                      ></v-date-picker>
+                      <v-btn @click="endTimeDialog = false">OK</v-btn>
+                    </v-dialog>
+                  </template>
                 </v-container>
               </v-card-text>
 
@@ -123,6 +140,8 @@ export default {
     loading: false,
     dialog: false,
     dialogDelete: false,
+    startTimeDialog: false,
+    endTimeDialog: false,
     headers: [
       { text: "Discount Code", align: "start", value: "discountCode" },
       {
@@ -135,6 +154,8 @@ export default {
       { text: "Discount Rate", value: "discountRate" },
       { text: "Actions", value: "actions", sortable: false },
     ],
+    startTimepicker: null,
+    endTimepicker: null,
     descriptionRules: [(v) => !!v || "欄位不可留空"],
     startTimeRules: [(v) => !!v || "欄位不可留空"],
     endTimeRules: [(v) => !!v || "欄位不可留空"],
@@ -201,6 +222,12 @@ export default {
     editItem(item) {
       this.editedIndex = this.seasoningsDiscounts.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      this.startTimepicker = new Date(this.seasoningsDiscounts[this.editedIndex].startTime.split(" ")[0])
+        .toISOString()
+        .substr(0, 10);
+      this.endTimepicker = new Date(this.seasoningsDiscounts[this.editedIndex].endTime.split(" ")[0])
+        .toISOString()
+        .substr(0, 10);
       this.dialog = true;
     },
 
@@ -245,17 +272,16 @@ export default {
           this.editedItem.discountCode,
           this.$store.state.userStore.id,
           this.editedItem.policyDescription,
-          this.editedItem.startTime,
-          this.editedItem.endTime,
+          this.startTimepicker,
+          this.endTimepicker,
           this.editedItem.discountRate
         );
       } else {
         await createSeasoningsDiscount(
-          this.editedItem.discountCode,
           this.$store.state.userStore.id,
           this.editedItem.policyDescription,
-          this.editedItem.startTime,
-          this.editedItem.endTime,
+          this.startTimepicker,
+          this.endTimepicker,
           this.editedItem.discountRate
         );
       }
