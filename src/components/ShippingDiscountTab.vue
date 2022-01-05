@@ -1,12 +1,12 @@
 <template>
-   <v-data-table
+  <v-data-table
     :headers="headers"
     :items="shippingDiscounts"
     class="elevation-1"
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-toolbar-title>免運折扣</v-toolbar-title>
         <v-spacer></v-spacer>
         <!-- new/edit discount dialog -->
         <v-dialog v-model="dialog" max-width="500px" persistent>
@@ -24,7 +24,7 @@
 
               <v-card-text>
                 <v-container>
-                    <v-row>
+                  <v-row>
                     <v-col cols="12" md="12">
                       <v-text-field
                         v-model="editedItem.policyDescription"
@@ -125,19 +125,19 @@ export default {
     dialogDelete: false,
     headers: [
       { text: "Discount Code", align: "start", value: "discountCode" },
-      { text: "Policy Description", value: "policyDescription", sortable: false },
-      { text: "Start Time", value: "startTime"},
-      { text: "End Time", value: "endTime"},
-      { text: "Target Price", value: "targetPrice"},
+      {
+        text: "Policy Description",
+        value: "policyDescription",
+        sortable: false,
+      },
+      { text: "Start Time", value: "startTime" },
+      { text: "End Time", value: "endTime" },
+      { text: "Target Price", value: "targetPrice" },
       { text: "Actions", value: "actions", sortable: false },
     ],
     descriptionRules: [(v) => !!v || "欄位不可留空"],
-    startTimeRules: [
-      (v) => !!v || "欄位不可留空",
-    ],
-    endTimeRules: [
-      (v) => !!v || "欄位不可留空",
-    ],
+    startTimeRules: [(v) => !!v || "欄位不可留空"],
+    endTimeRules: [(v) => !!v || "欄位不可留空"],
     targetPriceRules: [
       (v) => !!v || "欄位不可留空",
       (v) => /^\d+$/.test(v) || "比率只能包含數字",
@@ -166,7 +166,7 @@ export default {
     },
   },
 
- watch: {
+  watch: {
     dialog(val) {
       val || this.close();
     },
@@ -176,7 +176,9 @@ export default {
   },
 
   async mounted() {
-      this.shippingDiscounts = await getVenderShippingDiscounts(this.$store.state.userStore.id);
+    this.shippingDiscounts = await getVenderShippingDiscounts(
+      this.$store.state.userStore.id
+    );
   },
 
   methods: {
@@ -191,7 +193,9 @@ export default {
     },
 
     async refersh() {
-      this.shippingDiscounts = await getVenderShippingDiscounts(this.$store.state.userStore.id);
+      this.shippingDiscounts = await getVenderShippingDiscounts(
+        this.$store.state.userStore.id
+      );
     },
 
     editItem(item) {
@@ -232,9 +236,11 @@ export default {
     },
 
     async save() {
-
       if (this.editedIndex > -1) {
-        Object.assign(this.shippingDiscounts[this.editedIndex], this.editedItem);
+        Object.assign(
+          this.shippingDiscounts[this.editedIndex],
+          this.editedItem
+        );
         await editShippingDiscount(
           this.editedItem.discountCode,
           this.$store.state.userStore.id,

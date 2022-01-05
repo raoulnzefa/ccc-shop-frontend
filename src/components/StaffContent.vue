@@ -1,6 +1,6 @@
 <template>
   <v-card
-    min-height="850px"
+    min-height="750px"
     min-width="300px"
     max-width="1600px"
     class="elevation-5 my-3"
@@ -60,7 +60,6 @@
       <v-tab-item style="width: 1300px">
         <SalesReport />
       </v-tab-item>
-      
     </v-tabs>
   </v-card>
 </template>

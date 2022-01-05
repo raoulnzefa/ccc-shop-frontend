@@ -79,22 +79,11 @@ export const getAllUser = async function () {
   //     creditCard: "12312312312",
   //     address: "my address",
   //   },
-  //   {
-  //     id: "2",
-  //     username: "hi",
-  //     identity: "customer",
-  //     password: "1232131",
-  //     email: "hello@g",
-  //     phone: "0912312312",
-  //     creditCard: "12312312312",
-  //     address: "my address",
-  //   },
   // ];
 
   try {
     const response = await axios.get("/api/user/get-all");
     return response.data.userList;
-    // return users;
   } catch (err) {
     console.log(err);
   }
