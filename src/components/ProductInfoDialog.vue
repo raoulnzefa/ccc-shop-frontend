@@ -11,12 +11,12 @@
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-rating
-              :value="product.rate"
-              color="amber"
-              dense
-              half-increments
-              readonly
-              size="14"
+            :value="product.rate"
+            color="amber"
+            dense
+            half-increments
+            readonly
+            size="14"
           ></v-rating>
           <!-- <div class="grey--text ms-4">{{ product.rate }}</div> -->
         </v-row>
@@ -39,39 +39,41 @@
           <div class="mx-6 my-4 text-subtitle-2">
             只剩 {{ product.stock }} 個 !
           </div>
-          <ValuationDialog :productId="this.product.id"/>
+          <ValuationDialog :productId="this.product.id" />
         </v-row>
       </v-container>
 
       <v-card-actions>
         <v-btn
-            v-if="$store.state.userStore.isLogin"
-            block
-            class="mb-3"
-            color="secondary"
-            elevation="5"
-            @click="addProductToCart"
+          v-if="$store.state.userStore.isLogin"
+          block
+          class="mb-3"
+          color="secondary"
+          elevation="5"
+          @click="addProductToCart"
         >
           加入購物車
         </v-btn>
         <v-btn
-            v-else
-            block
-            disabled
-            class="mb-3"
-            color="secondary"
-            elevation="5"
-            @click="addProductToCart"
+          v-else
+          block
+          disabled
+          class="mb-3"
+          color="secondary"
+          elevation="5"
+          @click="addProductToCart"
         >
           請先登入帳號以購買商品
         </v-btn>
 
         <v-snackbar
-            v-model="isShowSnackbar"
-            :timeout="2000"
-            color="red"
+          v-model="isShowSnackbar"
+          :timeout="2000"
+          color="blue"
+          centered
         >
-          請勾選購物車商品再下單！
+          <v-icon>mdi-information</v-icon>
+          此商品已加入過購物車！
         </v-snackbar>
       </v-card-actions>
     </v-card>
@@ -80,7 +82,7 @@
 
 <script>
 import ValuationDialog from "./ValuationDialog";
-import {addShoppingCartProduct} from "../api/shoppingCartApi";
+import { addShoppingCartProduct } from "../api/shoppingCartApi";
 
 export default {
   name: "ProductInfoDialog",
@@ -110,15 +112,21 @@ export default {
       this.quantity++;
     },
     async addProductToCart() {
-      const hasProduct = this.$store.getters["shoppingCartStore/checkShoppingCartHasProduct"](this.product.venderName, this.product.id);
+      const hasProduct = this.$store.getters[
+        "shoppingCartStore/checkShoppingCartHasProduct"
+      ](this.product.venderName, this.product.id);
       if (hasProduct) {
         this.isShowSnackbar = true;
       } else {
-        await addShoppingCartProduct(this.product.id, this.$store.state.userStore.id, this.quantity);
-        await this.$store.dispatch("shoppingCartStore/loadUserCartProducts")
+        await addShoppingCartProduct(
+          this.product.id,
+          this.$store.state.userStore.id,
+          this.quantity
+        );
+        await this.$store.dispatch("shoppingCartStore/loadUserCartProducts");
         this.isOpenDialog = false;
       }
-    }
+    },
   },
 };
 </script>
