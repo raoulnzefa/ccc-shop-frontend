@@ -8,7 +8,7 @@
       <v-toolbar-title style="height: 64px"></v-toolbar-title>
 
       <router-link to="/" class="toolbar-item">
-        <v-icon x-large>mdi-store-outline</v-icon>
+        <v-img src="./assets/cccshop.png" max-width="150" max-height="100"></v-img>
       </router-link>
 
       <v-form class="search-bar">
