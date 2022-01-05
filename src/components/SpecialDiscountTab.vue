@@ -174,7 +174,7 @@ export default {
     categoryRules: [(v) => !!v || "欄位不可留空"],
     discountRateRules: [
       (v) => !!v || "欄位不可留空",
-      (v) => /^\d+$/.test(v) || "比率只能包含數字",
+      (v) => /^-?\d+(?:[.,]\d*?)?$/.test(v) || "比率只能包含數字",
     ],
     specialDiscounts: [],
     editedIndex: -1,

@@ -161,7 +161,7 @@ export default {
     endTimeRules: [(v) => !!v || "欄位不可留空"],
     targetPriceRules: [
       (v) => !!v || "欄位不可留空",
-      (v) => /^\d+$/.test(v) || "比率只能包含數字",
+      (v) => /^\d+$/.test(v) || "目標金額只能為整數",
     ],
     shippingDiscounts: [],
     editedIndex: -1,
