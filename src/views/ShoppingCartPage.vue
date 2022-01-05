@@ -20,6 +20,7 @@
                   class="white--text ma-5"
                   v-bind="attrs"
                   v-on="on"
+                  style="text-decoration: none;"
               >
                 去逛街
               </v-btn>
