@@ -33,11 +33,10 @@
 
       <div class="mx-1 my-4 text-subtitle-1">$ {{ product.price }}</div>
     </v-card-text>
+
     <ProductInfoDialog
       ref="productInfoDialog"
       :product="product"
-      identity="2"
-      @close="isOpenDialog = false"
     />
   </v-card>
 </template>
@@ -50,12 +49,7 @@ export default {
   components: {
     ProductInfoDialog,
   },
-  props: ["product"],
-  data: () => {
-    return {
-      isOpenDialog: false,
-    };
-  },
+  props: ["product"]
 };
 </script>
 
