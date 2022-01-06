@@ -8,7 +8,11 @@
       <v-toolbar-title style="height: 64px"></v-toolbar-title>
 
       <router-link to="/" class="toolbar-item">
-        <v-img src="./assets/cccshop.png" max-width="150" max-height="100"></v-img>
+        <v-img
+          src="./assets/cccshop.png"
+          max-width="150"
+          max-height="100"
+        ></v-img>
       </router-link>
 
       <v-form class="search-bar">
@@ -19,12 +23,13 @@
               label="搜尋商品"
               outlined
               dense
-              append-icon="mdi-magnify"
-              @click:append="search()"
+              append-outer-icon="mdi-magnify"
+              @click:append-outer="search()"
             ></v-text-field>
           </v-row>
         </v-container>
       </v-form>
+      <!-- @keydown.enter="search()" -->
 
       <v-spacer></v-spacer>
 
@@ -120,16 +125,16 @@ export default {
   data: () => {
     return {
       searchText: "",
-    }
+    };
   },
   mounted() {
     if (this.$store.state.userStore.isLogin) {
-      this.$store.dispatch("shoppingCartStore/loadUserCartProducts")
+      this.$store.dispatch("shoppingCartStore/loadUserCartProducts");
     }
 
-    this.$store.dispatch("discountStore/loadCurrentShippingDiscount")
-    this.$store.dispatch("discountStore/loadCurrentSeasoningDiscount")
-    this.$store.dispatch("discountStore/loadCurrentSpecialDiscount")
+    this.$store.dispatch("discountStore/loadCurrentShippingDiscount");
+    this.$store.dispatch("discountStore/loadCurrentSeasoningDiscount");
+    this.$store.dispatch("discountStore/loadCurrentSpecialDiscount");
   },
   methods: {
     logoutUser() {
@@ -138,10 +143,11 @@ export default {
       setTimeout(() => location.reload(), 500);
     },
     search() {
-      if (this.searchText.trim() === "") return
-      this.$store.dispatch("productStore/loadAllProducts")
-      this.$router.push({ name: 'Search', params: { text: this.searchText } })
-    }
+      console.log("this.searchText", this.searchText);
+      if (this.searchText.trim() === "") return;
+      this.$store.dispatch("productStore/loadAllProducts");
+      this.$router.push({ name: "Search", params: { text: this.searchText } });
+    },
   },
 };
 </script>
