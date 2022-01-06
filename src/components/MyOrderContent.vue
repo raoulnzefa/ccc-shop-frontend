@@ -17,47 +17,6 @@
       ></v-text-field>
     </v-card-title>
     <v-data-table :headers="headers" :items="orders" :search="search">
-      <!-- <template v-slot:top>
-        <v-toolbar flat>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <div class="text-center">
-              <v-sheet
-                class="px-7 pt-7 pb-4 mx-auto text-center d-inline-block"
-                color="blue-grey darken-3"
-                dark
-              >
-                <div class="grey--text text--lighten-1 text-h5 mb-4">
-                  確定取消訂單?
-                </div>
-
-                <v-btn
-                  :disabled="loading"
-                  class="ma-1"
-                  color="grey"
-                  plain
-                  @click="closeDelete"
-                >
-                  否
-                </v-btn>
-
-                <v-btn
-                  :loading="loading"
-                  class="ma-1"
-                  color="error"
-                  plain
-                  @click="deleteItemConfirm"
-                >
-                  確定
-                </v-btn>
-              </v-sheet>
-            </div>
-          </v-dialog>
-        </v-toolbar>
-      </template> -->
-
-      <!-- <template v-slot:[`item.actions`]="{ item }">
-        <v-btn plain outlined @click="deleteItem(item)"> 取消 </v-btn>
-      </template> -->
 
       <template v-slot:[`item.orderItems`]="{ item }">
         <v-row
@@ -88,8 +47,6 @@
 
 <script>
 import { getCustomerOrders } from "@/api/orderApi";
-// import { getProduct } from "@/api/productApi";
-// import { updateOrders } from "@/api/productApi";
 import GiveValuationDialog from "./GiveValuationDialog";
 
 export default {
