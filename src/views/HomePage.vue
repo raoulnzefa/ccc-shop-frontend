@@ -66,9 +66,10 @@
                   <div
                     v-for="product in getShowingProducts()"
                     :key="product.name"
-                    class="pa-4"
                   >
-                    <ProductCard :product="product" />
+                    <div class="pa-4" v-if="product.existFlag == 1">
+                      <ProductCard :product="product" />
+                    </div>
                   </div>
                 </v-row>
               </v-container>
@@ -116,7 +117,7 @@ export default {
     },
     chooseCategory(index) {
       this.selectedIndex = index;
-    }
+    },
   },
 };
 </script>

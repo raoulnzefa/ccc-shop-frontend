@@ -1,8 +1,8 @@
-<template>
+<template >
   <v-card class="mx-auto my-6 card" height="300" width="250">
     <div class="overlay">
       <v-btn
-        class="ma-2"
+        class="ma-2 pa-4"
         outlined
         color="white"
         @click="$refs.productInfoDialog.openDialog()"
@@ -34,10 +34,7 @@
       <div class="mx-1 my-4 text-subtitle-1">$ {{ product.price }}</div>
     </v-card-text>
 
-    <ProductInfoDialog
-      ref="productInfoDialog"
-      :product="product"
-    />
+    <ProductInfoDialog ref="productInfoDialog" :product="product" />
   </v-card>
 </template>
 
@@ -49,7 +46,7 @@ export default {
   components: {
     ProductInfoDialog,
   },
-  props: ["product"]
+  props: ["product"],
 };
 </script>
 
