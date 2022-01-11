@@ -14,7 +14,7 @@ export const getCurrentShippingDiscount = async function () {
     try {
         const response = await axios.get("/api/shipping_discount/get-current");
         return response.data;
-        
+
     } catch (err) {
         console.log(err);
     }
@@ -30,7 +30,7 @@ export const getCurrentSeasoningsDiscount = async function () {
 };
 
 //create
-export const createSeasoningsDiscount = async function(venderId, policyDescription, startTime, endTime, discountRate){
+export const createSeasoningsDiscount = async function (venderId, policyDescription, startTime, endTime, discountRate) {
     let json = {
         "venderId": parseInt(venderId, 10),
         "policyDescription": policyDescription,
@@ -42,24 +42,24 @@ export const createSeasoningsDiscount = async function(venderId, policyDescripti
     try {
         const response = await axios.post("/api/seasonings_discount/create", json);
         return response.data;
-    } catch (err){
+    } catch (err) {
         console.log(err);
     }
 };
 
-export const createShippingDiscount = async function(venderId, policyDescription, startTime, endTime, targetPrice){
+export const createShippingDiscount = async function (venderId, policyDescription, startTime, endTime, targetPrice) {
     let json = {
         "venderId": parseInt(venderId, 10),
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
-        "targetPrice": parseInt(targetPrice, 20)
+        "targetPrice": targetPrice
     }
 
     try {
         const response = await axios.post("/api/shipping_discount/create", json);
         return response.data;
-    } catch (err){
+    } catch (err) {
         console.log(err);
     }
 };
@@ -150,7 +150,7 @@ export const editShippingDiscount = async function (discountCode, venderId, poli
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
-        "targetPrice": parseInt(targetPrice, 20)
+        "targetPrice": targetPrice
     }
 
     try {

@@ -222,10 +222,14 @@ export default {
     editItem(item) {
       this.editedIndex = this.shippingDiscounts.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.startTimepicker = new Date(this.shippingDiscounts[this.editedIndex].startTime.split(" ")[0])
+      this.startTimepicker = new Date(
+        this.shippingDiscounts[this.editedIndex].startDate
+      )
         .toISOString()
         .substr(0, 10);
-      this.endTimepicker = new Date(this.shippingDiscounts[this.editedIndex].endTime.split(" ")[0])
+      this.endTimepicker = new Date(
+        this.shippingDiscounts[this.editedIndex].endDate
+      )
         .toISOString()
         .substr(0, 10);
       this.dialog = true;
