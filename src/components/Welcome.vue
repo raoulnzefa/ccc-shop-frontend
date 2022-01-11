@@ -16,6 +16,7 @@
         style="margin-right: 0px"
       >
         <v-carousel-item
+          class="mr-10"
           v-for="(item, i) in items"
           :key="i"
           :src="item.src"
@@ -32,16 +33,20 @@ export default {
     return {
       items: [
         {
+          src: "https://i.imgur.com/UWcwTvm.png",
+          // src: "https://i.imgur.com/tdHQ8jC.png",
+        },
+        {
           src: "https://i.imgur.com/imJCVKW.png",
         },
         {
-          src: "https://dlcdnwebimgs.asus.com/gain/c05b6491-6d2b-48f0-81f0-d268840208d6/",
+          src: "https://s.yimg.com/os/creatr-uploaded-images/2020-09/412dfe00-f77c-11ea-afdf-134045af78fd",
         },
         {
           src: "https://cdn2.ettoday.net/images/5953/5953731.jpg",
         },
         {
-          src: "https://s.yimg.com/os/creatr-uploaded-images/2020-09/412dfe00-f77c-11ea-afdf-134045af78fd",
+          src: "https://dlcdnwebimgs.asus.com/gain/c05b6491-6d2b-48f0-81f0-d268840208d6/",
         },
       ],
     };

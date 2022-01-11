@@ -20,7 +20,6 @@ const getters = {
     searchProductsByText(state) {
         return (searchText) => {
             const products = []
-            console.log(searchText)
             searchText = searchText.toLowerCase()
             for (const product of state.products) {
                 const keywords = [product.category, product.name, product.venderName, product.description]
@@ -28,7 +27,6 @@ const getters = {
                     if (!keyword) continue
                     if (keyword.toLowerCase().includes(searchText)) {
                         products.push(product)
-                        console.log(product)
                         break
                     }
                 }

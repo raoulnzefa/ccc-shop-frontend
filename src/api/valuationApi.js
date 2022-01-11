@@ -13,6 +13,20 @@ export const getValuations = async function (productId) {
   }
 };
 
+export const getCustomerValuations = async function (customerId, productId) {
+  let json = {
+    "customerId": customerId,
+    "productId": productId
+  }
+
+  try {
+    const response = await axios.post("/api/valuation/get-customer", json);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const createValuation = async function (customerId, productId, comment, rating) {
   let json = {
     "customerId": customerId,

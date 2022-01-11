@@ -74,6 +74,7 @@
 
 <script>
 import { createValuation } from "@/api/valuationApi";
+import { getCustomerValuations } from "@/api/valuationApi";
 
 export default {
   name: "SignInDialog",
@@ -92,13 +93,28 @@ export default {
     await this.$store.dispatch("productStore/loadAllProducts");
   },
   methods: {
-    openDialog(productName) {
+    async openDialog(productName) {
       this.isOpenDialog = true;
       this.productName = productName;
+
+      var p = this.$store.state.productStore.products.filter(
+        (product) => product.name === this.productName
+      );
+      var data = await getCustomerValuations(
+        sessionStorage.getItem("id"),
+        p[0].id
+      );
+      console.log("data", data);
+      this.valuation = data.comment;
+      this.rating = data.rating;
+      this.resetValidation();
     },
     reset() {
       this.$refs.form.reset();
       this.rating = 0;
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation();
     },
     createValuation() {
       var p = this.$store.state.productStore.products.filter(

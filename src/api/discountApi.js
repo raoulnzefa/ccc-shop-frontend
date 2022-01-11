@@ -36,7 +36,7 @@ export const createSeasoningsDiscount = async function(venderId, policyDescripti
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
-        "discountRate": discountRate
+        "discountRate": parseFloat(discountRate)
     }
 
     try {
@@ -53,7 +53,7 @@ export const createShippingDiscount = async function(venderId, policyDescription
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
-        "targetPrice": targetPrice
+        "targetPrice": parseInt(targetPrice, 20)
     }
 
     try {
@@ -71,7 +71,7 @@ export const createSpecialDiscount = async function (venderId, policyDescription
         "startTime": startTime,
         "endTime": endTime,
         "category": category,
-        "discountRate": discountRate
+        "discountRate": parseFloat(discountRate)
     }
 
     try {
@@ -132,7 +132,7 @@ export const editSeasoningsDiscount = async function (discountCode, venderId, po
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
-        "discountRate": discountRate
+        "discountRate": parseFloat(discountRate)
     }
 
     try {
@@ -150,7 +150,7 @@ export const editShippingDiscount = async function (discountCode, venderId, poli
         "policyDescription": policyDescription,
         "startTime": startTime,
         "endTime": endTime,
-        "targetPrice": targetPrice
+        "targetPrice": parseInt(targetPrice, 20)
     }
 
     try {
@@ -169,7 +169,7 @@ export const editSpecialDiscount = async function (discountCode, venderId, polic
         "startTime": startTime,
         "endTime": endTime,
         "category": category,
-        "discountRate": discountRate
+        "discountRate": parseFloat(discountRate)
     }
 
     try {
