@@ -2,7 +2,7 @@
 
 ## Project Setup
 
-- Install Node.js [here](https://nodejs.org/en/) for Windows or install by running:
+### Install Node.js [here](https://nodejs.org/en/) for Windows or install by running:
 
 ```shell=
 # macOS
