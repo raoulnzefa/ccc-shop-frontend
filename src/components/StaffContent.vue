@@ -1,6 +1,6 @@
 <template>
   <v-card
-    min-height="750px"
+    min-height="700px"
     min-width="300px"
     max-width="1600px"
     class="elevation-5 my-3"
