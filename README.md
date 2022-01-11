@@ -1,13 +1,23 @@
 # ccc-shop-frontend
 
-## Installation
+## Project Setup
+
+- Install Node.js [here](https://nodejs.org/en/) for Windows or install by running:
+
+```shell=
+# macOS
+brew install node
+# linux
+sudo apt install nodejs
+```
 
 ### Install Yarn
 ```
 npm install --global yarn
+yarn --version  // v1.22.17
 ```
 
-### Install dependencies
+### Install project dependencies
 ```
 yarn install
 ```
