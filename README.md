@@ -14,7 +14,7 @@ sudo apt install nodejs
 ### Install Yarn
 ```
 npm install --global yarn
-yarn --version  // v1.22.17
+yarn --version
 ```
 
 ### Install project dependencies
