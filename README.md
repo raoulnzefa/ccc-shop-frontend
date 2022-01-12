@@ -16,7 +16,7 @@ sudo apt install nodejs
 npm install --global yarn
 yarn --version
 ```
-
+## How to run
 ### Install project dependencies
 ```
 yarn install
@@ -45,6 +45,14 @@ yarn lint
 - [Apexcharts](https://apexcharts.com)
 - [Axios](https://axios-http.com/)
 
-## Examples
+## Demo video for different scenario
 
-- [Vue Chart Demo](https://apexcharts.com/vue-chart-demos/area-charts/spline/)
+youtube channel: [https://www.youtube.com/playlist?list=PLuIs3VbIw0SmLry-_GpOQhUIGmaYZIKfI](https://www.youtube.com/playlist?list=PLuIs3VbIw0SmLry-_GpOQhUIGmaYZIKfI)
+
+visitor scenario: [https://youtu.be/_eldVc57jGM](https://youtu.be/_eldVc57jGM)
+
+customer scenario: [https://youtu.be/QkzACw5h_xQ](https://youtu.be/QkzACw5h_xQ)
+
+staff scenario: [https://youtu.be/pY14iRMhgj4](https://youtu.be/pY14iRMhgj4)
+
+admin scenario: [https://youtu.be/El9QJEijaSo](https://youtu.be/El9QJEijaSo)
